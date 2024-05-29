@@ -22,6 +22,7 @@
 # define BROWN	"\033[38;2;150;75;0m"	
 # define ORANGE	"\033[38;2;255;165;0m"
 # define PURPLE	"\033[38;2;153;51;153m"
+# define LILAC	"\033[38;2;200;162;200m"
 # define PINK	"\033[38;2;255;203;219m"
 # define BMPINK	"\033[38;2;255;145;175m"
 # define CYAN	"\033[38;2;0;255;255m"

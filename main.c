@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*input;
 	while (1)
 	{
-		input = readline(GREEN"minishell$ "RESET);
+		input = readline(RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"PINK"l"GREY"$ "WHITE);
 		if (!input)
 			input = ft_strdup("exit");
 		if (ft_strcmp(input, ""))
