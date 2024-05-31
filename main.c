@@ -1,57 +1,42 @@
 #include "minishell.h"
 
-int	error_argc(int nb)
+char	*user_input(void)
 {
-	printf(RED"Error!\n");
-	printf(GREY"\tUsage:"YELLOW"./minishell\n");
-	return (nb);
+	char	*input;
+
+	input = readline(RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE
+			"h"LILAC"e"PURPLE"l"PINK"l"GREY"$ "WHITE);
+	if (!input)
+		input = ft_strdup("exit");
+	if (ft_strcmp(input, ""))
+		add_history(input);
+	return (input);
 }
 
-void	print_newline(int signum)
+void	parser(char *user_input)
 {
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 1);
-		rl_on_new_line();
-	}
-	return ;
-}
-
-void	start_signals(void)
-{
-	signal(SIGINT, print_newline);
+	//| Criar uma lista de tokens.
+	//| Checar a gramática desses tokens.
+	//| Ver se tem algum Heredoc
+	//| Construir a árvore.
+	//| Executar a árvore.
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argv;
-	(void)envp; //| We need to use this in the future.
+	(void)envp; //| We will use ENV in the future.
 	if (argc != 1)
-		return (error_argc(1));
+		return (error_argc());
 
 	//| Start Signals
 	start_signals();
+	//| -> Pegar o ENV.
+	//| -> Fazer o 'pwd' com uma static.
 
 	//| The While True
-	char	*input;
 	while (1)
-	{
-		input = readline(RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"PINK"l"GREY"$ "WHITE);
-		if (!input)
-			input = ft_strdup("exit");
-		if (ft_strcmp(input, ""))
-		{
-			if (!ft_strcmp(input, "exit"))
-			{
-				printf(ORANGE"exit\n");
-				add_history(input);
-				free(input);
-				break ;
-			}
-			add_history(input);
-		}
-	}
+		parser(user_input()); //| PARSER: NOT CREATED.
 
 	return (0);
 }
@@ -63,6 +48,6 @@ int	main(int argc, char **argv, char **envp)
 - pwd
 - export
 - unset
-- env  -> DO THIS NOW (ITS EASY.. I THINK)
-- exit -> DONE
+- env
+- exit
 */
