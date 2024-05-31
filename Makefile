@@ -1,8 +1,10 @@
 NAME	=	minishell
 
-SRCS	=	main.c    \
-		signals.c \
-		errors.c  \
+SRCS	=	main.c        \
+		signals.c     \
+		environment.c \
+		errors.c      \
+		cleaners.c    \
 		utils1.c
 
 OBJS	=	$(SRCS:.c=.o)

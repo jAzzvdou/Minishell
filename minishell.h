@@ -28,6 +28,8 @@
 # define CYAN	"\033[38;2;0;255;255m"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
+# define NOFREE	0
+# define FREE	1
 
 //----------| STRUCTS |----------//
 
@@ -37,7 +39,14 @@ int	error_argc(void);
 //----------| SIGNALS |----------//
 void	start_signals(void);
 
+//----------| ENVIRONMENT |----------//
+char	**static_env(char **new_envp, int clear);
+void	start_env(char ***envp);
+
 //----------| FUNCTIONS |----------//
+
+//----------| CLEANERS |----------//
+void	free_matrix(char ***matrix);
 
 //----------| UTILS |----------//
 int	is_space(int c);
