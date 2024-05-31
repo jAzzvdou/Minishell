@@ -48,6 +48,6 @@ int	main(int argc, char **argv, char **envp)
 - pwd
 - export
 - unset
-- env
+- env -> Já dá pra fazer esse porque já temos o ENV estático.
 - exit
 */
