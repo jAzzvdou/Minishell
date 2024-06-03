@@ -42,8 +42,10 @@ int	error_argc(void);
 void	start_signals(void);
 
 //----------| ENVIRONMENT |----------//
-char	**static_env(char **new_envp, int clear);
+void	start_pwd(void);
 void	start_env(char **envp);
+char	*static_pwd(char *new_pwd, int clear);
+char	**static_env(char **new_envp, int clear);
 
 //----------| BUILTINS |----------//
 void	env_cmd(char **token);
@@ -55,6 +57,8 @@ void	controller(char **token);
 void	free_matrix(char ***matrix);
 
 //----------| UTILS |----------//
+int	only_number(char *s);
+int	is_long(char *argv);
 int	is_space(int c);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);

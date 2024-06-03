@@ -16,9 +16,9 @@ char	*user_input(void)
 void	parser(char *user_input)
 {
 	char	**token;
-
+ 
 	token = ft_split(user_input, ' ');
-	controller(token);
+	controller(token); //| PROVISÓRIO.
 	//| Criar uma lista de tokens.
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	//| Start Signals
 	start_signals();
 	start_env(envp); //| Para pegar o ENV atual, só chamar 'static_env(NULL, NOFREE);'
-	//| -> Fazer o 'pwd' com uma static. Para sempre saber aonde estamos.
+	start_pwd();//| -> Fazer o 'pwd' com uma static. Para sempre saber aonde estamos.
 
 	//| The While True
 	while (1)

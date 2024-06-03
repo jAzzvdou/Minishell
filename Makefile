@@ -7,7 +7,8 @@ SRCS	=	main.c        \
 		errors.c      \
 		cleaners.c    \
 		utils1.c      \
-		utils2.c
+		utils2.c      \
+		utils3.c
 
 OBJS	=	$(SRCS:.c=.o)
 

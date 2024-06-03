@@ -32,3 +32,27 @@ void    start_env(char **envp)
         new_envp[i] = NULL;
         static_env(new_envp, NOFREE);
 }
+
+char	*static_pwd(char *new_pwd, int clear)
+{
+	static char	*pwd;
+
+	if (new_pwd && pwd)
+		free(pwd);
+	if (new_pwd)
+		pwd = ft_strdup(new_pwd);
+	if (pwd && clear)
+	{
+		free(pwd);
+		pwd = NULL;
+	}
+	return (pwd);
+}
+
+void	start_pwd(void)
+{
+	char	cwd[1024];
+
+	getcwd(cwd, sizeof(cwd));
+	static_pwd(cwd, NOFREE);
+}
