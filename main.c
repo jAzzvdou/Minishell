@@ -15,6 +15,7 @@ char	*user_input(void)
 
 void	parser(char *user_input)
 {
+	//(void)user_input;
 	char	**token;
  
 	token = ft_split(user_input, ' ');
