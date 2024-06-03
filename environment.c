@@ -25,10 +25,10 @@ void    start_env(char **envp)
         i = 0;
         while (envp[i])
                 i++;
-        new_env = malloc(sizeof(char *) * (i + 1));
+        new_envp = malloc(sizeof(char *) * (i + 1));
         i = -1;
         while (envp[++i])
-                new_env[i] = ft_strdup(envp[i]);
-        new_env[i] = NULL;
+                new_envp[i] = ft_strdup(envp[i]);
+        new_envp[i] = NULL;
         static_env(new_envp, NOFREE);
 }

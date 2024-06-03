@@ -5,7 +5,7 @@ char	*user_input(void)
 	char	*input;
 
 	input = readline(RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE
-			"h"LILAC"e"PURPLE"l"PINK"l"GREY"$ "WHITE);
+			"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE);
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))
@@ -15,6 +15,10 @@ char	*user_input(void)
 
 void	parser(char *user_input)
 {
+	char	**token;
+
+	token = ft_split(user_input, ' ');
+	controller(token);
 	//| Criar uma lista de tokens.
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
@@ -25,14 +29,13 @@ void	parser(char *user_input)
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argv;
-	(void)envp; //| We will use ENV in the future.
 	if (argc != 1)
 		return (error_argc());
 
 	//| Start Signals
 	start_signals();
 	start_env(envp); //| Para pegar o ENV atual, só chamar 'static_env(NULL, NOFREE);'
-	//| -> Fazer o 'pwd' com uma static.
+	//| -> Fazer o 'pwd' com uma static. Para sempre saber aonde estamos.
 
 	//| The While True
 	while (1)

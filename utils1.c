@@ -29,6 +29,18 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	char	ch;
+
+	ch = c;
+	while (*s && *s != ch)
+		s++;
+	if (*s == ch)
+		return ((char *)s);
+	return (NULL);
+}
+
 char	*ft_strdup(const char *s)
 {
 	int		i;

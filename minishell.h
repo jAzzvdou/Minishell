@@ -8,6 +8,7 @@
 # include <stdio.h>  // PRINTF
 # include <string.h> // PERROR
 # include <signal.h> // SIGNAL
+# include <limits.h> // LIMITS
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -28,6 +29,7 @@
 # define CYAN	"\033[38;2;0;255;255m"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
+
 # define NOFREE	0
 # define FREE	1
 
@@ -41,9 +43,13 @@ void	start_signals(void);
 
 //----------| ENVIRONMENT |----------//
 char	**static_env(char **new_envp, int clear);
-void	start_env(char ***envp);
+void	start_env(char **envp);
+
+//----------| BUILTINS |----------//
+void	env_cmd(char **token);
 
 //----------| FUNCTIONS |----------//
+void	controller(char **token);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
@@ -51,7 +57,10 @@ void	free_matrix(char ***matrix);
 //----------| UTILS |----------//
 int	is_space(int c);
 int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
 
 #endif //| MINISHELL_H
