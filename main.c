@@ -12,13 +12,23 @@ char	*user_input(void)
 		add_history(input);
 	return (input);
 }
-
+//----------| TESTES |----------//
+char *skip_spaces(char **str)
+{
+	while (**str == ' ')
+		(*str)++;
+	return (*str);
+}
+//----------|--------|----------//
 void	parser(char *user_input)
 {
 	//(void)user_input;
 	char	**token;
- 
-	token = ft_split(user_input, ' ');
+
+	skip_spaces(&user_input);
+	if (!*user_input)
+		return ;
+	token = spliter(user_input);
 	controller(token); //| PROVISÓRIO.
 	//| Criar uma lista de tokens.
 	//| Checar a gramática desses tokens.

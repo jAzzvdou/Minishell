@@ -27,7 +27,7 @@ void handle_sigint(int sig)
         }
         rl_replace_line("", 1); // Substitui a linha atual de entrada por uma linha vazia
         rl_on_new_line(); // Move o cursor para a nova linha
-        rl_redisplay(); // Redisplay para garantir que a linha é atualizada
+        //rl_redisplay(); // Redisplay para garantir que a linha é atualizada
     }
     return;
 }
