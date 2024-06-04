@@ -9,6 +9,7 @@
 # include <string.h> // PERROR
 # include <signal.h> // SIGNAL
 # include <limits.h> // LIMITS
+# include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 
 	//| Start Signals
 	start_signals();
+	
 	start_env(envp); //| Para pegar o ENV atual, só chamar 'static_env(NULL, NOFREE);'
 	start_pwd();//| -> Fazer o 'pwd' com uma static. Para sempre saber aonde estamos.
 
