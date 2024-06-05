@@ -52,7 +52,7 @@ void	pwd_cmd(void)
 
 int	check_flag(char *token)
 {
-	if (!ft_strcmp(token, "-n"))
+	if (token && !ft_strcmp(token, "-n"))
 		return (1);
 	return (0);
 }
@@ -83,6 +83,16 @@ void	echo_cmd(char **token)
 		printf("\n");
 }
 
+void	export_cmd(char **token)
+{
+	if (!token[1])
+		printf("declare x - ENV.\n");//declare_x(); Função para printar o env.
+	else
+		printf("OK. Ainda tem que verificar a gramática.\n");
+	//| Não pode começar com números e nem símbolos.
+	//| Pode funcionar sem o '=' depois do nome do export, mas não vai adicionar no env, mas entra no 'declare x'.
+}
+
 void	controller(char **token)
 {
 	if (!strcmp(token[0], "exit"))
@@ -92,11 +102,11 @@ void	controller(char **token)
 	else if (!strcmp(token[0], "pwd"))
 		pwd_cmd();
 	else if (!strcmp(token[0], "echo"))
-		echo_cmd(token);
-	/*else if (!strcmp(token[0], "cd"))
-		cd_cmd(token);
+		echo_cmd(token); //| LEMBRAR DE TRATAR '$0' E '$$'.
 	else if (!strcmp(token[0], "export"))
 		export_cmd(token);
-	else if (!strcmp(token[0], "unset"))
-		unset_cmd(token);*/
+	/*else if (!strcmp(token[0], "unset"))
+		unset_cmd(token);
+	else if (!strcmp(token[0], "cd"))
+		cd_cmd(token);*/
 }
