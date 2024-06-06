@@ -13,24 +13,67 @@ char	*user_input(void)
 	return (input);
 }
 //----------| TESTES |----------//
-char *skip_spaces(char **str)
+static int	skip_quotes(const char **s)
 {
-	while (**str == ' ')
-		(*str)++;
-	return (*str);
+	char	quote;
+
+	if (**s == '\'' || **s == '"')
+		quote = **s;
+	else
+		return (0);
+	(*s)++;
+	while (**s && **s != quote)
+		(*s)++;
+	if (**s)
+		(*s)++;
+	return (1);
+}
+
+int	parenthesis_validation(const char *s)
+{
+	int	left;
+	int	right;
+
+	left = 0;
+	right = 0;
+	while (*s)
+	{
+		if (*s == '(')
+			left++;
+		else if (*s == ')')
+			right++;
+		if (right > left)
+			break ;
+		if (!skip_quotes(&s))
+			s++;
+	}
+	if (right == left)
+		return (1);
+	return (0);
 }
 //----------|--------|----------//
-void	parser(char *user_input)
+t_list	tokenizator(char *user_input)
 {
-	//(void)user_input;
-	char	**token;
+	t_list	tokens;
 
+	tokens = (t_list){0};
 	skip_spaces(&user_input);
 	if (!*user_input)
-		return ;
-	token = spliter(user_input);
-	controller(token); //| PROVISÓRIO.
-	//| Criar uma lista de tokens.
+		return (NULL);
+	//| Validar as aspas (Para ver se elas estão fechadas corretamente).
+	//| E validar os parêntesis (A gente já tinha feito, é o is_balanced()).
+	if (!closed_quotes(user_input) || !close_parenthesis(user_input))
+	{
+		printf(RED"Error!\n"GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
+	}
+	//| Static para a lista (assim como no env e pwd).
+	//| Popular a lista. (???)
+	return (tokens);
+}
+
+void	parser(t_list *tokens)
+{
+	(void)list;
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
@@ -51,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 
 	//| The While True
 	while (1)
-		parser(user_input()); //| PARSER: NOT CREATED.
+		parser(tokenizator(user_input())); //| PARSER: NOT CREATED.
 
 	return (0);
 }

@@ -5,11 +5,17 @@ void	env_cmd(char **token)
 	int	i;
 	char	**env;
 
-	if (token[1])
+	i = 0;
+	while (token[i])
 	{
-		//| Tem que dar erro porque ENV não aceita nenhuma flag.
-		printf(RED"Error!\n"YELLOW"\tenv does not accept flags.\n"RESET);
-		return ;
+		if (!strcmp(token[i], "env"))
+			i++;
+		else
+		{
+			printf(GREY"env: '%s': No such file or directory\n",
+				token[i]);
+			return ;
+		}
 	}
 	env = static_env(NULL, NOFREE);
 	i = -1;
@@ -86,7 +92,7 @@ void	echo_cmd(char **token)
 void	export_cmd(char **token)
 {
 	if (!token[1])
-		printf("declare x - ENV.\n");//declare_x(); Função para printar o env.
+		printf("declare x - ENV.\n"); //declare_x(); Função para printar o env.
 	else
 		printf("OK. Ainda tem que verificar a gramática.\n");
 	//| Não pode começar com números e nem símbolos.
@@ -97,7 +103,7 @@ void	controller(char **token)
 {
 	if (!strcmp(token[0], "exit"))
 		exit_cmd(token);
-	else if (!strcmp(token[0], "env"))
+	else if (!strcmp(token[0], "env")) //| Colocar o env em uma lista(??)
 		env_cmd(token);
 	else if (!strcmp(token[0], "pwd"))
 		pwd_cmd();

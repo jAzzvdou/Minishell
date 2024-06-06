@@ -35,6 +35,29 @@
 # define FREE	1
 
 //----------| STRUCTS |----------//
+typedef enum
+{
+	AND;
+	OR;
+	PIPE;
+	REDIR;
+	CMD;
+}	Type;
+
+typedef struct s_node
+{
+	Type		type;
+	void		*content;
+	struct s_node	*next;
+	struct s_node	*prev;
+}	t_node;
+
+typedef struct s_list
+{
+	int	size;
+	t_node	*first;
+	t_node	*last;
+}	t_list;
 
 //----------| ERRORS |----------//
 int	error_argc(void);
