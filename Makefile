@@ -2,14 +2,18 @@ NAME	=	minishell
 
 SRCS	=	main.c        \
 		signals.c     \
-		environment.c \
 		builtins.c    \
+		env.c         \
+		exit.c        \
 		errors.c      \
 		cleaners.c    \
+		number.c      \
+		space.c       \
+		quote.c       \
+		parenthesis.c \
+		spliter.c     \
 		utils1.c      \
-		utils2.c      \
-		utils3.c      \
-		utils4.c
+		utils2.c
 
 OBJS	=	$(SRCS:.c=.o)
 

@@ -82,26 +82,42 @@ int	error_argc(void);
 //----------| SIGNALS |----------//
 void	start_signals(void);
 
-//----------| ENVIRONMENT |----------//
-void	start_pwd(t_main *main);
-void	start_env(t_main *main, char **envp);
-
 //----------| BUILTINS |----------//
+void	controller(t_main *main, char **token);
+//__________ env __________
 void	env_cmd(char **token);
+void	start_env(t_main *main, char **envp);
+//__________ pwd __________
+void	start_pwd(t_main *main);
+//__________ echo __________
+void	echo_cmd(char **token);
 
 //----------| FUNCTIONS |----------//
-void	controller(t_main *main, char **token);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
 
 //----------| UTILS |----------//
+//__________ number __________
+int	is_number(int nb);
 int	only_number(char *s);
 int	is_long(char *argv);
+long long	ft_atoll(const char *nptr);
+//__________ space __________
 int	is_space(int c);
+void	skip_spaces(const char **s);
+//__________ quote __________
+int	is_quote(char *cmd, int i);
+int	verify_quote(char *cmd, int i);
+int      skip_quotes(const char **s);
+int     closed_quotes(const char *s);
+char	*remove_quote(char *trim, char quote);
+//__________ quote __________
+int     closed_parenthesis(const char *s)
+//__________ string __________
+size_t	ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);

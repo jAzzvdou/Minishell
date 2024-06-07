@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-int	is_space(int c)
-{
-	if (c == ' ' || c == '\n' || c == '\t'
-		|| c == '\r' || c == '\v' || c == '\f')
-		return (1);
-	return (0);
-}
-
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -54,4 +46,27 @@ char	*ft_strdup(const char *s)
 		final[i] = s[i];
 	final[i] = '\0';
 	return (final);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	size_t	s_size;
+	char	*new_s;
+
+	s_size = ft_strlen(s);
+	if ((size_t)start > s_size)
+		return (ft_strdup(""));
+	s += start;
+	s_size -= start;
+	if (s_size > len)
+		s_size = len;
+	new_s = malloc(sizeof(char) * (s_size + 1));
+	if (!new_s)
+		return (NULL);
+	i = -1;
+	while (++i < s_size)
+		new_s[i] = s[i];
+	new_s[i] = '\0';
+	return (new_s);
 }
