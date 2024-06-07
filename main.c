@@ -13,26 +13,13 @@ char	*user_input(void)
 	return (input);
 }
 
-t_tokens	*tokenizator(char *user_input)
+void	parser(t_main *main, t_tokens *tokens)
 {
-	t_tokens	*tokens;
+	if (!tokens)
+		return ;
+	main->tokens = tokens;
+	controller(main, main->tokens->first->cmd_args);
 
-	skip_spaces(&user_input);
-	if (!*user_input)
-		return (NULL);
-	if (!closed_quotes(user_input) || !closed_parenthesis(user_input))
-	{
-		printf(RED"Error!\n");
-		printf(GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
-	}
-	tokens = malloc(sizeof(t_tokens));
-	return (tokens);
-}
-
-void	parser(t_tokens *tokens)
-{
-	(void)tokens;
-	exit(1);
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
@@ -51,6 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	start_pwd(&main);
 	start_signals();
 	while (1)
-		parser(tokenizator(user_input()));
+		parser(&main, tokenizator(user_input()));
 	return (0);
 }

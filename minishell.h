@@ -35,20 +35,23 @@
 # define FREE	1
 
 //----------| STRUCTS |----------//
-
 typedef enum type
 {
 	AND,
 	OR,
 	PIPE,
-	REDIR,
+	OUTPUT,
+	APPEND,
+	INPUT,
+	HEREDOC,
 	CMD
 }	e_type;
 
 typedef struct s_node
 {
 	e_type		type;
-	char		**content;
+	char		*cmd;
+	char		**cmd_args;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -96,6 +99,8 @@ void	echo_cmd(char **token);
 void	exit_cmd(char **token);
 
 //----------| FUNCTIONS |----------//
+//__________ tokens __________
+t_tokens	*tokenizator(char *user_input);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);

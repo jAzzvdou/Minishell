@@ -2,6 +2,7 @@ NAME	=	minishell
 
 SRCS	=	main.c        \
 		signals.c     \
+		tokenizator.c \
 		builtins.c    \
 		env.c         \
 		pwd.c         \
