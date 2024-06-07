@@ -12,68 +12,28 @@ char	*user_input(void)
 		add_history(input);
 	return (input);
 }
-//----------| TESTES |----------//
-static int	skip_quotes(const char **s)
+
+t_tokens	tokenizator(char *user_input)
 {
-	char	quote;
+	t_tokens	tokens;
 
-	if (**s == '\'' || **s == '"')
-		quote = **s;
-	else
-		return (0);
-	(*s)++;
-	while (**s && **s != quote)
-		(*s)++;
-	if (**s)
-		(*s)++;
-	return (1);
-}
-
-int	parenthesis_validation(const char *s)
-{
-	int	left;
-	int	right;
-
-	left = 0;
-	right = 0;
-	while (*s)
-	{
-		if (*s == '(')
-			left++;
-		else if (*s == ')')
-			right++;
-		if (right > left)
-			break ;
-		if (!skip_quotes(&s))
-			s++;
-	}
-	if (right == left)
-		return (1);
-	return (0);
-}
-//----------|--------|----------//
-t_list	tokenizator(char *user_input)
-{
-	t_list	tokens;
-
-	tokens = (t_list){0};
+	tokens = (t_tokens){0};
 	skip_spaces(&user_input);
 	if (!*user_input)
 		return (NULL);
-	//| Validar as aspas (Para ver se elas estão fechadas corretamente).
-	//| E validar os parêntesis (A gente já tinha feito, é o is_balanced()).
-	if (!closed_quotes(user_input) || !close_parenthesis(user_input))
+	if (!closed_quotes(user_input) || !closed_parenthesis(user_input))
 	{
-		printf(RED"Error!\n"GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
+		printf(RED"Error!\n");
+		printf(GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
 	}
-	//| Static para a lista (assim como no env e pwd).
+	static_list(NULL, NOFREE);
 	//| Popular a lista. (???)
 	return (tokens);
 }
 
-void	parser(t_list *tokens)
+void	parser(t_tokens *tokens)
 {
-	(void)list;
+	(void)tokens;
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
@@ -82,30 +42,16 @@ void	parser(t_list *tokens)
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_main	main;
+
 	(void)argv;
 	if (argc != 1)
 		return (error_argc());
-
-	//| Start Signals
+	main = (t_main){0};
+	start_env(&main, envp);
 	start_signals();
-	
-	start_env(envp); //| Para pegar o ENV atual, só chamar 'static_env(NULL, NOFREE);'
-	start_pwd();//| -> Fazer o 'pwd' com uma static. Para sempre saber aonde estamos.
-
-	//| The While True
+	start_pwd();
 	while (1)
 		parser(tokenizator(user_input())); //| PARSER: NOT CREATED.
-
 	return (0);
 }
-
-/*
-	BUILTINS:
-- echo (with option '-n')
-- cd
-- pwd
-- export
-- unset
-- env -> Já dá pra fazer esse porque já temos o ENV estático.
-- exit
-*/

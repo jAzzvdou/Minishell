@@ -47,17 +47,34 @@ typedef enum
 typedef struct s_node
 {
 	Type		type;
-	void		*content;
+	char		**content;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
 
-typedef struct s_list
+typedef struct s_tokens
 {
 	int	size;
 	t_node	*first;
 	t_node	*last;
-}	t_list;
+}	t_tokens;
+
+typedef struct s_env
+{
+	char		*name;
+	char		*value;
+	char		*line;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_main
+{
+	char		*pwd;
+	char		*old_pwd;
+	t_env		*env;
+	t_env		*old_env;
+	t_tokens	*tokens;
+}	t_main;
 
 //----------| ERRORS |----------//
 int	error_argc(void);
@@ -66,16 +83,14 @@ int	error_argc(void);
 void	start_signals(void);
 
 //----------| ENVIRONMENT |----------//
-void	start_pwd(void);
-void	start_env(char **envp);
-char	*static_pwd(char *new_pwd, int clear);
-char	**static_env(char **new_envp, int clear);
+void	start_pwd(t_main *main);
+void	start_env(t_main *main, char **envp);
 
 //----------| BUILTINS |----------//
 void	env_cmd(char **token);
 
 //----------| FUNCTIONS |----------//
-void	controller(char **token);
+void	controller(t_main *main, char **token);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
