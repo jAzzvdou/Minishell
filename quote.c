@@ -28,7 +28,7 @@ int	verify_quote(char *cmd, int i)
 	return (0);
 }
 
-int      skip_quotes(const char **s)
+int      skip_quotes(char **s)
 {
         char    quote;
 

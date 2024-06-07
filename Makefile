@@ -4,7 +4,9 @@ SRCS	=	main.c        \
 		signals.c     \
 		builtins.c    \
 		env.c         \
+		pwd.c         \
 		exit.c        \
+		echo.c        \
 		errors.c      \
 		cleaners.c    \
 		number.c      \

@@ -13,11 +13,10 @@ char	*user_input(void)
 	return (input);
 }
 
-t_tokens	tokenizator(char *user_input)
+t_tokens	*tokenizator(char *user_input)
 {
-	t_tokens	tokens;
+	t_tokens	*tokens;
 
-	tokens = (t_tokens){0};
 	skip_spaces(&user_input);
 	if (!*user_input)
 		return (NULL);
@@ -26,14 +25,14 @@ t_tokens	tokenizator(char *user_input)
 		printf(RED"Error!\n");
 		printf(GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
 	}
-	static_list(NULL, NOFREE);
-	//| Popular a lista. (???)
+	tokens = malloc(sizeof(t_tokens));
 	return (tokens);
 }
 
 void	parser(t_tokens *tokens)
 {
 	(void)tokens;
+	exit(1);
 	//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
@@ -49,9 +48,9 @@ int	main(int argc, char **argv, char **envp)
 		return (error_argc());
 	main = (t_main){0};
 	start_env(&main, envp);
+	start_pwd(&main);
 	start_signals();
-	start_pwd();
 	while (1)
-		parser(tokenizator(user_input())); //| PARSER: NOT CREATED.
+		parser(tokenizator(user_input()));
 	return (0);
 }

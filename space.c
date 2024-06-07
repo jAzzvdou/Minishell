@@ -8,7 +8,7 @@ int	is_space(int c)
 	return (0);
 }
 
-void	skip_spaces(const char **s)
+void	skip_spaces(char **s)
 {
 	while (**s && is_space(**s))
 		(*s)++;

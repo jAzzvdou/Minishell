@@ -35,18 +35,19 @@
 # define FREE	1
 
 //----------| STRUCTS |----------//
-typedef enum
+
+typedef enum type
 {
-	AND;
-	OR;
-	PIPE;
-	REDIR;
-	CMD;
-}	Type;
+	AND,
+	OR,
+	PIPE,
+	REDIR,
+	CMD
+}	e_type;
 
 typedef struct s_node
 {
-	Type		type;
+	e_type		type;
 	char		**content;
 	struct s_node	*next;
 	struct s_node	*prev;
@@ -85,12 +86,14 @@ void	start_signals(void);
 //----------| BUILTINS |----------//
 void	controller(t_main *main, char **token);
 //__________ env __________
-void	env_cmd(char **token);
+void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
 //__________ pwd __________
 void	start_pwd(t_main *main);
 //__________ echo __________
 void	echo_cmd(char **token);
+//__________ exit __________
+void	exit_cmd(char **token);
 
 //----------| FUNCTIONS |----------//
 
@@ -105,20 +108,21 @@ int	is_long(char *argv);
 long long	ft_atoll(const char *nptr);
 //__________ space __________
 int	is_space(int c);
-void	skip_spaces(const char **s);
+void	skip_spaces(char **s);
 //__________ quote __________
 int	is_quote(char *cmd, int i);
 int	verify_quote(char *cmd, int i);
-int      skip_quotes(const char **s);
-int     closed_quotes(const char *s);
+int	skip_quotes(char **s);
+int	closed_quotes(const char *s);
 char	*remove_quote(char *trim, char quote);
 //__________ quote __________
-int     closed_parenthesis(const char *s)
+int	closed_parenthesis(char *s);
 //__________ string __________
 size_t	ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
+char	*ft_strndup(const char *s, int n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**spliter(char *cmd);

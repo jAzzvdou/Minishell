@@ -1,5 +1,28 @@
 #include "minishell.h"
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	size_t	s_size;
+	char	*new_s;
+
+	s_size = ft_strlen(s);
+	if ((size_t)start > s_size)
+		return (ft_strdup(""));
+	s += start;
+	s_size -= start;
+	if (s_size > len)
+		s_size = len;
+	new_s = malloc(sizeof(char) * (s_size + 1));
+	if (!new_s)
+		return (NULL);
+	i = -1;
+	while (++i < s_size)
+		new_s[i] = s[i];
+	new_s[i] = '\0';
+	return (new_s);
+}
+
 static void	free_split(char **final)
 {
 	size_t	i;
