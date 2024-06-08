@@ -16,4 +16,6 @@ void	controller(t_main *main, char **token)
 		unset_cmd(token);
 	else if (!strcmp(token[0], "cd"))
 		cd_cmd(token);*/
+	else
+		return ;
 }

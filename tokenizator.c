@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+void	print_list(t_tokens *tokens)
+{
+	t_node	*nodes;
+
+	nodes = tokens->first;
+	while (nodes)
+	{
+		printf("%s\n", nodes->cmd);
+		nodes = nodes->next;
+	}
+}
+
 t_tokens	*start_tokens(void)
 {
 	t_tokens	*tokens;
@@ -45,8 +57,7 @@ t_tokens	*tokenizator(char *user_input)
 		return (NULL);
 	}
 	tokens = start_tokens();
-	//| MUDAR A SPLITER
-	splited = spliter(user_input);
+	splited = split_input(user_input);
 	i = -1;
 	while (splited[++i])
 	{
@@ -56,17 +67,10 @@ t_tokens	*tokenizator(char *user_input)
 			add_token(tokens, OR, splited[i]);
 		else if (!strcmp(splited[i], "|"))
 			add_token(tokens, PIPE, splited[i]);
-		else if (!strcmp(splited[i], ">"))
-			add_token(tokens, OUTPUT, splited[i]);
-		else if (!strcmp(splited[i], ">>"))
-			add_token(tokens, APPEND, splited[i]);
-		else if (!strcmp(splited[i], "<"))
-			add_token(tokens, INPUT, splited[i]);
-		else if (!strcmp(splited[i], "<<"))
-			add_token(tokens, HEREDOC, splited[i]);
 		else
 			add_token(tokens, CMD, splited[i]);
 	}
+	//print_list(tokens);	
 	free_matrix(&splited);
 	return (tokens);
 }

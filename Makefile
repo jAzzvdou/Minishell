@@ -15,6 +15,7 @@ SRCS	=	main.c        \
 		quote.c       \
 		parenthesis.c \
 		spliter.c     \
+		split_input.c \
 		utils1.c      \
 		utils2.c
 
