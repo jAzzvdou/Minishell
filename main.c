@@ -4,8 +4,7 @@ char	*user_input(void)
 {
 	char	*input;
 
-	input = readline(RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE
-			"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE);
+	input = readline(PROMPT);
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))

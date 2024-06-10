@@ -30,6 +30,8 @@
 # define CYAN	"\033[38;2;0;255;255m"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
+# define PROMPT \
+	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
 
 # define NOFREE	0
 # define FREE	1

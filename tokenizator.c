@@ -7,7 +7,7 @@ void	print_list(t_tokens *tokens)
 	nodes = tokens->first;
 	while (nodes)
 	{
-		printf("%s\n", nodes->cmd);
+		printf("token: %s\n", nodes->cmd);
 		nodes = nodes->next;
 	}
 }
@@ -70,7 +70,7 @@ t_tokens	*tokenizator(char *user_input)
 		else
 			add_token(tokens, CMD, splited[i]);
 	}
-	//print_list(tokens);
+	print_list(tokens);
 	free_matrix(&splited);
 	return (tokens);
 }
