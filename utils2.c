@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	size_s1;
+	char	*new_s;
+
+	if (!set)
+		return (ft_strdup(s1));
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	size_s1 = ft_strlen(s1) - 1;
+	while (s1[size_s1] && ft_strchr(set, s1[size_s1]))
+		size_s1--;
+	new_s = ft_substr(s1, 0, size_s1 + 1);
+	return (new_s);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;

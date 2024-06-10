@@ -1,69 +1,103 @@
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
-int	is_operator(const char *input, int index)
+static void     free_split(char **final)
 {
-    return (input[index] == '|' && input[index + 1] == '|') || 
-           (input[index] == '&' && input[index + 1] == '&') || 
-           input[index] == '|';
+        int     i;
+
+        i = -1;
+        while (final[++i])
+                free(final[i]);
+        free(final);
 }
 
-int	count_tokens(char *input)
+/*
+int	is_operator(char *input, int i)
 {
-	int count = 0;
-	int i = 0;
-	while (input[i])
-	{
-		while (input[i] && is_space(input[i])) i++; // Skip spaces
-		if (input[i] == '\0') break;
-		if (is_operator(input, i))
-		{
-			count++;
-			if (input[i] == '|' && input[i + 1] == '|') i += 2;
-			else if (input[i] == '&' && input[i + 1] == '&') i += 2;
-			else i++;
-		}
-		else
-		{
-			count++;
-			while (input[i] && !is_operator(input, i)) i++;
-		}
-	}
-	return count;
+	if (!ft_strncmp(input + i, "&&", 2)
+		|| !ft_strncmp(input + i, "||", 2)
+		|| input[i] == '|')
+		return (1);
+	return (0);
+}
+int	witch_operator(char *input, int i)
+{
+	if (!ft_strncmp(input + i, "&&", 2)
+		|| !ft_strncmp(input + i, "||", 2))
+		return (2);
+	return (1);
+}
+*/
+
+static int      count_words(char *input)
+{
+        int     i;
+        int     words;
+
+        i = 0;
+        words = 0;
+        while (input[i])
+        {
+                if (input[i] != ' ')
+                        words++;
+                if ((input[i] == '\'' || input[i] == '\"') && verify_quote(input, i))
+                        i += is_quote(input, i);
+		else if ((input[i] == '(' && verify_parenthesis(input, i)))
+			i += skip_parenthesis(input, i);
+                while (input[i] && input[i] != ' ')
+                        input++;
+                while (input[i] && input[i] == ' ')
+                        input++;
+        }
+        return (words);
 }
 
-char	**split_input(char *input)
+static char     **final_split(char **final, char *input, int words)
 {
-	int token_count = count_tokens(input);
-	char **result = malloc((token_count + 1) * sizeof(char *));
-	int i = 0, k = 0;
-	while (input[i])
-	{
-		while (input[i] && is_space(input[i])) i++;
-		if (input[i] == '\0') break;
-		int start = i;
-		if (is_operator(input, i))
-		{
-			int len = (input[i] == '|' && input[i + 1] == '|') || (input[i] == '&' && input[i + 1] == '&') ? 2 : 1;
-			result[k] = malloc((len + 1) * sizeof(char));
-			strncpy(result[k], input + i, len);
-			result[k][len] = '\0';
-			i += len;
-		}
-		else
-		{
-			while (input[i] && !is_operator(input, i)) i++;
-			while (i > start && is_space(input[start])) start++;
-			while (i > start && is_space(input[i - 1])) i--;
-			result[k] = malloc((i - start + 1) * sizeof(char));
-			strncpy(result[k], input + start, i - start);
-			result[k][i - start] = '\0';
-		}
-		k++;
-	}
-	result[k] = NULL;
-	return result;
+        int     i;
+        int     counter;
+
+        counter = -1;
+        while (++counter < words)
+        {
+		while (*input == ' ')
+			input++;
+                i = 0;
+                if ((input[i] == '\'' || input[i] == '\"') && verify_quote(input, i))
+                        i += is_quote(input, i);
+		else if ((input[i] == '(' && verify_parenthesis(input, i)))
+			i += skip_parenthesis(input, i);
+                while (input[i] && input[i] != ' ')
+                        i++;
+                final[counter] = ft_substr(input, 0, i);
+                if (!final[counter])
+                        return (free_split(final), NULL);
+                input += i;
+        }
+        return (final[counter] = NULL, final);
+}
+
+char    **split_input(char *input)
+{
+        int             i;
+        int             words;
+        char    **final;
+        char    **trim;
+
+        if (!input)
+                return (NULL);
+        words = count_words(input);
+        final = (char **)malloc(sizeof(char *) * (words + 1));
+        if (!final)
+                return (NULL);
+        trim = final_split(final, input, words);
+        i = -1;
+        while (trim[++i])
+        {
+                if ((trim[i][0] == '\'' || trim[i][0] == '\"')
+                        && verify_quote(trim[i], 0))
+                        trim[i] = remove_quote(trim[i], trim[i][0]);
+		else if ((trim[i][0] == '(' && verify_parenthesis(trim[i], 0)))
+			trim[i] = ft_strtrim(trim[i], "()");
+        }
+        return (trim);
 }

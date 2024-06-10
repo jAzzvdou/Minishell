@@ -22,3 +22,43 @@ int	closed_parenthesis(char *s)
 		return (1);
 	return (0);
 }
+
+int     verify_parenthesis(char *input, int i)
+{
+        int     open;
+        int     close;
+
+        open = 0;
+        close = 0;
+        while (input[i])
+        {
+                if (input[i] == '(')
+                        open++;
+                else if (input[i] == ')')
+                        close++;
+                i++;
+        }
+        if (open == close)
+                return (1);
+        return (0);
+}
+
+int     skip_parenthesis(char *input, int i)
+{
+        int     open;
+        int     close;
+
+        open = 0;
+        close = 0;
+        while (input[i])
+        {
+                if (input[i] == '(')
+                        open++;
+                else if (input[i] == ')')
+                        close++;
+                i++;
+                if (open == close)
+                        break ;
+        }
+        return (i);
+}

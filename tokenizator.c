@@ -57,7 +57,7 @@ t_tokens	*tokenizator(char *user_input)
 		return (NULL);
 	}
 	tokens = start_tokens();
-	splited = split_input(user_input);
+	splited = split_input(user_input); //| AINDA ESTOU ADAPTANDO PARA O QUE PRECISAMOS..
 	i = -1;
 	while (splited[++i])
 	{
@@ -70,7 +70,7 @@ t_tokens	*tokenizator(char *user_input)
 		else
 			add_token(tokens, CMD, splited[i]);
 	}
-	//print_list(tokens);	
+	//print_list(tokens);
 	free_matrix(&splited);
 	return (tokens);
 }

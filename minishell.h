@@ -120,14 +120,18 @@ int	verify_quote(char *cmd, int i);
 int	skip_quotes(char **s);
 int	closed_quotes(const char *s);
 char	*remove_quote(char *trim, char quote);
-//__________ quote __________
+//__________ parenthesis __________
 int	closed_parenthesis(char *s);
+int	verify_parenthesis(char *input, int i);
+int	skip_parenthesis(char *input, int i);
 //__________ string __________
 size_t	ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(const char *s, int n);
+char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**spliter(char *cmd);
