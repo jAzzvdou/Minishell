@@ -19,7 +19,8 @@ void	parser(t_main *main, t_tokens *tokens)
 	main->tokens = tokens;
 	controller(main, main->tokens->first->cmd_args);
 
-	//| Checar a gramática desses tokens.
+	//if (!check_tokens(main->tokens)
+	//	return ;)//| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
 	//| Executar a árvore.

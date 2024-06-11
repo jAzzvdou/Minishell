@@ -2,9 +2,9 @@
 
 void	start_pwd(t_main *main)
 {
-	char	cwd[1024];
+	char	cwd[4096];
 
 	getcwd(cwd, sizeof(cwd));
 	main->pwd = ft_strdup(cwd);
-	//main->pwd = get_oldpwd(main);
+	main->old_pwd = ft_strdup(cwd);
 }

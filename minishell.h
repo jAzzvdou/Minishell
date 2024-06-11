@@ -33,9 +33,6 @@
 # define PROMPT \
 	"\001"RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE"\002"
 
-# define NOFREE	0
-# define FREE	1
-
 //----------| STRUCTS |----------//
 typedef enum type
 {
@@ -53,7 +50,7 @@ typedef struct s_node
 {
 	e_type		type;
 	char		*cmd;
-	char		**cmd_args;
+	char		**cmd_args; //| MALLOCADO
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -67,19 +64,18 @@ typedef struct s_tokens
 
 typedef struct s_env
 {
-	char		*name;
-	char		*value;
-	char		*line;
+	char		*name;  //| MALLOCADO
+	char		*value; //| MALLOCADO
+	char		*line;  //| MALLOCADO
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_main
 {
-	char		*pwd;
-	char		*old_pwd;
-	t_env		*env;
-	t_env		*old_env;
-	t_tokens	*tokens;
+	char		*pwd;     //| MALLOCADO
+	char		*old_pwd; //| MALLOCADO
+	t_env		*env;     //| MALLOCADO
+	t_tokens	*tokens;  //| MALLOCADO
 }	t_main;
 
 //----------| ERRORS |----------//
