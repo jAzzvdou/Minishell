@@ -64,6 +64,7 @@ typedef struct s_tokens
 
 typedef struct s_env
 {
+	int			declare_x;
 	char		*name;  //| MALLOCADO
 	char		*value; //| MALLOCADO
 	char		*line;  //| MALLOCADO
@@ -89,13 +90,15 @@ void	controller(t_main *main, char **token);
 //__________ env __________
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
+void	add_env(t_env **env, char *line,int declare_x);
 //__________ pwd __________
 void	start_pwd(t_main *main);
 //__________ echo __________
 void	echo_cmd(char **token);
 //__________ exit __________
 void	exit_cmd(char **token);
-
+//__________ export __________
+void	export_cmd(t_main *main, char **token);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 t_tokens	*tokenizator(char *user_input);
@@ -124,6 +127,7 @@ int	verify_parenthesis(char *input, int i);
 int	skip_parenthesis(char *input, int i);
 //__________ string __________
 size_t	ft_strlen(const char *str);
+int	ft_isalpha(int c);
 int	ft_strcmp(const char *s1, const char *s2);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
@@ -134,5 +138,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**spliter(char *cmd);
 char	**split_input(char *input);
+
 
 #endif //| MINISHELL_H

@@ -7,6 +7,7 @@ SRCS	=	main.c        \
 		env.c         \
 		pwd.c         \
 		exit.c        \
+		export.c      \
 		echo.c        \
 		errors.c      \
 		cleaners.c    \

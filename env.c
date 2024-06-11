@@ -1,11 +1,12 @@
 #include "minishell.h"
 
-void	add_env(t_env **env, char *line)
+void	add_env(t_env **env, char *line,int declare_x)
 {
 	t_env *new;
 	t_env *tmp;
 
 	new = (t_env *)malloc(sizeof(t_env));
+	new->declare_x = declare_x;
 	new->name = ft_strndup(line, strchr(line, '=') - line);
 	new->value = ft_strdup(strchr(line, '=') + 1);
 	new->line = ft_strdup(line);
@@ -27,7 +28,7 @@ void	start_env(t_main *main, char **envp)
 
 	i = -1;
 	while (envp[++i])
-		add_env(&main->env, envp[i]);
+		add_env(&main->env, envp[i],1);
 }
 
 void	env_cmd(t_main *main, char **token)
@@ -50,7 +51,8 @@ void	env_cmd(t_main *main, char **token)
 	env = main->env;
 	while (env)
 	{
-		printf(WHITE"%s\n"RESET, env->line);
+		if(env->declare_x)
+			printf(WHITE"%s\n"RESET, env->line);
 		env = env->next;
 	}
 }
