@@ -7,7 +7,11 @@ void	print_list(t_tokens *tokens)
 	nodes = tokens->first;
 	while (nodes)
 	{
-		printf("token: %s\n", nodes->cmd);
+		printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
+		int i = -1;
+		while (nodes->cmd_args[++i])
+			printf("cmd_args[%d]: %s, ", i, nodes->cmd_args[i]);
+		printf("\n");
 		nodes = nodes->next;
 	}
 }
