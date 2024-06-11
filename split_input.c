@@ -1,38 +1,6 @@
 #include "minishell.h"
 
-static int	verify_quote2(const char *str, int index)
-{
-	char	quote;
-
-	index++;
-	quote = str[index];
-	while (str[index])
-	{
-		if (str[index] == quote)
-			return (index);
-		index++;
-	}
-	return (-1);
-}
-
-static int	skip_parenthesis2(const char *str, int index)
-{
-	int	count;
-
-	index++;
-	count = 1;
-	while (str[index] && count > 0)
-	{
-		if (str[index] == '(')
-			count++;
-		else if (str[index] == ')')
-			count--;
-		index++;
-	}
-	return (index - 1);
-}
-
-static int	is_separator(const char *str, int i)
+static int	is_separator(char *str, int i)
 {
 	if (!ft_strncmp(str + i, ">>", 2) || !ft_strncmp(str + i, "<<", 2)
 		|| !ft_strncmp(str + i, "&&", 2)
@@ -42,7 +10,7 @@ static int	is_separator(const char *str, int i)
 	return (0);
 }
 
-static int	count_words(const char *input)
+static int	count_words(char *input)
 {
 	int	i;
 	int	words;
@@ -58,10 +26,10 @@ static int	count_words(const char *input)
 		while (input[i] && !is_separator(input, i))
 		{
 			if ((input[i] == '\'' || input[i] == '\"')
-				&& verify_quote2(input, i) > 0)
-				i = verify_quote2(input, i) + 1;
-			else if (input[i] == '(' && skip_parenthesis2(input, i) > 0)
-				i = skip_parenthesis2(input, i) + 1;
+				&& verify_quote(input, i))
+				i = is_quote(input, i);
+			else if (input[i] == '(' && verify_parenthesis(input, i))
+				i = skip_parenthesis(input, i);
 			else
 				i++;
 		}
@@ -80,7 +48,7 @@ static int	count_words(const char *input)
 	return (words);
 }
 
-static char	**final_split(char **final, const char *input, int words)
+static char	**final_split(char **final, char *input, int words)
 {
 	int	i;
 	int	counter;
@@ -96,10 +64,11 @@ static char	**final_split(char **final, const char *input, int words)
 		while (input[i] && !is_separator(input, i))
 		{
 			if ((input[i] == '\'' || input[i] == '\"')
-				&& verify_quote2(input, i) > 0)
-				i = verify_quote2(input, i) + 1;
-			else if (input[i] == '(' && skip_parenthesis2(input, i) > 0)
-				i = skip_parenthesis2(input, i) + 1;
+				&& verify_quote(input, i))
+				i = is_quote(input, i);
+			else if (input[i] == '('
+				&& verify_parenthesis(input, i))
+				i = skip_parenthesis(input, i);
 			else
 				i++;
 		}
