@@ -34,6 +34,7 @@ void	add_token(t_tokens *tokens, e_type type, char *line)
 	new = (t_node *)malloc(sizeof(t_node));
 	new->type = type;
 	new->cmd = ft_strdup(line);
+	printf("new->cmd: %s\n", new->cmd);
 	new->cmd_args = spliter(line);
 	new->next = NULL;
 	new->prev = tokens->last;
@@ -62,8 +63,13 @@ t_tokens	*tokenizator(char *user_input)
 	}
 	tokens = start_tokens();
 	splited = split_input(user_input);
-	i = -1;
-	while (splited[++i])
+	if (!splited)
+	{
+		printf(RED"Error!\n"RESET);
+		return (NULL);
+	}
+	i = 0;
+	while (splited[i])
 	{
 		if (!strcmp(splited[i], "&&"))
 			add_token(tokens, AND, splited[i]);
@@ -81,6 +87,7 @@ t_tokens	*tokenizator(char *user_input)
 			add_token(tokens, INPUT, splited[i]);
 		else
 			add_token(tokens, CMD, splited[i]);
+		i++;
 	}
 	//print_tokens(tokens);
 	free_matrix(&splited);
