@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	print_list(t_tokens *tokens)
+void	print_tokens(t_tokens *tokens)
 {
 	t_node	*nodes;
 
@@ -33,7 +33,7 @@ void	add_token(t_tokens *tokens, e_type type, char *line)
 
 	new = (t_node *)malloc(sizeof(t_node));
 	new->type = type;
-	new->cmd = line;
+	new->cmd = ft_strdup(line);
 	new->cmd_args = spliter(line);
 	new->next = NULL;
 	new->prev = tokens->last;
@@ -82,7 +82,7 @@ t_tokens	*tokenizator(char *user_input)
 		else
 			add_token(tokens, CMD, splited[i]);
 	}
-	//print_list(tokens);
+	//print_tokens(tokens);
 	free_matrix(&splited);
 	return (tokens);
 }

@@ -4,7 +4,7 @@ char	*user_input(void)
 {
 	char	*input;
 
-	input = readline("mini> ");
+	input = readline("minishell> "); //| ARRUMAR AS CORES FUTURAMENTE
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))
@@ -17,10 +17,10 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tokens)
 		return ;
 	main->tokens = tokens;
+	print_tokens(main->tokens);
 	controller(main, main->tokens->first->cmd_args);
-
-	//if (!check_tokens(main->tokens)
-	//	return ;)//| Checar a gramática desses tokens.
+	//if (!check_tokens(main->tokens))
+	//	return ; //| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
 	//| Executar a árvore.
