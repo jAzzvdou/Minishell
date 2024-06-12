@@ -4,7 +4,7 @@ char	*user_input(void)
 {
 	char	*input;
 
-	input = readline(PROMPT);
+	input = readline("mini> ");
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))

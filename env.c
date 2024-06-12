@@ -51,7 +51,7 @@ void	env_cmd(t_main *main, char **token)
 	env = main->env;
 	while (env)
 	{
-		if(env->declare_x)
+		if (env->declare_x)
 			printf(WHITE"%s\n"RESET, env->line);
 		env = env->next;
 	}
