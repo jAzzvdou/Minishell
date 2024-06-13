@@ -19,10 +19,19 @@ int     check_tokens(t_tokens *tokens)
         while (first->next)
         {
                 type = first->type;
-                if (type == PIPE || type == OR || type == AND)
+		if (type == PIPE || type == OR || type == AND)
+		{
+			type = first->next->type;
+			if (type == PIPE || type == OR || type == AND)
+					return (error_syntax(first->next->cmd, 1));
+		}
+		else if (type == INPUT || type == OUTPUT
+			|| type == HEREDOC || type == APPEND)
                 {
                         type = first->next->type;
-                        if (type == PIPE || type == OR || type == AND)
+                        if (type == PIPE || type == OR || type == AND
+				|| type == INPUT || type == OUTPUT
+				|| type == HEREDOC || type == APPEND)
                                 return (error_syntax(first->next->cmd, 1));
                 }
                 first = first->next;
