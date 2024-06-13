@@ -43,8 +43,7 @@ void	env_cmd(t_main *main, char **token)
 			i++;
 		else
 		{
-			printf(GREY"env: '%s': No such file or directory\n",
-				token[i]);
+			error_env(token[i]);
 			return ;
 		}
 	}

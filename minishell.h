@@ -82,7 +82,10 @@ typedef struct s_main
 
 //----------| ERRORS |----------//
 int	error_argc(void);
-int	error_syntax(char *cmd);
+int	error_syntax(char *cmd, int option);
+void	error_env(char *cmd);
+void	error_exit(char *token, int option);
+void	*error_closed(void);
 
 //----------| SIGNALS |----------//
 void	start_signals(void);

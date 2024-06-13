@@ -40,8 +40,5 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /* o que checar nos tokens
-- não pode começar com || ou && ou |
-- não pode terminar com || ou && ou |
-- não pode ter || ou && ou | seguidos
 - não pode ter < ou > ou << ou >> seguidos
 */

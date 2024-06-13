@@ -75,11 +75,7 @@ t_tokens	*tokenizator(char *user_input)
 	if (!*user_input)
 		return (NULL);
 	if (!closed_quotes(user_input) || !closed_parenthesis(user_input))
-	{
-		printf(RED"Error!\n");
-		printf(GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n");
-		return (NULL);
-	}
+		return (error_closed());
 	tokens = start_tokens();
 	splited = split_input(user_input);
 	if (!splited)
