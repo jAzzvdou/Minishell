@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+///////////////////////////////////////////////////////////////////////////////
+
 void	print_tokens(t_tokens *tokens)
 {
 	t_node	*nodes;
@@ -15,6 +17,24 @@ void	print_tokens(t_tokens *tokens)
 		nodes = nodes->next;
 	}
 }
+
+void	revprint_tokens(t_tokens *tokens)
+{
+	t_node	*nodes;
+
+	nodes = tokens->last;
+	while (nodes)
+	{
+		printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
+		int i = -1;
+		while (nodes->cmd_args[++i])
+			printf("cmd_args[%d]: %s, ", i, nodes->cmd_args[i]);
+		printf("\n");
+		nodes = nodes->prev;
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
 
 t_tokens	*start_tokens(void)
 {
@@ -34,7 +54,6 @@ void	add_token(t_tokens *tokens, e_type type, char *line)
 	new = (t_node *)malloc(sizeof(t_node));
 	new->type = type;
 	new->cmd = ft_strdup(line);
-	printf("new->cmd: %s\n", new->cmd);
 	new->cmd_args = spliter(line);
 	new->next = NULL;
 	new->prev = tokens->last;
@@ -85,11 +104,14 @@ t_tokens	*tokenizator(char *user_input)
 			add_token(tokens, OUTPUT, splited[i]);
 		else if (!strcmp(splited[i], "<"))
 			add_token(tokens, INPUT, splited[i]);
+		else if (splited[i][0] == '(')
+			add_token(tokens, BLOCK, splited[i]);
 		else
 			add_token(tokens, CMD, splited[i]);
 		i++;
 	}
 	//print_tokens(tokens);
+	//revprint_tokens(tokens);
 	free_matrix(&splited);
 	return (tokens);
 }

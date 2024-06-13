@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/12 21:02:06 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/13 13:20:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ void	free_env_node(t_env *node)
 	if (node)
 	{
 		free(node->name);
+		node->name = NULL;
 		free(node->value);
+		node->value = NULL;
 		free(node->line);
+		node->line = NULL;
 		free(node);
+		node = NULL;
 	}
 }
 

@@ -1,27 +1,29 @@
 #include "minishell.h"
 
-int     error_syntax(char *cmd)
-{
-        printf(GREY"minishell: syntax error near unexpected token `%s'\n",
-                cmd);
-	return (0);
-}
-
-int	is_012(e_type type)
-{
-	if (type == AND || type == OR || type == PIPE)
-		return (0);
-	return (1);
-}
-
 int     check_tokens(t_tokens *tokens)
 {
-	e_type  first;
-	e_type  last;
+        e_type  type;
+        t_node  *first;
+        t_node  *last;
 
-	first = tokens->first->type;
-	last = tokens->last->type;
-	printf("first: %d\n", first);
-	printf("last: %d\n", last);
-	return (1);
+        first = tokens->first;
+        last = tokens->last;
+        type = first->type;
+        if (type == PIPE || type == OR || type == AND)
+                return (error_syntax(tokens->first->cmd));
+        type = last->type;
+        if (type == PIPE || type == OR || type == AND)
+                return (error_syntax(tokens->last->cmd));
+        while (first->next)
+        {
+                type = first->type;
+                if (type == PIPE || type == OR || type == AND)
+                {
+                        type = first->next->type;
+                        if (type == PIPE || type == OR || type == AND)
+                                return (error_syntax(first->next->cmd));
+                }
+                first = first->next;
+        }
+        return (1);
 }

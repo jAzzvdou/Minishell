@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:41:22 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/13 11:43:21 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/13 14:28:42 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int cd_cmd(t_main *main, char **token)
             return 1;
         }
         if (chdir(new_path) != 0) {
-            perror("cd");
+            perror("minishell: cd");
             free(new_path);
             return 1;
         }
@@ -86,13 +86,13 @@ int cd_cmd(t_main *main, char **token)
             return 1;
         }
         if (chdir(path) != 0) {
-            perror("cd");
+            perror("minishell: cd");
             return 1;
         }
         printf("%s\n", path);
     } else {
         if (chdir(token[1]) != 0) {
-            perror("cd");
+            perror("minishell: cd");
             return 1;
         }
     }
@@ -111,7 +111,7 @@ int cd_cmd(t_main *main, char **token)
     update_env(&main->env, "OLDPWD", main->old_pwd);
     update_env(&main->env, "PWD", main->pwd);
 
-    printf("%s\n", main->pwd);
+    //printf("%s\n", main->pwd);
 
     return 0;
 }

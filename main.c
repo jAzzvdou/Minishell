@@ -4,7 +4,7 @@ char	*user_input(void)
 {
 	char	*input;
 
-	input = readline(PROMPT); //| ARRUMAR AS CORES FUTURAMENTE
+	input = readline(PROMPT);
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))
@@ -14,13 +14,10 @@ char	*user_input(void)
 
 void	parser(t_main *main, t_tokens *tokens)
 {
-	if (!tokens)
+	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
-	print_tokens(main->tokens);
 	controller(main, main->tokens->first->cmd_args);
-	//if (!check_tokens(main->tokens))
-	//	return ; //| Checar a gramática desses tokens.
 	//| Ver se tem algum Heredoc
 	//| Construir a árvore.
 	//| Executar a árvore.
@@ -41,3 +38,10 @@ int	main(int argc, char **argv, char **envp)
 		parser(&main, tokenizator(user_input()));
 	return (0);
 }
+
+/* o que checar nos tokens
+- não pode começar com || ou && ou |
+- não pode terminar com || ou && ou |
+- não pode ter || ou && ou | seguidos
+- não pode ter < ou > ou << ou >> seguidos
+*/

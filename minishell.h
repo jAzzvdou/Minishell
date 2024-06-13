@@ -14,36 +14,37 @@
 # include <readline/history.h>
 
 //----------| DEFINES |----------//
-# define RED	"\001\033[38;2;255;0;0m\002 "
-# define GREEN	"\001\033[38;2;0;255;0m\002 "
-# define BLUE	"\001\033[38;2;0;0;255m\002 "
-# define YELLOW	"\001\033[38;2;255;255;0m\002 "
-# define WHITE	"\001\033[38;2;255;255;255m\002 "
-# define BLACK	"\001\033[38;2;0;0;0m\002 "	
-# define GREY	"\001\033[38;2;128;128;128m\002 "
-# define BROWN	"\001\033[38;2;150;75;0m\002 "	
-# define ORANGE	"\001\033[38;2;255;165;0m\002 "
-# define PURPLE	"\001\033[38;2;153;51;153m\002 "
-# define LILAC	"\001\033[38;2;200;162;200m\002 "
-# define PINK	"\001\033[38;2;255;203;219m\002 "
-# define BMPINK	"\001\033[38;2;255;145;175m\002 "
-# define CYAN	"\001\033[38;2;0;255;255m\002 "
+# define RED	"\001\033[38;2;255;0;0m\002"
+# define GREEN	"\001\033[38;2;0;255;0m\002"
+# define BLUE	"\001\033[38;2;0;0;255m\002"
+# define YELLOW	"\001\033[38;2;255;255;0m\002"
+# define WHITE	"\001\033[38;2;255;255;255m\002"
+# define BLACK	"\001\033[38;2;0;0;0m\002"	
+# define GREY	"\001\033[38;2;128;128;128m\002"
+# define BROWN	"\001\033[38;2;150;75;0m\002"	
+# define ORANGE	"\001\033[38;2;255;165;0m\002"
+# define PURPLE	"\001\033[38;2;153;51;153m\002"
+# define LILAC	"\001\033[38;2;200;162;200m\002"
+# define PINK	"\001\033[38;2;255;203;219m\002"
+# define BMPINK	"\001\033[38;2;255;145;175m\002"
+# define CYAN	"\001\033[38;2;0;255;255m\002"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
 # define PROMPT \
-	""RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE""
+	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
 
 //----------| STRUCTS |----------//
 typedef enum type
 {
-	AND,
-	OR,
-	PIPE,
-	OUTPUT,
-	APPEND,
-	INPUT,
+	CMD,
+	BLOCK,
 	HEREDOC,
-	CMD
+	OR,
+	AND,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	APPEND
 }	e_type;
 
 typedef struct s_node
@@ -81,6 +82,7 @@ typedef struct s_main
 
 //----------| ERRORS |----------//
 int	error_argc(void);
+int	error_syntax(char *cmd);
 
 //----------| SIGNALS |----------//
 void	start_signals(void);

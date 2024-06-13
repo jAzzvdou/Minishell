@@ -78,8 +78,8 @@ char    **spliter(char *cmd)
                 if ((trim[i][0] == '\'' || trim[i][0] == '\"')
                         && verify_quote(trim[i], 0))
                         trim[i] = remove_quote(trim[i], trim[i][0]);
-		else if ((trim[i][0] == '(' && verify_parenthesis(trim[i], 0)))
-			trim[i] = ft_strndup(trim[i] + 1, ft_strlen(trim[i]) - 2);
+		//else if ((trim[i][0] == '(' && verify_parenthesis(trim[i], 0)))
+		//	trim[i] = ft_strndup(trim[i] + 1, ft_strlen(trim[i]) - 2);
 	}
         return (trim);
 }
