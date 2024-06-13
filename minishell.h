@@ -14,24 +14,24 @@
 # include <readline/history.h>
 
 //----------| DEFINES |----------//
-# define RED	"\033[38;2;255;0;0m"
-# define GREEN	"\033[38;2;0;255;0m"
-# define BLUE	"\033[38;2;0;0;255m"
-# define YELLOW	"\033[38;2;255;255;0m"
-# define WHITE	"\033[38;2;255;255;255m"
-# define BLACK	"\033[38;2;0;0;0m"	
-# define GREY	"\033[38;2;128;128;128m"
-# define BROWN	"\033[38;2;150;75;0m"	
-# define ORANGE	"\033[38;2;255;165;0m"
-# define PURPLE	"\033[38;2;153;51;153m"
-# define LILAC	"\033[38;2;200;162;200m"
-# define PINK	"\033[38;2;255;203;219m"
-# define BMPINK	"\033[38;2;255;145;175m"
-# define CYAN	"\033[38;2;0;255;255m"
+# define RED	"\001\033[38;2;255;0;0m\002 "
+# define GREEN	"\001\033[38;2;0;255;0m\002 "
+# define BLUE	"\001\033[38;2;0;0;255m\002 "
+# define YELLOW	"\001\033[38;2;255;255;0m\002 "
+# define WHITE	"\001\033[38;2;255;255;255m\002 "
+# define BLACK	"\001\033[38;2;0;0;0m\002 "	
+# define GREY	"\001\033[38;2;128;128;128m\002 "
+# define BROWN	"\001\033[38;2;150;75;0m\002 "	
+# define ORANGE	"\001\033[38;2;255;165;0m\002 "
+# define PURPLE	"\001\033[38;2;153;51;153m\002 "
+# define LILAC	"\001\033[38;2;200;162;200m\002 "
+# define PINK	"\001\033[38;2;255;203;219m\002 "
+# define BMPINK	"\001\033[38;2;255;145;175m\002 "
+# define CYAN	"\001\033[38;2;0;255;255m\002 "
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
 # define PROMPT \
-	"\001"RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE"\002"
+	""RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE""
 
 //----------| STRUCTS |----------//
 typedef enum type
@@ -99,6 +99,8 @@ void	echo_cmd(char **token);
 void	exit_cmd(char **token);
 //__________ export __________
 void	export_cmd(t_main *main, char **token);
+//__________ unset _________
+void	unset_cmd(t_main *main, char **token);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);

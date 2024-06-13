@@ -4,7 +4,7 @@ char	*user_input(void)
 {
 	char	*input;
 
-	input = readline("minishell> "); //| ARRUMAR AS CORES FUTURAMENTE
+	input = readline(PROMPT); //| ARRUMAR AS CORES FUTURAMENTE
 	if (!input)
 		input = ft_strdup("exit");
 	if (ft_strcmp(input, ""))
