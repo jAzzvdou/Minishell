@@ -3,6 +3,7 @@ NAME	=	minishell
 SRCS	=	main.c         \
 		signals.c      \
 		tokenizator.c  \
+		cd.c           \
 		check_tokens.c \
 		builtins.c     \
 		env.c          \

@@ -16,6 +16,17 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (new_s);
 }
 
+char *ft_strjoin(char const *s1, char const *s2) {
+    size_t len1 = strlen(s1);
+    size_t len2 = strlen(s2);
+    char *result = malloc(len1 + len2 + 1);
+    if (!result)
+        return NULL;
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;

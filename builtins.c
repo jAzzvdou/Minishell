@@ -14,8 +14,8 @@ void	controller(t_main *main, char **token)
 		export_cmd(main, token);
 	else if (!strcmp(token[0], "unset"))
 		unset_cmd(main,token);
-	/*else if (!strcmp(token[0], "cd"))
-		cd_cmd(token);*/
+	else if (!strcmp(token[0], "cd"))
+		cd_cmd(main,token);
 	else if (!strcmp(token[0], "clear")) //| TIRAR FUTURAMENTE
 		printf(CLEAR);
 }

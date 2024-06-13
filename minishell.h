@@ -101,6 +101,8 @@ void	exit_cmd(char **token);
 void	export_cmd(t_main *main, char **token);
 //__________ unset _________
 void	unset_cmd(t_main *main, char **token);
+//__________ cd __________
+int cd_cmd(t_main *main, char **token);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
@@ -137,6 +139,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(const char *s, int n);
 char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**spliter(char *cmd);
