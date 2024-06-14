@@ -20,7 +20,6 @@ SRCS	=	main.c          \
 		parenthesis.c   \
 		spliter.c       \
 		split_input.c   \
-		get_next_line.c \
 		utils1.c        \
 		utils2.c
 

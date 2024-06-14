@@ -13,41 +13,41 @@ char	*user_input(void)
 }
 
 //----------| HEREDOC |----------//
-void	heredoc(t_main *main, char *limiter, int hd)
+void	heredoc(t_main *main, char *limiter, int hd)//, int hd)
 {
 	char	*line;
 
 	while (1)
 	{
-		write(1, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
+		line = readline(GREEN"> "WHITE);
+		if (!line)
+			break ;
 		if (!ft_strncmp(line, limiter, ft_strlen(line)))
 			break ;
 		write(hd, line, ft_strlen(line));
+		write(hd, "\n", 1);
 		free(line);
 	}
-	close(hd);
+	//close(hd);
 	free(line);
 	free(limiter);
-
-	(void)main;
 	printf(GREEN"heredoc done!\n");
+	(void)main;
 	// mandar para a pipex
 }
 
 int	start_heredoc(t_main *main, t_node *node)
 {
-	int	fd[2];
-	int	hd[2];
+	//int	hd[2];
 	char	*limiter;
 
-	fd[1] = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 00700);
-	if (fd[1] < 0)
+	main->fd[1] = open(".heredoc", O_CREAT | O_RDWR | O_TRUNC, 00700);
+	if (main->fd[1] < 0)
 		return (0);
-	pipe(hd);
-	fd[0] = hd[0];
-	limiter = ft_strjoin(node->cmd, "\n");
-	heredoc(main, limiter, hd[1]);
+	//pipe(hd);
+	//main->fd[0] = hd[0];
+	limiter = ft_strdup(node->cmd);
+	heredoc(main, limiter, main->fd[0]);//hd[1]);
 	return (1);
 }
 
