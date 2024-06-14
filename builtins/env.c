@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:26 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:11:27 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/14 15:32:57 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	add_env(t_env **env, char *line,int declare_x)
 {
 	t_env *new;
 	t_env *tmp;
+
+	if(!line)
+		return ;
 
 	new = (t_env *)malloc(sizeof(t_env));
 	new->declare_x = declare_x;
