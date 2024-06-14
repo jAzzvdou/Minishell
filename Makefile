@@ -5,7 +5,6 @@ SRCS	=	main.c              \
 		signals.c               \
 		token/tokenizator.c     \
 		token/check_tokens.c    \
-		heredoc.c               \
 		builtins/cd.c           \
 		builtins/builtins.c     \
 		builtins/env.c          \
@@ -15,6 +14,7 @@ SRCS	=	main.c              \
 		builtins/echo.c         \
 		builtins/unset.c        \
 		errors.c        \
+		heredoc.c       \
 		cleaners.c      \
 		parser_utils/number.c        \
 		parser_utils/space.c         \
