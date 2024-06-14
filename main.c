@@ -17,7 +17,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
-	if (!is_there_heredoc(main, main->tokens))
+	if (!is_there_heredoc(main->tokens))
 		return ;
 	controller(main, main->tokens->first->cmd_args);
 	//| Ver se tem algum Heredoc

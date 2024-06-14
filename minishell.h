@@ -113,7 +113,7 @@ int cd_cmd(t_main *main, char **token);
 int	check_tokens(t_tokens *tokens);
 t_tokens	*tokenizator(char *user_input);
 //__________ heredoc __________
-int	is_there_heredoc(t_main *main, t_tokens *tokens);
+int	is_there_heredoc(t_tokens *tokens);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
@@ -124,6 +124,7 @@ int	is_number(int nb);
 int	only_number(char *s);
 int	is_long(char *argv);
 long long	ft_atoll(const char *nptr);
+char	*ft_itoa(int n);
 //__________ space __________
 int	is_space(int c);
 void	skip_spaces(char **s);
