@@ -5,6 +5,7 @@ SRCS	=	main.c          \
 		tokenizator.c   \
 		cd.c            \
 		check_tokens.c  \
+		heredoc.c       \
 		builtins.c      \
 		env.c           \
 		pwd.c           \

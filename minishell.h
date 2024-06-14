@@ -74,7 +74,6 @@ typedef struct s_env
 
 typedef struct s_main
 {
-	int		fd[2];
 	char		*pwd;     //| MALLOCADO
 	char		*old_pwd; //| MALLOCADO
 	t_env		*env;     //| MALLOCADO
@@ -113,6 +112,8 @@ int cd_cmd(t_main *main, char **token);
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
 t_tokens	*tokenizator(char *user_input);
+//__________ heredoc __________
+int	is_there_heredoc(t_main *main, t_tokens *tokens);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
