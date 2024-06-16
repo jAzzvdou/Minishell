@@ -1,29 +1,29 @@
 NAME	=	minishell
 
 # Lista de arquivos fonte
-SRCS	=	main.c              \
-		signals.c               \
-		token/tokenizator.c     \
-		token/check_tokens.c    \
-		builtins/cd.c           \
-		builtins/builtins.c     \
-		builtins/env.c          \
-		builtins/pwd.c          \
-		builtins/exit.c         \
-		builtins/export.c       \
-		builtins/echo.c         \
-		builtins/unset.c        \
-		errors.c        \
-		heredoc.c       \
-		cleaners.c      \
-		parser_utils/number.c        \
-		parser_utils/space.c         \
-		parser_utils/quote.c         \
-		parser_utils/parenthesis.c   \
-		parser_utils/spliter.c       \
-		parser_utils/split_input.c   \
-		utils/utils1.c        \
-		utils/utils2.c
+SRCS	=	main.c                \
+		Signals/signals.c     \
+		Tokens/tokenizator.c  \
+		Tokens/check_tokens.c \
+		Builtins/cd.c         \
+		Builtins/builtins.c   \
+		Builtins/env.c        \
+		Builtins/pwd.c        \
+		Builtins/exit.c       \
+		Builtins/export.c     \
+		Builtins/echo.c       \
+		Builtins/unset.c      \
+		Errors/errors.c       \
+		Heredoc/heredoc.c     \
+		Cleaners/cleaners.c   \
+		Parser/number.c       \
+		Parser/space.c        \
+		Parser/quote.c        \
+		Parser/parenthesis.c  \
+		Parser/spliter.c      \
+		Parser/split_input.c  \
+		Utils/utils1.c        \
+		Utils/utils2.c
 
 # Diretório de saída dos arquivos objeto
 OBJDIR  =   obj
