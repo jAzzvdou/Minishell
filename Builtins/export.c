@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 16:41:59 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:24:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 void	swap_nodes(t_env *a, t_env *b)
 {
@@ -46,6 +46,30 @@ t_env	*alphabetical_env(t_env *tmp)
 		}
 	}
 	return (ordered);
+}
+
+void    add_without_equal(t_env **env, char *line, int declare_x)
+{
+        t_env *new;
+        t_env *tmp;
+
+        if(!line)
+                return ;
+        new = (t_env *)malloc(sizeof(t_env));
+        new->declare_x = declare_x;
+        new->name = ft_strdup(line);
+        new->value = NULL;
+        new->line = ft_strdup(line);
+        new->next = NULL;
+        if (!(*env))
+                *env = new;
+        else
+        {
+                tmp = *env;
+                while (tmp->next)
+                        tmp = tmp->next;
+                tmp->next = new;
+        }
 }
 
 void	export_cmd(t_main *main, char **token)
@@ -121,9 +145,7 @@ void	export_cmd(t_main *main, char **token)
 		else
 		{
 			printf("Ignoring token without '=': %s\n", token[i]);
-			//| Adicionar na lista do ENV normalmente.
-			//| name = token[i];
-			//| line = token[i];
+			add_without_equal(&main->env, token[i], 0);
 		}
 		i++;
 	}

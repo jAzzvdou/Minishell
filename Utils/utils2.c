@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:09:54 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:09:56 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:27:36 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

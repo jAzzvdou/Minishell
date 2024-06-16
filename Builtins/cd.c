@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:41:22 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:11:39 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:23:59 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 char *env_value(t_env *env, const char *name) {
     while (env) {

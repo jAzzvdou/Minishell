@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../Include/minishell.h"
 
 char	*user_input(void)
 {

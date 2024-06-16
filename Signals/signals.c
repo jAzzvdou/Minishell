@@ -1,5 +1,4 @@
-#include "minishell.h"
-
+#include "../Include/minishell.h"
 
 volatile sig_atomic_t g_status = 0;
 

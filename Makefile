@@ -26,7 +26,7 @@ SRCS	=	main.c                \
 		Utils/utils2.c
 
 # Diretório de saída dos arquivos objeto
-OBJDIR  =   obj
+OBJDIR  =   Objects
 
 # Lista de arquivos objeto com o diretório obj/ prefixado
 OBJS	=	$(SRCS:%.c=$(OBJDIR)/%.o)

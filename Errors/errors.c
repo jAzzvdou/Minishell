@@ -1,5 +1,4 @@
-#include "minishell.h"
-
+#include "../Include/minishell.h"
 // LEMBRAR DE COLOCAR OS ERROS NA SAIDA DE ERRO (2)
 
 int	error_argc(void)

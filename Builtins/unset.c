@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:11:20 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:25:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 void	free_env_node(t_env *node)
 {

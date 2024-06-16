@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:33 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:10:34 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:26:33 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 int	is_space(int c)
 {

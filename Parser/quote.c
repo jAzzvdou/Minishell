@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:38 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:10:39 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:26:27 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 int	is_quote(char *cmd, int i)
 {

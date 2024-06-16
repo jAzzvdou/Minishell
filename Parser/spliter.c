@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:23 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/14 11:10:24 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/16 20:26:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../Include/minishell.h"
 
 static void     free_split(char **final)
 {

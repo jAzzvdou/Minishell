@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../Include/minishell.h"
 
 void    free_matrix(char ***matrix)
 {

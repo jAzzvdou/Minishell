@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../Include/minishell.h"
 
 char	*free_function(char *s1, char *s2)
 {
