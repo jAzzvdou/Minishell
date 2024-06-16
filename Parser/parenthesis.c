@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:42 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:26:18 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 20:45:47 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,42 @@ int	closed_parenthesis(char *s)
 	return (0);
 }
 
-int     verify_parenthesis(char *input, int i)
+int	verify_parenthesis(char *input, int i)
 {
-        int     open;
-        int     close;
+	int	open;
+	int	close;
 
-        open = 0;
-        close = 0;
-        while (input[i])
-        {
-                if (input[i] == '(')
-                        open++;
-                else if (input[i] == ')')
-                        close++;
-                i++;
-        }
-        if (open == close)
-                return (1);
-        return (0);
+	open = 0;
+	close = 0;
+	while (input[i])
+	{
+		if (input[i] == '(')
+			open++;
+		else if (input[i] == ')')
+			close++;
+		i++;
+	}
+	if (open == close)
+		return (1);
+	return (0);
 }
 
-int     skip_parenthesis(char *input, int i)
+int	skip_parenthesis(char *input, int i)
 {
-        int     open;
-        int     close;
+	int	open;
+	int	close;
 
-        open = 0;
-        close = 0;
-        while (input[i])
-        {
-                if (input[i] == '(')
-                        open++;
-                else if (input[i] == ')')
-                        close++;
-                i++;
-                if (open == close)
-                        break ;
-        }
-        return (i);
+	open = 0;
+	close = 0;
+	while (input[i])
+	{
+		if (input[i] == '(')
+			open++;
+		else if (input[i] == ')')
+			close++;
+		i++;
+		if (open == close)
+			break ;
+	}
+	return (i);
 }

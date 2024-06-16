@@ -6,12 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:27:15 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 20:50:55 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-///////////////////////////////////////////////////////////////////////////////
 
 void	print_tokens(t_tokens *tokens)
 {
@@ -44,8 +43,6 @@ void	revprint_tokens(t_tokens *tokens)
 		nodes = nodes->prev;
 	}
 }
-
-///////////////////////////////////////////////////////////////////////////////
 
 t_tokens	*start_tokens(void)
 {
@@ -117,8 +114,6 @@ t_tokens	*tokenizator(char *user_input)
 			add_token(tokens, CMD, splited[i]);
 		i++;
 	}
-	//print_tokens(tokens);
-	//revprint_tokens(tokens);
 	free_matrix(&splited);
 	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:38 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:26:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 20:46:57 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,40 @@ int	verify_quote(char *cmd, int i)
 	return (0);
 }
 
-int      skip_quotes(char **s)
+int	skip_quotes(char **s)
 {
-        char    quote;
+	char	quote;
 
-        if (**s == '\'' || **s == '"')
-                quote = **s;
-        else
-                return (0);
-        (*s)++;
-        while (**s && **s != quote)
-                (*s)++;
-        if (**s)
-                (*s)++;
-        return (1);
+	if (**s == '\'' || **s == '"')
+		quote = **s;
+	else
+		return (0);
+	(*s)++;
+	while (**s && **s != quote)
+		(*s)++;
+	if (**s)
+		(*s)++;
+	return (1);
 }
 
-int     closed_quotes(const char *s)
+int	closed_quotes(const char *s)
 {
-        char    quote;
+	char	quote;
 
-        while (*s)
-        {
-                if (*s == '\'' || *s == '"')
-                {
-                        quote = *s;
-                        s++;
-                        while (*s && *s != quote)
-                                s++;
-                        if (!*s)
-                                return (0);
-                }
-                s++;
-        }
-        return (1);
+	while (*s)
+	{
+		if (*s == '\'' || *s == '"')
+		{
+			quote = *s;
+			s++;
+			while (*s && *s != quote)
+				s++;
+			if (!*s)
+				return (0);
+		}
+		s++;
+	}
+	return (1);
 }
 
 char	*remove_quote(char *trim, char quote)

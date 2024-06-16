@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:47 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:27:24 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 20:36:57 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_long(char *argv)
 long long	ft_atoll(const char *nptr)
 {
 	long long	nb;
-	int		mult;
+	int			mult;
 
 	nb = 0;
 	mult = 1;

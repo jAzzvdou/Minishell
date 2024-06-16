@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
+/*   Updated: 2024/06/16 20:43:36 by jazevedo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Include/minishell.h"
 
 char	*free_function(char *s1, char *s2)
@@ -42,9 +54,9 @@ int	heredoc(t_node *token, char *file, int fd)
 
 int	start_heredoc(t_node *token, int nb)
 {
-	int		fd;
+	int				fd;
 	static long int	random;
-	char	*file;
+	char			*file;
 
 	random = random + (u_int64_t)start_heredoc * nb;
 	file = free_function(ft_strdup("/tmp/heredoc"), ft_itoa(random));
@@ -54,19 +66,19 @@ int	start_heredoc(t_node *token, int nb)
 	return (heredoc(token, file, fd));
 }
 
-int     is_there_heredoc(t_tokens *tokens)
+int	is_there_heredoc(t_tokens *tokens)
 {
-        t_node  *token;
+	t_node	*token;
 
-        token = tokens->first;
-        while (token)
-        {
-                if (token->type == HEREDOC)
-                {
-                        if (!start_heredoc(token->next, 42))
-                                return (0);
-                }
-                token = token->next;
-        }
-        return (1);
+	token = tokens->first;
+	while (token)
+	{
+		if (token->type == HEREDOC)
+		{
+			if (!start_heredoc(token->next, 42))
+				return (0);
+		}
+		token = token->next;
+	}
+	return (1);
 }

@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleaners.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
+/*   Updated: 2024/06/16 20:39:37 by jazevedo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Include/minishell.h"
 
-void    free_matrix(char ***matrix)
+void	free_matrix(char ***matrix)
 {
-        int     i;
+	int	i;
 
-        //| Caso não tenha matrix, só retorna.
-        if (!*matrix)
-                return ;
-        i = -1;
-        while ((*matrix)[++i])
-        {
-                free((*matrix)[i]); //| Free direto no endereço.
-                (*matrix)[i] = NULL;//| Setando para NULL para não ter double free.
-        }
-        free(*matrix); //| Libera a matrix.
-        *matrix = NULL;
+	if (!*matrix)
+		return ;
+	i = -1;
+	while ((*matrix)[++i])
+	{
+		free((*matrix)[i]);
+		(*matrix)[i] = NULL;
+	}
+	free(*matrix);
+	*matrix = NULL;
 }
