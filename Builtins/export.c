@@ -48,39 +48,6 @@ t_env	*alphabetical_env(t_env *tmp)
 	return (ordered);
 }
 
-/*void	export_cmd(t_main *main, char **token)
-{
-	int		i;
-	t_env 	*tmp;
-
-
-	tmp = main->env;
-	if (!token[1])
-	{
-		t_env *sorted_env = alphabetical_env(tmp);
-		while (sorted_env)
-		{
-			printf("declare -x %s\n", sorted_env->line);
-			sorted_env = sorted_env->next;
-		}
-	}
-	i = 1;
-	while (token[i])
-	{
-		if (!(ft_isalpha(token[i][0])))
-		{
-			printf("minishell: export: '%s': not a valid identifier\n",token[i]);
-			i++;
-		}
-		if (!token[i])
-			break ;
-		if (ft_strchr(token[i],'='))
-			add_env(&main->env, token[i], 1);
-		else
-			add_env(&main->env, token[i], 0);
-		i++;
-	}
-}*/
 void	export_cmd(t_main *main, char **token)
 {
 	int		i;
@@ -154,6 +121,9 @@ void	export_cmd(t_main *main, char **token)
 		else
 		{
 			printf("Ignoring token without '=': %s\n", token[i]);
+			//| Adicionar na lista do ENV normalmente.
+			//| name = token[i];
+			//| line = token[i];
 		}
 		i++;
 	}
