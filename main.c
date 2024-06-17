@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/17 09:41:57 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:37:17 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,48 @@ int	main(int argc, char **argv, char **envp)
 		parser(&main, tokenizator(user_input()));
 	return (0);
 }
+
+/*
+Example: echo a || echo b && echo c | cat -e > txt.txt
+	Na árvore: 1: '&&' ou '||', depois '|' e, por fim '<', '<<', '>>' e '>'.
+
+- Procurar nos nodes se tem '&&' ou '||', de trás para frente.
+	Se tiver, tudo depois do '&&' ou '||', fica do lado direito da árvore
+		e tudo que estiver antes fica do lado esquerda.
+{
+	Lado Esquerdo: echo a || echo b
+	{
+		Lado Esquerdo: echo a
+		Bifurcação: ||
+		Lado Direito: echo b
+	}
+	Bifurcação: &&
+	Lado Direito: echo c | cat -e > txt.txt
+}
+
+- Procurar se tem '|' nos nodes já bifurcados.
+	Node 1: echo a
+	Node 2: ||
+	Node 3: echo b
+	Não tem '|'.
+
+	Do outro lado tem '|', então bifurcaremos.
+	echo b | cat -e > txt.txt
+	Logo:
+	{
+		Lado Esquerdo: echo b
+		Bifurcação: '|'
+		Lado Direito: cat -e > txt.txt
+	}
+
+- Por último, vamos procurar os REDIRs, são eles '<', '<<', '>>' e '>'.
+	De um lado não temos REDIRs, mas do outro:
+	cat -e > txt.txt
+	Logo:
+	{
+		Lado Esquerdo: cat -e
+		Bifurcação: >
+		Lado Direito: txt.txt
+	}
+
+*/

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/17 09:45:09 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:46:44 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	heredoc(t_node *token, char *file, int fd)
 		line = readline(GREEN"> ");
 		if (!line)
 			break ;
-		if (!ft_strcmp(token->cmd, line))
+		if (!ft_strcmp(token->cmd_args[0], line))
 		{
 			free(line);
 			break ;
