@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/17 10:08:49 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:36:08 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	export_cmd(t_main *main, char **token)
 	{
 		if (!(ft_isalpha(token[i][0])))
 		{
+			printf("minishell: export: '%s': not a valid identifier\n", token[i]);
 			i++;
 			continue;
 		}

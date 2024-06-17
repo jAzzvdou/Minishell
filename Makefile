@@ -37,10 +37,6 @@ RLFLAG	=	-lreadline
 
 RM	=	rm -rf
 
-#define color_code
-#$(shell echo "\033[38;5;$(1)m")
-#endef
-
 all: $(NAME)
 
 $(NAME): $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/16 22:33:14 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:58:02 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	export_cmd(t_main *main, char **token);
 //__________ unset _________
 void	unset_cmd(t_main *main, char **token);
 //__________ cd __________
-int cd_cmd(t_main *main, char **token);
+int	cd_cmd(t_main *main, char **token);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
