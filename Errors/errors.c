@@ -6,11 +6,11 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/16 20:40:49 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:29:08 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 int	error_argc(void)
 {

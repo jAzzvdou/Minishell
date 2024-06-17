@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:24:48 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:28:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 void	swap_nodes(t_env *a, t_env *b)
 {

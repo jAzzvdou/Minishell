@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:50:55 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:31:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 void	print_tokens(t_tokens *tokens)
 {

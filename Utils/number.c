@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:47 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:36:57 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:31:12 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 int	is_number(int nb)
 {

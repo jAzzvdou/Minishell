@@ -6,11 +6,11 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/16 20:43:36 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:29:15 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 char	*free_function(char *s1, char *s2)
 {

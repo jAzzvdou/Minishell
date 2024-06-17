@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:28 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:26:40 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:29:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 static int	is_separator(char *str, int i)
 {

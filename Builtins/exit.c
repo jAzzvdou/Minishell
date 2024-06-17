@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 20:24:37 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:28:25 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "Include/minishell.h"
 
 void	exit_cmd(char **token)
 {
