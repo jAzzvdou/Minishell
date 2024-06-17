@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:01 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 22:31:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:46:21 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "../Include/minishell.h"
 
 int	ft_isalpha(int c)
 {

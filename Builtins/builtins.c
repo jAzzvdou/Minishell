@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 22:27:46 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:54:32 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "../Include/minishell.h"
 
 void	controller(t_main *main, char **token)
 {
@@ -22,7 +22,7 @@ void	controller(t_main *main, char **token)
 		printf("%s\n", main->pwd);
 	else if (!strcmp(token[0], "echo"))
 		echo_cmd(token); //| LEMBRAR DE TRATAR '$0' E '$$'.
-	else if (!strcmp(token[0], "export")) // arrumar seg fault quando da erro (7=p)
+	else if (!strcmp(token[0], "export"))
 		export_cmd(main, token);
 	else if (!strcmp(token[0], "unset"))
 		unset_cmd(main,token);

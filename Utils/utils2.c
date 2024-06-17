@@ -6,11 +6,11 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:37:09 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/16 22:31:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:46:27 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "../Include/minishell.h"
 
 char	*ft_strdup(const char *s)
 {

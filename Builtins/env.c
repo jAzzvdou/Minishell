@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:26 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 22:28:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:43:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "../Include/minishell.h"
 
 void	add_env(t_env **env, char *line, int declare_x)
 {

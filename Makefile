@@ -1,6 +1,5 @@
 NAME	=	minishell
 
-# Lista de arquivos fonte
 SRCS	=	main.c                \
 		Signals/signals.c     \
 		Tokens/tokenizator.c  \
@@ -16,20 +15,18 @@ SRCS	=	main.c                \
 		Errors/errors.c       \
 		Heredoc/heredoc.c     \
 		Cleaners/cleaners.c   \
-		Parser/number.c       \
 		Parser/space.c        \
 		Parser/quote.c        \
 		Parser/parenthesis.c  \
 		Parser/spliter.c      \
 		Parser/split_input.c  \
+		Utils/number.c        \
 		Utils/utils1.c        \
 		Utils/utils2.c        \
 		Utils/utils3.c
 
-# Diretório de saída dos arquivos objeto
 OBJDIR  =   Objects
 
-# Lista de arquivos objeto com o diretório obj/ prefixado
 OBJS	=	$(SRCS:%.c=$(OBJDIR)/%.o)
 
 CC	=	cc
@@ -40,29 +37,28 @@ RLFLAG	=	-lreadline
 
 RM	=	rm -rf
 
-# Cria o executável a partir dos arquivos objeto
+#define color_code
+#$(shell echo "\033[38;5;$(1)m")
+#endef
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 		@$(CC) -o $(NAME) $(OBJS) $(RLFLAG)
 		@echo "Minishell Is Ready!"
 
-# Regra para compilar arquivos .c em .o dentro do diretório obj/
 $(OBJDIR)/%.o: %.c
 		@mkdir -p $(dir $@)
 		@$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpa os arquivos objeto
 clean:
 		@$(RM) $(OBJDIR)
 		@echo "Objects Are Cleaned!"
 
-# Limpa os arquivos objeto e o executável
 fclean: clean
 		@$(RM) $(NAME)
 		@echo "Minishell Is Cleaned!"
 
-# Refaz a compilação completa
 re: fclean all
 
 .PHONY: all clean fclean re

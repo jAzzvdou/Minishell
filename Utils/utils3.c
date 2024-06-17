@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:09:54 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/16 22:31:26 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:46:32 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Include/minishell.h"
+#include "../Include/minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
