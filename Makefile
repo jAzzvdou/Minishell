@@ -37,23 +37,31 @@ RLFLAG	=	-lreadline
 
 RM	=	rm -rf
 
+TOTAL_SRCS = $(words $(SRCS))
+COMPILED_SRCS = 0
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 		@$(CC) -o $(NAME) $(OBJS) $(RLFLAG)
-		@echo "Minishell Is Ready!"
+		@echo "\033[1;97m🔔 Minishell Is Ready! 🔔\033[0m"
 
 $(OBJDIR)/%.o: %.c
 		@mkdir -p $(dir $@)
 		@$(CC) $(CFLAGS) -c $< -o $@
+		$(eval COMPILED_SRCS=$(shell echo $$(($(COMPILED_SRCS)+1))))
+		$(eval COLOR_VALUE=$(shell echo $$((255*$(COMPILED_SRCS)/$(TOTAL_SRCS)))))
+		@echo -n "\033[H\033[J"
+		@echo -n "\033[38;2;$(COLOR_VALUE);$(COLOR_VALUE);$(COLOR_VALUE)mMinishell Is Ready!\033[0m\r"
+		@sleep 0.1
 
 clean:
 		@$(RM) $(OBJDIR)
-		@echo "Objects Are Cleaned!"
+		@echo "\033[38;2;255;165;0m🗑️  Objects Are Cleaned! 🗑️\033[0m"
 
 fclean: clean
 		@$(RM) $(NAME)
-		@echo "Minishell Is Cleaned!"
+		@echo "\033[31m🗑️  Minishell Is Cleaned! 🗑️\033[0m"
 
 re: fclean all
 
