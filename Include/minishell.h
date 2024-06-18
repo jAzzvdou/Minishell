@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 13:58:14 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:11:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef enum type
 typedef struct s_node
 {
 	e_type		type;
-	char		*cmd;
+	char		*cmd;       //| MALLOCADO
 	char		**cmd_args; //| MALLOCADO
 	struct s_node	*next;
 	struct s_node	*prev;
@@ -71,10 +71,19 @@ typedef struct s_node
 typedef struct s_tokens
 {
 	int	size;
-	t_node	*first;
-	t_node	*last;
+	t_node	*first; //| MALLOCADO
+	t_node	*last;  //| MALLOCADO
 }	t_tokens;
-
+/*
+typedef struct s_tree
+{
+	e_type		type;
+	char		*cmd;
+	char		**cmd_args;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}	t_tree;
+*/
 typedef struct s_env
 {
 	int		declare_x;
@@ -90,6 +99,7 @@ typedef struct s_main
 	char		*old_pwd; //| MALLOCADO
 	t_env		*env;     //| MALLOCADO
 	t_tokens	*tokens;  //| MALLOCADO
+	//t_tree		*tree;
 }	t_main;
 
 //----------| ERRORS |----------//
@@ -115,7 +125,7 @@ void	start_pwd(t_main *main);
 //__________ echo __________
 void	echo_cmd(char **token);
 //__________ exit __________
-void	exit_cmd(char **token);
+void	exit_cmd(t_main *main, char **token);
 //__________ export __________
 void	export_cmd(t_main *main, char **token);
 t_env	*alphabetical_env(t_env *tmp);
@@ -143,6 +153,9 @@ int	is_there_heredoc(t_tokens *tokens);
 
 //----------| CLEANERS |----------//
 void	free_matrix(char ***matrix);
+void	free_env(t_env **env);
+void	free_tokens(t_tokens **tokens);
+void	free_everything(t_main *main);
 
 //----------| UTILS |----------//
 //__________ number __________

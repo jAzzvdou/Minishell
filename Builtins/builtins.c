@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:33 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:11:21 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	controller(t_main *main, char **token)
 {
 	if (!strcmp(token[0], "exit"))
-		exit_cmd(token);
+		exit_cmd(main, token);
 	else if (!strcmp(token[0], "env"))
 		env_cmd(main, token);
 	else if (!strcmp(token[0], "pwd"))
