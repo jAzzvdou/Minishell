@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 17:35:22 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:20:27 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ void	free_matrix(char ***matrix)
 	*matrix = NULL;
 }
 
-//| Fazer função para dar free em uma lista e deixar como NULL
-
-//| free(pwd);
-//| free(old_pwd);
-
 void	free_env(t_env **env)
 {
 	t_env	*aux;
@@ -45,6 +40,8 @@ void	free_env(t_env **env)
 		*env = (*env)->next;
 		free(aux->name);
 		aux->name = NULL;
+		free(aux->value);
+		aux->value = NULL;
 		free(aux->line);
 		aux->line = NULL;
 		free(aux);

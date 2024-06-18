@@ -25,7 +25,8 @@ SRCS	=	main.c                \
 		Utils/number.c        \
 		Utils/utils1.c        \
 		Utils/utils2.c        \
-		Utils/utils3.c
+		Utils/utils3.c        \
+		debug.c
 
 OBJDIR  =   Objects
 
@@ -53,7 +54,7 @@ $(OBJDIR)/%.o: %.c
 		@$(CC) $(CFLAGS) -c $< -o $@
 		$(eval COMPILED_SRCS=$(shell echo $$(($(COMPILED_SRCS)+1))))
 		$(eval COLOR_VALUE=$(shell echo $$((255*$(COMPILED_SRCS)/$(TOTAL_SRCS)))))
-		@echo -n "\033[38;2;$(COLOR_VALUE);$(COLOR_VALUE);$(COLOR_VALUE)mMinishell Is Ready!\033[0m\r"
+		@echo -n "\033[38;2;$(COLOR_VALUE);$(COLOR_VALUE);$(COLOR_VALUE)m  Minishell Is Ready!\033[0m\r"
 		@sleep 0.1
 
 clean:
