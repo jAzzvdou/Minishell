@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 19:21:46 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:22:03 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,6 @@ int	main(int argc, char **argv, char **envp)
 	start_env(&main, envp);
 	start_pwd(&main);
 	start_signals();
-	debug();
-	debug();
-	debug();
-	debug();
-	debug();
 	while (1)
 		parser(&main, tokenizator(user_input()));
 	return (0);

@@ -1,32 +1,32 @@
 NAME	=	minishell
 
-SRCS	=	main.c                \
-		Signals/signals.c     \
-		Tokens/tokenizator.c  \
-		Tokens/check_tokens.c \
-		Builtins/cd.c         \
-		Builtins/cd_utils.c   \
-		Builtins/builtins.c   \
-		Builtins/env.c        \
-		Builtins/pwd.c        \
-		Builtins/exit.c       \
+SRCS	=	main.c                  \
+		debug.c                 \
+		Signals/signals.c       \
+		Tokens/tokenizator.c    \
+		Tokens/check_tokens.c   \
+		Builtins/cd.c           \
+		Builtins/cd_utils.c     \
+		Builtins/builtins.c     \
+		Builtins/env.c          \
+		Builtins/pwd.c          \
+		Builtins/exit.c         \
 		Builtins/export_utils.c \
-		Builtins/export.c     \
-		Builtins/echo.c       \
-		Builtins/unset.c      \
-		Errors/errors.c       \
-		Heredoc/heredoc.c     \
-		Cleaners/cleaners.c   \
-		Parser/space.c        \
-		Parser/quote.c        \
-		Parser/parenthesis.c  \
-		Parser/spliter.c      \
-		Parser/split_input.c  \
-		Utils/number.c        \
-		Utils/utils1.c        \
-		Utils/utils2.c        \
-		Utils/utils3.c        \
-		debug.c
+		Builtins/export.c       \
+		Builtins/echo.c         \
+		Builtins/unset.c        \
+		Errors/errors.c         \
+		Heredoc/heredoc.c       \
+		Cleaners/cleaners.c     \
+		Parser/space.c          \
+		Parser/quote.c          \
+		Parser/parenthesis.c    \
+		Parser/spliter.c        \
+		Parser/split_input.c    \
+		Utils/number.c          \
+		Utils/utils1.c          \
+		Utils/utils2.c          \
+		Utils/utils3.c
 
 OBJDIR  =   Objects
 

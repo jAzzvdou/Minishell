@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 19:20:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:30:04 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ void	free_nodes(t_node *node)
 	}
 }
 
-//| Tem que passar o endereço do ponteiro para poder dar free nele.
 void	free_tokens(t_tokens **tokens)
 {
 	free_nodes((*tokens)->first);
+	(*tokens)->first = NULL;
 	free_nodes((*tokens)->last);
+	(*tokens)->last = NULL;
 	free(*tokens);
 	*tokens = NULL;
 }
