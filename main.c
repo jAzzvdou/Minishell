@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/17 23:02:08 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:08:36 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*user_input(void)
 }
 
 //----------| COMEÇO DA ÁRVORE |----------//
-int	split_node(t_tree *tree, t_tokens *tokens, t_node *node)
+/*int	split_node(t_tree *tree, t_tokens *tokens, t_node *node)
 {
 	(void)tree;
 	(void)tokens;
@@ -51,21 +51,21 @@ t_tree	build_tree(t_tokens *tokens)
 	tree = (t_tree){0};
 	make_roots(&tree, tokens);
 	return (tree);
-}
+}*/
 //----------|---------------|----------//
 
 void	parser(t_main *main, t_tokens *tokens)
 {
-	t_tree	*tree;
+	//t_tree	*tree;
 
-	tree = (t_tree){0};
+	//tree = (t_tree){0};
 	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
 	if (!is_there_heredoc(main->tokens))
 		return ;
 	controller(main, main->tokens->first->cmd_args);
-	tree = build_tree(main->tokens);
+	//tree = build_tree(main->tokens);
 	//| Executar a árvore.
 }
 

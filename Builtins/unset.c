@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/17 09:44:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:04:28 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,19 @@ void	unset_cmd(t_main *main, char **token)
 
 	if (!token[1])
 		return ;
-
 	i = 1;
 	while (token[i])
 	{
 		temp = main->env;
 		prev = NULL;
-
 		while (temp)
 		{
 			if (ft_strcmp(temp->name, token[i]) == 0)
 			{
-				// Remove o nó da lista
 				if (prev)
 					prev->next = temp->next;
 				else
 					main->env = temp->next;
-
-				// Libera a memória do nó removido
 				free_env_node(temp);
 				break;
 			}

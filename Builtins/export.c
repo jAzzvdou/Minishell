@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/17 11:36:08 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:29:54 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void    add_without_equal(t_env **env, char *line, int declare_x)
         }
 }
 
-void	export_cmd(t_main *main, char **token)
+/*void	export_cmd(t_main *main, char **token)
 {
 	int		i;
 	char	*name;
@@ -134,5 +134,25 @@ void	export_cmd(t_main *main, char **token)
 			add_without_equal(&main->env, token[i], 0);
 		i++;
 	}
+}*/
+
+void export_cmd(t_main *main, char **token)
+{
+    int i = 1;
+
+    if (!token[1]) {
+        handle_no_args(main->env);
+        return;
+    }
+
+    while (token[i]) {
+        if (!is_valid_identifier(token[i])) {
+            printf("minishell: export: '%s': not a valid identifier\n", token[i]);
+            i++;
+            continue;
+        }
+        handle_equal_sign(main, token[i]);
+        i++;
+    }
 }
 

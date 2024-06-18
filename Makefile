@@ -5,10 +5,12 @@ SRCS	=	main.c                \
 		Tokens/tokenizator.c  \
 		Tokens/check_tokens.c \
 		Builtins/cd.c         \
+		Builtins/cd_utils.c   \
 		Builtins/builtins.c   \
 		Builtins/env.c        \
 		Builtins/pwd.c        \
 		Builtins/exit.c       \
+		Builtins/export_utils.c \
 		Builtins/export.c     \
 		Builtins/echo.c       \
 		Builtins/unset.c      \

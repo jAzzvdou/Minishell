@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/17 10:58:02 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:58:14 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	controller(t_main *main, char **token);
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
 void	add_env(t_env **env, char *line,int declare_x);
+void	update_env(t_env **env, const char *name, const char *value);
+char	*env_value(t_env *env, const char *name);
 //__________ pwd __________
 void	start_pwd(t_main *main);
 //__________ echo __________
@@ -116,10 +118,22 @@ void	echo_cmd(char **token);
 void	exit_cmd(char **token);
 //__________ export __________
 void	export_cmd(t_main *main, char **token);
+t_env	*alphabetical_env(t_env *tmp);
+void	add_without_equal(t_env **env, char *line, int declare_x);
+void	handle_no_args(t_env *env);
+int		is_valid_identifier(char *token);
+void	update_existing_env_var(t_env *env_var, char *equals_sign, char *token);
+void	add_new_env_var(t_main *main, char *token, char *equals_sign);
+void	handle_equal_sign(t_main *main, char *token);
 //__________ unset _________
 void	unset_cmd(t_main *main, char **token);
 //__________ cd __________
 int	cd_cmd(t_main *main, char **token);
+int	handle_home(t_main *main);
+int handle_tilde(t_main *main, char *token);
+int handle_oldpwd(t_main *main);
+int handle_path(char *path);
+void update_pwd_oldpwd(t_main *main);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
