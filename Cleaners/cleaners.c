@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 17:13:23 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:35:22 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ void	free_nodes(t_node *node)
 		free(aux);
 		aux = NULL;
 	}
-	*node = NULL;
 }
-
 
 //| Tem que passar o endereço do ponteiro para poder dar free nele.
 void	free_tokens(t_tokens **tokens)

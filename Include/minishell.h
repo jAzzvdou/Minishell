@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 17:11:39 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:23:16 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,4 +194,5 @@ char	**split_input(char *input);
 
 //| TESTES
 void	print_tokens(t_tokens *tokens);
+void	debug(void);
 #endif //| MINISHELL_H
