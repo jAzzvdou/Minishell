@@ -6,26 +6,26 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 20:30:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:12:12 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	free_matrix(char ***matrix)
+void	free_matrix(char **matrix)
 {
 	int	i;
 
-	if (!*matrix)
+	if (!matrix)
 		return ;
 	i = -1;
-	while ((*matrix)[++i])
+	while (matrix[++i])
 	{
-		free((*matrix)[i]);
-		(*matrix)[i] = NULL;
+		free(matrix[i]);
+		matrix[i] = NULL;
 	}
-	free(*matrix);
-	*matrix = NULL;
+	free(matrix);
+	matrix = NULL;
 }
 
 void	free_env(t_env **env)
@@ -62,7 +62,7 @@ void	free_nodes(t_node *node)
 		node = node->next;
 		free(aux->cmd);
 		aux->cmd = NULL;
-		free_matrix(&aux->cmd_args);
+		free_matrix(aux->cmd_args);
 		free(aux);
 		aux = NULL;
 	}
@@ -85,5 +85,5 @@ void	free_everything(t_main *main)
 	free(main->old_pwd);
 	main->old_pwd = NULL;
 	free_env(&main->env);
-	free_tokens(&main->tokens);
+	//free_tokens(&main->tokens);
 }

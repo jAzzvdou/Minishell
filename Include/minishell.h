@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/18 20:25:20 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:14:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_tokens	*tokenizator(char *user_input);
 int	is_there_heredoc(t_tokens *tokens);
 
 //----------| CLEANERS |----------//
-void	free_matrix(char ***matrix);
+void	free_matrix(char **matrix);
 void	free_env(t_env **env);
 void	free_tokens(t_tokens **tokens);
 void	free_everything(t_main *main);
