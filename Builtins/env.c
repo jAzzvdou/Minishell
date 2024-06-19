@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:26 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/18 19:19:44 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:08:46 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	add_env(t_env **env, char *line, int declare_x)
 	t_env *new;
 	t_env *tmp;
 
-	if(!line)
+	if (!line)
 		return ;
-
 	new = (t_env *)malloc(sizeof(t_env));
 	new->declare_x = declare_x;
 	new->name = ft_strndup(line, strchr(line, '=') - line);
@@ -54,7 +53,7 @@ void	env_cmd(t_main *main, char **token)
 	i = 0;
 	while (token[i])
 	{
-		if (!strcmp(token[i], "env"))
+		if (!ft_strcmp(token[i], "env"))
 			i++;
 		else
 		{
