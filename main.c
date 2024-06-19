@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/19 14:29:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:48:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	controller(main, main->tokens->first->cmd_args);
 	//tree = build_tree(main->tokens);
 	//| Executar a árvore.
-	//free_everything(main);
+	free_tokens(&main->tokens);
 }
 
 int	main(int argc, char **argv, char **envp)
