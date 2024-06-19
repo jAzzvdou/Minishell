@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:11:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:29:54 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    add_without_equal(t_env **env, char *line, int declare_x)
         t_env *new;
         t_env *tmp;
 
-        if (!line)
+        if(!line)
                 return ;
         new = (t_env *)malloc(sizeof(t_env));
         new->declare_x = declare_x;
@@ -72,25 +72,87 @@ void    add_without_equal(t_env **env, char *line, int declare_x)
         }
 }
 
-void	export_cmd(t_main *main, char **token)
+/*void	export_cmd(t_main *main, char **token)
 {
-	int	i;
+	int		i;
+	char	*name;
+	char	*equals_sign;
+	t_env 	*tmp;
+	t_env 	*env_var;
 
+	tmp = main->env;
 	if (!token[1])
 	{
-		handle_no_args(main->env);
-		return ;
+		t_env *sorted_env = alphabetical_env(tmp);
+		while (sorted_env)
+		{
+			printf("declare -x %s\n", sorted_env->line);
+			sorted_env = sorted_env->next;
+		}
+		return;
 	}
 	i = 1;
 	while (token[i])
 	{
-		if (!is_valid_identifier(token[i]))
+		if (!(ft_isalpha(token[i][0])))
 		{
 			printf("minishell: export: '%s': not a valid identifier\n", token[i]);
 			i++;
-			continue ;
+			continue;
 		}
-		handle_equal_sign(main, token[i]);
+		equals_sign = ft_strchr(token[i], '=');
+		if (equals_sign)
+		{
+			name = ft_strndup(token[i], equals_sign - token[i]);
+			env_var = tmp;
+			while (env_var)
+			{
+				if (strcmp(env_var->name, name) == 0)
+				{
+					free(env_var->value);
+					env_var->value = ft_strdup(equals_sign + 1);
+					free(env_var->line);
+					env_var->line = ft_strdup(token[i]);
+					free(name);
+					break;
+				}
+				env_var = env_var->next;
+			}
+			if (!env_var)
+			{
+				if (*(equals_sign + 1) == '\0')
+				{
+					char *empty_value_line = ft_strjoin(token[i], "\"\"");
+					add_env(&main->env, empty_value_line, 1);
+					free(empty_value_line);
+				}
+				else
+					add_env(&main->env, token[i], 1);
+			}
+		}
+		else
+			add_without_equal(&main->env, token[i], 0);
 		i++;
 	}
+}*/
+
+void export_cmd(t_main *main, char **token)
+{
+    int i = 1;
+
+    if (!token[1]) {
+        handle_no_args(main->env);
+        return;
+    }
+
+    while (token[i]) {
+        if (!is_valid_identifier(token[i])) {
+            printf("minishell: export: '%s': not a valid identifier\n", token[i]);
+            i++;
+            continue;
+        }
+        handle_equal_sign(main, token[i]);
+        i++;
+    }
 }
+

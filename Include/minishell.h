@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/19 00:08:02 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:14:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef enum type
 typedef struct s_node
 {
 	e_type		type;
-	char		*cmd;       //| MALLOCADO (JA DEI FREE)
-	char		**cmd_args; //| MALLOCADO (JA DEI FREE)
+	char		*cmd;       //| MALLOCADO
+	char		**cmd_args; //| MALLOCADO
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -71,8 +71,8 @@ typedef struct s_node
 typedef struct s_tokens
 {
 	int	size;
-	t_node	*first; //| MALLOCADO (JA DEI FREE)
-	t_node	*last;  //| MALLOCADO (JA DEI FREE)
+	t_node	*first; //| MALLOCADO
+	t_node	*last;  //| MALLOCADO
 }	t_tokens;
 /*
 typedef struct s_tree
@@ -87,18 +87,18 @@ typedef struct s_tree
 typedef struct s_env
 {
 	int		declare_x;
-	char		*name;  //| MALLOCADO (JA DEI FREE)
-	char		*value; //| MALLOCADO (JA DEI FREE)
-	char		*line;  //| MALLOCADO (JA DEI FREE)
+	char		*name;  //| MALLOCADO
+	char		*value; //| MALLOCADO
+	char		*line;  //| MALLOCADO
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_main
 {
-	char		*pwd;     //| MALLOCADO (JA DEI FREE)
-	char		*old_pwd; //| MALLOCADO (JA DEI FREE)
-	t_env		*env;     //| MALLOCADO (JA DEI FREE)
-	t_tokens	*tokens;  //| MALLOCADO (JA DEI FREE)
+	char		*pwd;     //| MALLOCADO
+	char		*old_pwd; //| MALLOCADO
+	t_env		*env;     //| MALLOCADO
+	t_tokens	*tokens;  //| MALLOCADO
 	//t_tree		*tree;
 }	t_main;
 
@@ -118,8 +118,8 @@ void	controller(t_main *main, char **token);
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
 void	add_env(t_env **env, char *line,int declare_x);
-void	update_env(t_env **env, char *name, char *value);
-char	*env_value(t_env *env, char *name);
+void	update_env(t_env **env, const char *name, const char *value);
+char	*env_value(t_env *env, const char *name);
 //__________ pwd __________
 void	start_pwd(t_main *main);
 //__________ echo __________

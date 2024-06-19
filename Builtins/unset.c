@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:15:49 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:04:28 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	free_env_node(t_env *node)
 
 void	unset_cmd(t_main *main, char **token)
 {
-	int		i;
 	t_env	*temp;
 	t_env	*prev;
+	int		i;
 
 	if (!token[1])
 		return ;
@@ -42,7 +42,7 @@ void	unset_cmd(t_main *main, char **token)
 		prev = NULL;
 		while (temp)
 		{
-			if (!ft_strcmp(temp->name, token[i]))
+			if (ft_strcmp(temp->name, token[i]) == 0)
 			{
 				if (prev)
 					prev->next = temp->next;
