@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/18 23:18:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:59:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_tokens	*tokenizator(char *user_input)
 		return (error_closed());
 	tokens = start_tokens();
 	splited = split_input(user_input);
+	free(user_input);
 	if (!splited)
 	{
 		printf(RED"Error!\n"RESET);
