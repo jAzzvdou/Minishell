@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:05:19 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:05:06 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:17:21 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int	handle_tilde(t_main *main, char *token)
 	{
 		perror("minishell: cd");
 		free(new_path);
+		new_path = NULL;
 		return (1);
 	}
 	free(new_path);
+	new_path = NULL;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:41:22 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:06:39 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:21:03 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@ char	*free_join(char *s1, char *s2)
 	char	*tmp;
 
 	tmp = ft_strjoin(s1, s2);
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
-	if (s2)
-	{
-		free(s2);
-		s2 = NULL;
-	}
+	free(s1);
 	return (tmp);
 }
 
