@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/19 14:48:48 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:02:16 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	start_signals();
 	while (1)
 		parser(&main, tokenizator(user_input()));
+	rl_clear_history();
 	return (0);
 }
 

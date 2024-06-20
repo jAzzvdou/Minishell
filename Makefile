@@ -28,7 +28,7 @@ SRCS	=	main.c                  \
 		Utils/utils2.c          \
 		Utils/utils3.c
 
-OBJDIR  =   Objects
+OBJDIR	=	Objects
 
 OBJS	=	$(SRCS:%.c=$(OBJDIR)/%.o)
 
@@ -40,8 +40,9 @@ RLFLAG	=	-lreadline
 
 RM	=	rm -rf
 
-TOTAL_SRCS = $(words $(SRCS))
-COMPILED_SRCS = 0
+TOTAL_SRCS	=	$(words $(SRCS))
+
+COMPILED_SRCS	=	0
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/19 14:47:01 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:02:28 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	free_everything(t_main *main)
 	main->old_pwd = NULL;
 	free_env(&main->env);
 	free_tokens(&main->tokens);
+	rl_clear_history();
 }
