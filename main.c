@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 15:15:54 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:39:13 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,36 +23,6 @@ char	*user_input(void)
 		add_history(input);
 	return (input);
 }
-
-//----------| COMEÇO DA ÁRVORE |----------//
-/*int	split_node(t_tree *tree, t_tokens *tokens, t_node *node)
-{
-	(void)tree;
-	(void)tokens;
-	(void)node;
-}
-
-void	make_roots(t_tree *tree, t_tokens *tokens)
-{
-	if (!split_node(tree, tokens, is_and_or(tokens))
-		return ;
-	if (!split_node(tree, tokens, is_pipe(tokens)))
-		return ;
-	if (!split_node(tree, tokens, is_edir(tokens)))
-		return ;
-	tree->type = EXE;
-	tree->execution = tokens;
-}
-
-t_tree	build_tree(t_tokens *tokens)
-{
-	t_tree	tree;
-
-	tree = (t_tree){0};
-	make_roots(&tree, tokens);
-	return (tree);
-}*/
-//----------|---------------|----------//
 
 void	parser(t_main *main, t_tokens *tokens)
 {

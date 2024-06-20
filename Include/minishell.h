@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/19 00:08:02 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:42:56 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ typedef struct s_tokens
 typedef struct s_tree
 {
 	e_type		type;
-	char		*cmd;
-	char		**cmd_args;
+	int		fdin;
+	int		fdout;
+	t_tokens	*exe;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -140,10 +141,10 @@ void	unset_cmd(t_main *main, char **token);
 //__________ cd __________
 int	cd_cmd(t_main *main, char **token);
 int	handle_home(t_main *main);
-int handle_tilde(t_main *main, char *token);
-int handle_oldpwd(t_main *main);
-int handle_path(char *path);
-void update_pwd_oldpwd(t_main *main);
+int	handle_tilde(t_main *main, char *token);
+int	handle_oldpwd(t_main *main);
+int	handle_path(char *path);
+void	update_pwd_oldpwd(t_main *main);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
