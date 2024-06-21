@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/18 17:11:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:21:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	controller(t_main *main, char **token)
 	else if (!strcmp(token[0], "unset"))
 		unset_cmd(main,token);
 	else if (!strcmp(token[0], "cd"))
-		cd_cmd(main,token);
+		cd_cmd(main, token);
 	else if (!strcmp(token[0], "clear")) //| TIRAR FUTURAMENTE
 		printf(CLEAR);
+	free_matrix(token);
 }

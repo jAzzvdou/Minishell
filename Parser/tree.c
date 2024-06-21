@@ -6,19 +6,37 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:39 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 19:49:51 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:42:30 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	split_tokens(t_tree *tree, t_tokens *tokens, t_node *node)
+t_tokens	*split_tokens(t_tokens *tokens, t_node *node)
+{
+	t_node		*tmp;
+	t_tokens	*right;
+
+	if (!tokens || !node)
+		return (NULL);
+	right = start_tokens();
+	tmp = tokens->last;
+	while (tmp && tmp != node)
+	{
+		//| Adicionar no começo e tirar do final.
+		tmp = tmp->prev;
+	}
+	return (right);
+}
+
+//| Estamos lendo os tokens de trás para frente.
+int	make_roots(t_tree *tree, t_tokens *tokens, t_node *node)
 {
 	t_tokens	*right; // vai ser toda a parte da direita do node.
 
 	if (!tree || !tokens || !node)
 		return (0);
-	right = ; //| Função que vai splitar o tokens em esquerda e direita.
+	right = split_tokens(tokens, node); //| Função que vai splitar o tokens em esquerda e direita.
 		  //| A função vai retornar a parte da direita do node.
 	tree->type = tokens->last->type; //| O tipo do node vai ser o tipo do último token.
 					 //| (AND, OR, PIPE, REDIR ou CMD)
@@ -26,31 +44,63 @@ int	split_tokens(t_tree *tree, t_tokens *tokens, t_node *node)
 	//| Se o tipo do tree->type for um REDIR, a gente tem que fazer um tratamento especial.
 	tree->left = build_tree(tokens);
 	tree->right = build_tree(right);
+	return (1);
 }
 
-t_node	*is_type(t_node *last, e_type type1, e_type type2)
+//| Procurar por ANDs e ORs.
+t_node	*is_type1(t_node *last)
 {
 	t_node	*tmp;
 
 	tmp = last;
-	if (!type2)
-		type2 = type1;
 	while (tmp)
 	{
-		if (tmp->type == type1 || tmp->type == type2)
+		if (tmp->type == AND || tmp->type == OR)
 			return (tmp);
 		tmp = tmp->prev;
 	}
 	return (NULL);
 }
 
-void	make_roots(t_tree *tree, t_tokens *tokens)
+//| Procurar por PIPEs.
+t_node  *is_type2(t_node *last)
 {
-	if (split_tokens(tree, tokens, is_type(tokens->last, AND, OR)))
+        t_node  *tmp;
+
+        tmp = last;
+        while (tmp)
+        {
+                if (tmp->type == PIPE)
+                        return (tmp);
+                tmp = tmp->prev;
+        }
+        return (NULL);
+}
+
+//| Procurar por REDIRs.
+t_node  *is_type3(t_node *last)
+{
+        t_node  *tmp;
+
+        tmp = last;
+        while (tmp)
+        {
+                if (tmp->type == INPUT || tmp->type == OUTPUT
+			|| tmp->type == APPEND || tmp->type == HEREDOC)
+                        return (tmp);
+                tmp = tmp->prev;
+        }
+        return (NULL);
+}
+
+//| Função que vai criar os nodes do tree com base na prioridade dos tokens.
+void	search_priority(t_tree *tree, t_tokens *tokens)
+{
+	if (make_roots(tree, tokens, is_type1(tokens->last)))
 		return ;
-	if (split_tokens(tree, tokens, is_type(tokens->last, PIPE, NULL)))
+	if (make_roots(tree, tokens, is_type2(tokens->last)))
 		return ;
-	if (split_tokens(tree, tokens, is_type(tokens->last, REDIR, NULL)))
+	if (make_roots(tree, tokens, is_type3(tokens->last)))
 		return ;
 	tree->type = CMD;
 	tree->exe = tokens;
@@ -73,6 +123,6 @@ t_tree	build_tree(t_tokens *tokens)
 	tree = start_tree();
 	if (!tree)
 		return (NULL);
-	make_roots(tree, tokens);
+	search_priority(tree, tokens);
 	return (tree);
 }

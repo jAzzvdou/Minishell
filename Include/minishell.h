@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 18:42:56 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:38:28 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_node
 {
 	e_type		type;
 	char		*cmd;       //| MALLOCADO (JA DEI FREE)
-	char		**cmd_args; //| MALLOCADO (JA DEI FREE)
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -148,6 +147,7 @@ void	update_pwd_oldpwd(t_main *main);
 //----------| FUNCTIONS |----------//
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
+t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/18 17:11:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:21:03 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exit_cmd(t_main *main, char **token)
 		error_exit(token[1], 2);
 	else
 		printf(ORANGE"exit\n"RESET);
+	free_matrix(token);
 	free_everything(main);
 	exit(1);
 }

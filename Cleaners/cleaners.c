@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 15:02:28 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:51:21 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	free_nodes(t_node *node)
 		node = node->next;
 		free(aux->cmd);
 		aux->cmd = NULL;
-		free_matrix(aux->cmd_args);
 		free(aux);
 		aux = NULL;
 	}

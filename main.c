@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 15:39:13 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:14:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,32 @@ char	*user_input(void)
 	return (input);
 }
 
+char	**token_to_args(t_node *first)
+{
+	int		i;
+	char	**args;
+	t_node	*node;
+
+	node = first;
+	i = 0;
+	while (node)
+	{
+		i++;
+		node = node->next;
+	}
+	args = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	node = first;
+	while (node)
+	{
+		args[i] = ft_strdup(node->cmd);
+		i++;
+		node = node->next;
+	}
+	args[i] = NULL;
+	return (args);
+}
+
 void	parser(t_main *main, t_tokens *tokens)
 {
 	//t_tree	*tree;
@@ -32,9 +58,9 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
-	if (!is_there_heredoc(main->tokens))
-		return ;
-	controller(main, main->tokens->first->cmd_args);
+	//if (!is_there_heredoc(main->tokens))
+	//	return ;
+	controller(main, token_to_args(main->tokens->first));
 	//tree = build_tree(main->tokens);
 	//| Executar a árvore.
 	free_tokens(&main->tokens);
