@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:42 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/17 09:45:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:17:07 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ int	verify_parenthesis(char *input, int i)
 			open++;
 		else if (input[i] == ')')
 			close++;
+		if ((input[i] == '\'' || input[i] == '\"')
+			&& verify_quote(input, i))
+			i += is_quote(input, i) - i;
 		i++;
 	}
 	if (open == close)
 		return (1);
-	return (0);
+	return (debug(), 0);
 }
 
 int	skip_parenthesis(char *input, int i)
@@ -68,6 +71,9 @@ int	skip_parenthesis(char *input, int i)
 			open++;
 		else if (input[i] == ')')
 			close++;
+		if ((input[i] == '\'' || input[i] == '\"')
+			&& verify_quote(input, i))
+			i += is_quote(input, i);
 		i++;
 		if (open == close)
 			break ;
