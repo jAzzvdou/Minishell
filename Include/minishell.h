@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/21 00:38:28 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:14:43 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_tokens
 	t_node	*first; //| MALLOCADO (JA DEI FREE)
 	t_node	*last;  //| MALLOCADO (JA DEI FREE)
 }	t_tokens;
-/*
+
 typedef struct s_tree
 {
 	e_type		type;
@@ -83,7 +83,7 @@ typedef struct s_tree
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
-*/
+
 typedef struct s_env
 {
 	int		declare_x;
@@ -99,7 +99,7 @@ typedef struct s_main
 	char		*old_pwd; //| MALLOCADO (JA DEI FREE)
 	t_env		*env;     //| MALLOCADO (JA DEI FREE)
 	t_tokens	*tokens;  //| MALLOCADO (JA DEI FREE)
-	//t_tree		*tree;
+	t_tree		*tree;
 }	t_main;
 
 //----------| ERRORS |----------//
@@ -149,6 +149,7 @@ void	update_pwd_oldpwd(t_main *main);
 int	check_tokens(t_tokens *tokens);
 t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
+t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
 

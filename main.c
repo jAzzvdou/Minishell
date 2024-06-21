@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/21 00:14:37 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:28:10 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,21 @@ char	**token_to_args(t_node *first)
 
 void	parser(t_main *main, t_tokens *tokens)
 {
-	//t_tree	*tree;
+	t_tree	*tree;
 
-	//tree = (t_tree){0};
 	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
-	//if (!is_there_heredoc(main->tokens))
-	//	return ;
+	if (!is_there_heredoc(main->tokens))
+		return ;
+	tree = build_tree(main->tokens);
+	if (!tree)
+		return ;
+	main->tree = tree; //| Mudar depois o main->tokens->first para mais->tree->exe.
+	//exec(main->tree); //| Fazer função para executar a árvore.
 	controller(main, token_to_args(main->tokens->first));
-	//tree = build_tree(main->tokens);
-	//| Executar a árvore.
 	free_tokens(&main->tokens);
+	//| Faltar dar free na árvore.
 }
 
 int	main(int argc, char **argv, char **envp)

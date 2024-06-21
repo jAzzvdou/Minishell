@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/21 12:18:53 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:09:13 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	print_tokens(t_tokens *tokens)
 {
 	t_node	*nodes;
 
+	if (!tokens)
+		return ;
 	nodes = tokens->first;
 	while (nodes)
 	{

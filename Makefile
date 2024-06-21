@@ -23,6 +23,7 @@ SRCS	=	main.c                  \
 		Parser/parenthesis.c    \
 		Parser/spliter.c        \
 		Parser/split_input.c    \
+		Parser/tree.c           \
 		Utils/number.c          \
 		Utils/utils1.c          \
 		Utils/utils2.c          \
@@ -34,7 +35,7 @@ OBJS	=	$(SRCS:%.c=$(OBJDIR)/%.o)
 
 CC	=	cc
 
-CFLAGS	=	-Wall -Werror -Wextra
+CFLAGS	=	-Wall -Werror -Wextra -ggdb3
 
 RLFLAG	=	-lreadline
 
