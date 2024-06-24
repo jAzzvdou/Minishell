@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:11:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:22:29 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	export_cmd(t_main *main, char **token)
 	{
 		if (!is_valid_identifier(token[i]))
 		{
-			printf("minishell: export: '%s': not a valid identifier\n", token[i]);
+			err(GREY"minishell: export: '");
+			err(token[i]);
+			err("': not a valid identifier\n"RESET);
 			i++;
 			continue ;
 		}

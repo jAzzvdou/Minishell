@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/23 23:50:32 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:24:17 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/history.h>
 
 //----------| DEFINES |----------//
+//__________ COLORS __________
 # define RED	"\001\033[38;2;255;0;0m\002"
 # define GREEN	"\001\033[38;2;0;255;0m\002"
 # define BLUE	"\001\033[38;2;0;0;255m\002"
@@ -42,9 +43,10 @@
 # define CYAN	"\001\033[38;2;0;255;255m\002"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
-# define PROMPT \
-	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
-
+//__________ PROMPT __________
+# define PART1	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"
+# define PART2	LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
+# define PROMPT PART1""PART2
 //----------| STRUCTS |----------//
 typedef enum type
 {
@@ -103,6 +105,7 @@ typedef struct s_main
 }	t_main;
 
 //----------| ERRORS |----------//
+void	err(char *s);
 int	error_argc(void);
 int	error_syntax(char *cmd, int option);
 void	error_env(char *cmd);

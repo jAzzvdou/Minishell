@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:41:22 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/20 15:53:36 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:19:44 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	update_env(t_env **env, char *name, char *value)
 int	cd_cmd(t_main *main, char **token) 
 {
 	if (token[1] && token[2])
-		return (printf("cd: too many arguments\n"), 1);
+		return (err(GREY"cd: too many arguments\n"RESET), 1);
 	if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))
 	{
 		if (handle_home(main)) 

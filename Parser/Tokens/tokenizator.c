@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 00:05:09 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:59:29 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,5 @@ t_tokens	*tokenizator(char *user_input)
 		return (NULL);
 	}
 	tokens = build_tokens(split);
-	//print_tokens(tokens);
 	return (tokens);
 }

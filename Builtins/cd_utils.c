@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:05:19 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/20 15:17:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:21:12 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_home(t_main *main)
 	path = env_value(main->env, "HOME");
 	if (!path)
 	{
-		printf("cd: HOME is not set\n");
+		err(GREY"cd: HOME is not set\n"RESET);
 		return (1);
 	}
 	if (chdir(path))
@@ -39,19 +39,19 @@ int	handle_tilde(t_main *main, char *token)
 	path = env_value(main->env, "HOME");
 	if (!path)
 	{
-		printf("cd: HOME is not set\n");
+		err(GREY"cd: HOME is not set\n"RESET);
 		return (1);
 	}
 	new_path = ft_strjoin(path, (token + 1)); //| Malloc
 	if (!new_path)
 	{
-		printf("cd: memory allocation error\n");
+		err(GREY"cd: memory allocation error\n"RESET);
 		return (1);
 	}
 	ret = chdir(new_path);
 	if (ret)
 	{
-		perror("minishell: cd");
+		err(GREY"minishell: cd"RESET);
 		free(new_path);
 		new_path = NULL;
 		return (1);
@@ -68,12 +68,12 @@ int	handle_oldpwd(t_main *main)
 	path = env_value(main->env, "OLDPWD");
 	if (!path)
 	{
-		printf("cd: OLDPWD is not set\n");
+		err(GREY"cd: OLDPWD is not set\n"RESET);
 		return (1);
 	}
 	if (chdir(path))
 	{
-		perror("minishell: cd");
+		err(GREY"minishell: cd"RESET);
 		return (1);
 	}
 	printf("%s\n", path);
@@ -84,7 +84,7 @@ int	handle_path(char *path)
 {
 	if (chdir(path))
 	{
-		perror("minishell: cd");
+		err(GREY"minishell: cd"RESET);
 		return (1);
 	}
 	return (0);
@@ -96,7 +96,7 @@ void	update_pwd_oldpwd(t_main *main)
 
 	if (!getcwd(new_pwd, sizeof(new_pwd)))
 	{
-		perror("getcwd");
+		err(GREY"getcwd"RESET);
 		return ;
 	}
 	free(main->old_pwd);

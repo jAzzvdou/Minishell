@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 00:02:14 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:15:54 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tree)
 		return ;
 	main->tree = tree;
-	print_tree(main->tree, 0);
+	print_tree(main->tree, 0); //| Printar a árvore.
 	//| exec(main->tree); //| Fazer a execução da árvore.
 	controller(main, token_to_args(main->tokens->first));
 	free_tokens(&main->tokens);
