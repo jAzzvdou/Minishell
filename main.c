@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/23 23:52:18 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 00:02:14 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parser(t_main *main, t_tokens *tokens)
 		return ;
 	main->tree = tree;
 	print_tree(main->tree, 0);
-	//| Exec(main->tree); //| Fazer a execução da árvore.
+	//| exec(main->tree); //| Fazer a execução da árvore.
 	controller(main, token_to_args(main->tokens->first));
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
@@ -63,46 +63,26 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /*
-Example: echo a || echo b && echo c | cat -e > txt.txt
-	Na árvore: 1: '&&' ou '||', depois '|' e, por fim '<', '<<', '>>' e '>'.
+exec functions:
 
-- Procurar nos nodes se tem '&&' ou '||', de trás para frente.
-	Se tiver, tudo depois do '&&' ou '||', fica do lado direito da árvore
-		e tudo que estiver antes fica do lado esquerda.
+void	exec(t_main *main, t_tree *tree)
 {
-	Lado Esquerdo: echo a || echo b
+	if (tree->type == AND || tree->type == OR)
+		//| LIDAR COM ISSO;
+	else if (tree->type == PIPE)
+		//| LIDAR COM ISSO (FAZER A PIPEX);
+	else if (tree->type == REDIRECT)
+		//| LIDAR COM ISSO (FAZER OS REDIRECTS);
+	else if (tree->left)
+		exec(main, tree->left);
+	else if (tree->right)
+		exec(main, tree->right);
+	else if (tree->exe && tree->exe->first)
 	{
-		Lado Esquerdo: echo a
-		Bifurcação: ||
-		Lado Direito: echo b
+		if (tree->exe->first->type == BLOCK)
+			//| LIDAR COM ISSO;
+		else
+			//| controller(main, token_to_args(tree->exe));
 	}
-	Bifurcação: &&
-	Lado Direito: echo c | cat -e > txt.txt
 }
-
-- Procurar se tem '|' nos nodes já bifurcados.
-	Node 1: echo a
-	Node 2: ||
-	Node 3: echo b
-	Não tem '|'.
-
-	Do outro lado tem '|', então bifurcaremos.
-	echo b | cat -e > txt.txt
-	Logo:
-	{
-		Lado Esquerdo: echo b
-		Bifurcação: '|'
-		Lado Direito: cat -e > txt.txt
-	}
-
-- Por último, vamos procurar os REDIRs, são eles '<', '<<', '>>' e '>'.
-	De um lado não temos REDIRs, mas do outro:
-	cat -e > txt.txt
-	Logo:
-	{
-		Lado Esquerdo: cat -e
-		Bifurcação: >
-		Lado Direito: txt.txt
-	}
-
 */
