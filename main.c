@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/21 17:28:10 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:41:02 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,6 @@ char	*user_input(void)
 	return (input);
 }
 
-char	**token_to_args(t_node *first)
-{
-	int		i;
-	char	**args;
-	t_node	*node;
-
-	node = first;
-	i = 0;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	args = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	node = first;
-	while (node)
-	{
-		args[i] = ft_strdup(node->cmd);
-		i++;
-		node = node->next;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
 void	parser(t_main *main, t_tokens *tokens)
 {
 	t_tree	*tree;
@@ -62,8 +36,9 @@ void	parser(t_main *main, t_tokens *tokens)
 	tree = build_tree(main->tokens);
 	if (!tree)
 		return ;
-	main->tree = tree; //| Mudar depois o main->tokens->first para mais->tree->exe.
-	//exec(main->tree); //| Fazer função para executar a árvore.
+	main->tree = tree;
+	print_tree(main->tree, 0);
+	//| Exec(main->tree); //| Fazer a execução da árvore.
 	controller(main, token_to_args(main->tokens->first));
 	free_tokens(&main->tokens);
 	//| Faltar dar free na árvore.

@@ -6,11 +6,11 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:42 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/21 12:17:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:04:23 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/minishell.h"
+#include "../../Include/minishell.h"
 
 int	closed_parenthesis(char *s)
 {

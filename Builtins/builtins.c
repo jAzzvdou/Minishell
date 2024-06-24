@@ -6,11 +6,37 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/21 13:48:34 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:36:16 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+char    **token_to_args(t_node *first)
+{
+        int	i;
+        char	**args;
+        t_node	*node;
+
+        node = first;
+        i = 0;
+        while (node)
+        {
+                i++;
+                node = node->next;
+        }
+        args = (char **)malloc(sizeof(char *) * (i + 1));
+        i = 0;
+        node = first;
+        while (node)
+        {
+                args[i] = ft_strdup(node->cmd);
+                i++;
+                node = node->next;
+        }
+        args[i] = NULL;
+        return (args);
+}
 
 void	controller(t_main *main, char **token)
 {

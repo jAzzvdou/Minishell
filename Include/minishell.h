@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/21 16:14:43 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:23:40 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,14 @@ void	update_pwd_oldpwd(t_main *main);
 int	check_tokens(t_tokens *tokens);
 t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
+char	**token_to_args(t_node *first);
+t_node	*is_type1(t_node *last);
+t_node	*is_type2(t_node *last);
+t_node	*is_type3(t_node *last);
+void	transfer_nodes(t_tokens *tokens, t_tokens *right);
+void	remove_last_node(t_tokens *tokens);
+void	addfront_popback(t_tokens *right, t_tokens *tokens);
+t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
@@ -195,6 +203,9 @@ char	**spliter(char *cmd);
 char	**split_input(char *input);
 
 //| TESTES
-void	print_tokens(t_tokens *tokens);
 void	debug(void);
+void	print_tokens(t_tokens *tokens);
+void	revprint_tokens(t_tokens *tokens);
+void	print_tree(t_tree *tree, int level);
+
 #endif //| MINISHELL_H
