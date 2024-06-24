@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:14:45 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 14:53:43 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:10:47 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,40 @@
 
 void	debug(void)
 {
-        int     start;
-        static int      i;
+	int		start;
+	static int	i;
 
-        start = 0;
-        i = start + i + 1;
-        printf(YELLOW"Debug %d.\n"RESET, i);
+	start = 0;
+	i = start + i + 1;
+	printf(YELLOW"Debug %d.\n"RESET, i);
 }
 
 void    print_tokens(t_tokens *tokens)
 {
-        t_node  *nodes;
+	t_node	*nodes;
 
-        if (!tokens)
-                return ;
-        nodes = tokens->first;
-        while (nodes)
-        {
-                printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
-                printf("\n");
-                nodes = nodes->next;
-        }
+	if (!tokens)
+		return ;
+	nodes = tokens->first;
+	while (nodes)
+	{
+		printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
+		printf("\n");
+		nodes = nodes->next;
+	}
 }
 
 void    revprint_tokens(t_tokens *tokens)
 {
-        t_node  *nodes;
+	t_node	*nodes;
 
-        nodes = tokens->last;
-        while (nodes)
-        {
-                printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
-                printf("\n");
-                nodes = nodes->prev;
-        }
+	nodes = tokens->last;
+	while (nodes)
+	{
+		printf("token: %s | type: %d\n", nodes->cmd, nodes->type);
+		printf("\n");
+		nodes = nodes->prev;
+	}
 }
 
 void	print_tree(t_tree *tree, int level)

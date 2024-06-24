@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 14:48:02 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:26:56 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	main->tree = tree;
 	print_tree(main->tree, 0); //| Printar a árvore.
 	//exec(main, main->tree);  //| Fazer a execução da árvore.
-	controller(main, token_to_args(main->tokens->first));
+	builtins_controller(main, token_to_args(main->tree->exe));
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
 }
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /*
-exec functions:
+exec function:
 
 void	exec(t_main *main, t_tree *tree)
 {
@@ -70,7 +70,8 @@ void	exec(t_main *main, t_tree *tree)
 		//| LIDAR COM ISSO;
 	else if (tree->type == PIPE)
 		//| LIDAR COM ISSO (FAZER A PIPEX);
-	else if (tree->type == REDIRECT)
+	else if (tree->type == INPUT || tree->type == OUTPUT
+		|| tree->type == HEREDOC || tree->type == APPEND)
 		//| LIDAR COM ISSO (FAZER OS REDIRECTS);
 	else if (tree->left)
 		exec(main, tree->left);

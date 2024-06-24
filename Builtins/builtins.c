@@ -6,19 +6,24 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/23 23:36:16 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:24:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-char    **token_to_args(t_node *first)
+char    **token_to_args(t_tokens *tokens)
 {
         int	i;
         char	**args;
         t_node	*node;
 
-        node = first;
+	if (!tokens)
+	{
+		err(RED"NULL.\n"RESET);
+		return (NULL);
+	}
+        node = tokens->first;
         i = 0;
         while (node)
         {
@@ -27,7 +32,7 @@ char    **token_to_args(t_node *first)
         }
         args = (char **)malloc(sizeof(char *) * (i + 1));
         i = 0;
-        node = first;
+        node = tokens->first;
         while (node)
         {
                 args[i] = ft_strdup(node->cmd);
@@ -38,8 +43,10 @@ char    **token_to_args(t_node *first)
         return (args);
 }
 
-void	controller(t_main *main, char **token)
+void	builtins_controller(t_main *main, char **token)
 {
+	if (!token)
+		return ;
 	if (!strcmp(token[0], "exit"))
 		exit_cmd(main, token);
 	else if (!strcmp(token[0], "env"))

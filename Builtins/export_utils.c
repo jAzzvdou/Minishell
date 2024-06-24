@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:28:25 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:15:08 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:44:12 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	is_valid_identifier(char *token)
 {
 	int	is_valid;
 
+	if (token[0] == '_')
+		return (1);
 	is_valid = ft_isalpha(token[0]);
 	return (is_valid);
 }

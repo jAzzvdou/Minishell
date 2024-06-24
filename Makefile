@@ -59,7 +59,7 @@ $(OBJDIR)/%.o: %.c
 		$(eval COMPILED_SRCS=$(shell echo $$(($(COMPILED_SRCS)+1))))
 		$(eval COLOR_VALUE=$(shell echo $$((255*$(COMPILED_SRCS)/$(TOTAL_SRCS)))))
 		@echo -n "\033[38;2;$(COLOR_VALUE);$(COLOR_VALUE);$(COLOR_VALUE)m  Minishell Is Ready!\033[0m\r"
-		@sleep 0.1
+		@sleep 0.01
 
 clean:
 		@$(RM) $(OBJDIR)

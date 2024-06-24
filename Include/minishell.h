@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 14:30:38 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:58:57 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	*error_closed(void);
 void	start_signals(void);
 
 //----------| BUILTINS |----------//
-void	controller(t_main *main, char **token);
+void	builtins_controller(t_main *main, char **token);
 //__________ env __________
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
@@ -152,7 +152,7 @@ void	update_pwd_oldpwd(t_main *main);
 int	check_tokens(t_tokens *tokens);
 t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
-char	**token_to_args(t_node *first);
+char	**token_to_args(t_tokens *tokens);
 t_node	*is_type1(t_node *last);
 t_node	*is_type2(t_node *last);
 t_node	*is_type3(t_node *last);
