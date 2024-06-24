@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/23 23:34:58 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 00:05:09 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_tokens	*build_tokens(char **split)
 				add_token(tokens, INPUT, splited[ii]);
 			else if (!ft_strcmp(splited[ii], "<<"))
 				add_token(tokens, HEREDOC, splited[ii]);
+			else if (splited[ii][0] == '(')
+				add_token(tokens, BLOCK, splited[ii]);
 			else if (ft_strcmp(splited[ii], ""))
 				add_token(tokens, CMD, splited[ii]);
 			ii++;
