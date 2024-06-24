@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/20 23:51:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:52:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ void	free_tokens(t_tokens **tokens)
 	*tokens = NULL;
 }
 
+void	free_tree(t_tree **tree)
+{
+	if (!*tree)
+		return ;
+	free_tree(&(*tree)->left);
+	free_tree(&(*tree)->right);
+	free(*tree);
+	*tree = NULL;
+}
+
 void	free_everything(t_main *main)
 {
 	free(main->pwd);
@@ -84,5 +94,6 @@ void	free_everything(t_main *main)
 	main->old_pwd = NULL;
 	free_env(&main->env);
 	free_tokens(&main->tokens);
+	free_tree(&main->tree);
 	rl_clear_history();
 }
