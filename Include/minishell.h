@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 14:24:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:30:38 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_main
 	char		*old_pwd; //| MALLOCADO (JA DEI FREE)
 	t_env		*env;     //| MALLOCADO (JA DEI FREE)
 	t_tokens	*tokens;  //| MALLOCADO (JA DEI FREE)
-	t_tree		*tree;
+	t_tree		*tree;    //| MALLOCDADO (JA DEI FREE)
 }	t_main;
 
 //----------| ERRORS |----------//
