@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:39 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 15:08:22 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:55:54 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	search_priority(t_tree *tree, t_tokens *tokens)
 		return ;
 	if (make_roots(tree, tokens, is_type3(tokens->last)))
 		return ;
-	tree->type = CMD;
+	if (tokens->last->type == BLOCK)
+		tree->type = BLOCK;
+	else
+		tree->type = CMD;
 	tree->exe = tokens;
 }
 
