@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 19:57:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/25 00:11:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,3 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	return (0);
 }
-
-/*
-exec function:
-
-void	exec(t_main *main, t_tree *tree)
-{
-	if (tree->type == AND || tree->type == OR)
-		//| LIDAR COM ISSO;
-	else if (tree->type == PIPE)
-		//| LIDAR COM ISSO (FAZER A PIPEX);
-	else if (tree->type == INPUT || tree->type == OUTPUT
-		|| tree->type == HEREDOC || tree->type == APPEND)
-		//| LIDAR COM ISSO (FAZER OS REDIRECTS);
-	else if (tree->left)
-		exec(main, tree->left);
-	else if (tree->right)
-		exec(main, tree->right);
-	else if (tree->exe && tree->exe->first)
-	{
-		if (tree->exe->first->type == BLOCK)
-			//| LIDAR COM ISSO;
-		else
-			//| controller(main, token_to_args(tree->exe));
-	}
-}
-*/
