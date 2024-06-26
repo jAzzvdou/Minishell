@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 16:24:34 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:02:53 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,26 @@ char    **token_to_args(t_tokens *tokens)
         return (args);
 }
 
-void	builtins_controller(t_main *main, char **token)
+int	builtins(t_main *main, char **token)
 {
 	if (!token)
-		return ;
+		return (0);
 	if (!strcmp(token[0], "exit"))
-		exit_cmd(main, token);
+		return (exit_cmd(main, token), 1);
 	else if (!strcmp(token[0], "env"))
-		env_cmd(main, token);
+		return (env_cmd(main, token), 1);
 	else if (!strcmp(token[0], "pwd"))
-		printf("%s\n", main->pwd);
+		return (printf("%s\n", main->pwd), 1);
 	else if (!strcmp(token[0], "echo"))
-		echo_cmd(token); //| LEMBRAR DE TRATAR '$0' E '$$'.
+		return (echo_cmd(token), 1); //| LEMBRAR DE TRATAR '$0' E '$$'.
 	else if (!strcmp(token[0], "export"))
-		export_cmd(main, token);
+		return (export_cmd(main, token), 1);
 	else if (!strcmp(token[0], "unset"))
-		unset_cmd(main,token);
+		return (unset_cmd(main,token), 1);
 	else if (!strcmp(token[0], "cd"))
-		cd_cmd(main, token);
+		return (cd_cmd(main, token), 1);
 	else if (!strcmp(token[0], "clear")) //| TIRAR FUTURAMENTE
-		printf(CLEAR);
+		return (printf(CLEAR), 1);
 	free_matrix(token);
+	return (0);
 }

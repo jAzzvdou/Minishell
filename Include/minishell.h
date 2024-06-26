@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 15:58:57 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:03:07 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/history.h>
 
 //----------| DEFINES |----------//
-//__________ COLORS __________
+//__________ colors __________
 # define RED	"\001\033[38;2;255;0;0m\002"
 # define GREEN	"\001\033[38;2;0;255;0m\002"
 # define BLUE	"\001\033[38;2;0;0;255m\002"
@@ -43,10 +43,11 @@
 # define CYAN	"\001\033[38;2;0;255;255m\002"
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
-//__________ PROMPT __________
+//__________ prompt __________
 # define PART1	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"
 # define PART2	LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
 # define PROMPT PART1""PART2
+
 //----------| STRUCTS |----------//
 typedef enum type
 {
@@ -116,7 +117,7 @@ void	*error_closed(void);
 void	start_signals(void);
 
 //----------| BUILTINS |----------//
-void	builtins_controller(t_main *main, char **token);
+int	builtins(t_main *main, char **token);
 //__________ env __________
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);

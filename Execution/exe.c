@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:40:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/25 12:16:09 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:09:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	make_if(t_main *main, t_tree *tree)
 		if (main->last_status != 0 && tree->right)
 			exec(main, tree->right);
 	}
+}
+
+void	controller(t_main *main, char **token)
+{
+	if (!builtins(main, token)) //| Se não for builtin.
+		//| Pode executar o comando que nem na pipex.
 }
 
 void	exec(t_main *main, t_tree *tree)
