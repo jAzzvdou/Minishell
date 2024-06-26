@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 14:15:10 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:44:24 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	error_exit(char *token, int option)
 	err(ORANGE"exit\n"RESET);
 	if (option == 1)
 	{
-		err(GREY"bash: exit: ");
+		err(GREY"minishell: exit: ");
 		err(token);
 		err(": numeric argument required\n"RESET);
 	}
 	else
 	{
 		(void)token;
-		err(GREY"bash: exit: too many arguments\n"RESET);
+		err(GREY"minishell: exit: too many arguments\n"RESET);
 	}
 }
 

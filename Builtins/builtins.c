@@ -6,11 +6,19 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/26 13:02:53 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:32:07 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+/*
+void	expander(t_tokens *tokens)
+{
+	asterisk(tokens);
+	//| passar todos os tokens pela função que vai expandir os $.
+}
+*/
 
 char    **token_to_args(t_tokens *tokens)
 {
@@ -23,6 +31,9 @@ char    **token_to_args(t_tokens *tokens)
 		err(RED"NULL.\n"RESET);
 		return (NULL);
 	}
+	//| Aqui tem que fazer a função de expandir. -> t_tokens *expander(t_tokens *tokens);
+	//| Dentro do expander a gente tem que dar free na lista.
+	//| expander(tokens);
         node = tokens->first;
         i = 0;
         while (node)
