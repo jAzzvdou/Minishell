@@ -6,17 +6,26 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/26 16:32:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:12:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
 /*
-void	expander(t_tokens *tokens)
+void	expander(t_tokens *tokens) //| Nessa função a gente também tem que lidar com '$USER', "$USER", '"$USER"' ou "'$USER'".
 {
 	asterisk(tokens);
 	//| passar todos os tokens pela função que vai expandir os $.
+	while (nodes) //| Passar em todos os nodes da lista procurando '$'.
+	{
+		if (node->cmd[i] == '$')
+			//| Procurar essa variável pra expandir.
+			//	-> Caso tenha número depois, sem ser o '0', expande pra NULL. Caso tenha algum sinal, sem ser '$' ou '_', expande pra NULL.
+			//| Agora cmd vai ser igual a essa variável.
+		}
+		node = node->next;
+	}
 }
 */
 
