@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/26 13:03:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 00:12:32 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
 //__________ prompt __________
-# define PART1	RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"s"BLUE"h"
-# define PART2	LILAC"e"PURPLE"l"BROWN"l"GREY"$ "WHITE
+# define PART1	"🗿"RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"c"BLUE"h"
+# define PART2	LILAC"a"PURPLE"d"BROWN"!"GREY"🗿 "WHITE
 # define PROMPT PART1""PART2
 
 //----------| STRUCTS |----------//
