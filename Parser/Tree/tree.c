@@ -6,38 +6,31 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:38:39 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 19:55:54 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/01 23:55:20 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-//| Estamos lendo os tokens de trás para frente.
 int	make_roots(t_tree *tree, t_tokens *tokens, t_node *node)
 {
-	t_tokens	*right; // vai ser toda a parte da direita do node.
+	t_tokens	*right;
 
 	if (!tree || !tokens || !node)
 		return (0);
-	right = split_tokens(tokens, node); //| Função que vai splitar o tokens em esquerda e direita.
-					    //| A função vai retornar a parte da direita do node.
+	right = split_tokens(tokens, node);
 	if (!right)
 		return (-1);
-	tree->type = tokens->last->type; //| O tipo do node vai ser o tipo do último token.
-					 //| (AND, OR, PIPE, REDIR ou CMD)
-	//| Aqui a gente tem que tirar esse último node da lista de tokens.
+	tree->type = tokens->last->type;
 	remove_last_node(tokens);
-	//| Se o tipo do tree->type for um REDIR, a gente tem que fazer um tratamento especial.
 	if (tree->type == INPUT || tree->type == OUTPUT
 		|| tree->type == APPEND || tree->type == HEREDOC)
-		transfer_nodes(tokens, right); //| Vamos lidar com isso: echo A > B C D E
-					       //| Deve virar isso: echo A C D E > B.
+		transfer_nodes(tokens, right);
 	tree->left = build_tree(tokens);
 	tree->right = build_tree(right);
 	return (1);
 }
 
-//| Função que vai criar os nodes do tree com base na prioridade dos tokens.
 void	search_priority(t_tree *tree, t_tokens *tokens)
 {
 	if (make_roots(tree, tokens, is_type1(tokens->last)))
@@ -46,7 +39,7 @@ void	search_priority(t_tree *tree, t_tokens *tokens)
 		return ;
 	if (make_roots(tree, tokens, is_type3(tokens->last)))
 		return ;
-	if (tokens->last->type == BLOCK)
+	if (tokens->last && tokens->last->type == BLOCK)
 		tree->type = BLOCK;
 	else
 		tree->type = CMD;
