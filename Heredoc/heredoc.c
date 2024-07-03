@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/21 00:01:18 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:07:58 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,18 @@ int	heredoc(t_node *token, char *file, int fd)
 	{
 		line = readline(GREEN"> ");
 		if (!line)
+		{
+			err(GREY"minichad: warning: here-document");
+			err("at line N delimited by end-of-file (wanted `");
+			err(token->cmd);
+			err("')\n"RESET);
+			last_status(0);
 			break ;
+		}
 		if (!ft_strcmp(token->cmd, line))
 		{
 			free(line);
+			last_status(0);
 			break ;
 		}
 		write(fd, line, ft_strlen(line));

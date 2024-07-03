@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:05:19 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 14:21:12 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:28:22 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	handle_oldpwd(t_main *main)
 	}
 	if (chdir(path))
 	{
-		err(GREY"minishell: cd"RESET);
+		err(GREY"minishell: cd 111"RESET);
 		return (1);
 	}
 	printf("%s\n", path);
@@ -84,7 +84,9 @@ int	handle_path(char *path)
 {
 	if (chdir(path))
 	{
-		err(GREY"minishell: cd"RESET);
+		err(GREY"minishell: cd: "); //erro = 2
+		err(path);
+		err(": No such file or directory\n"RESET);
 		return (1);
 	}
 	return (0);

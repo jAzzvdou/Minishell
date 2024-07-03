@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:15:49 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:06:14 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	unset_cmd(t_main *main, char **token)
 				else
 					main->env = temp->next;
 				free_env_node(temp);
-				break;
+				break ;
 			}
-
 			prev = temp;
 			temp = temp->next;
 		}
 		i++;
 	}
+	last_status(0);
 }

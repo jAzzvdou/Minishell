@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:28 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/23 23:04:45 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:55:34 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static int	count_words(char *input)
 		while (input[i] && input[i] == ' ')
 			i++;
 		if (input[i] == '\0')
-			break;
+			break ;
 		words++;
 		if (is_separator(input, i))
 		{
-			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2)
-					|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
+			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2) \
+			|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
 				i += 2;
 			else
 				i++;
@@ -48,7 +48,8 @@ static int	count_words(char *input)
 		{
 			while (input[i] && !is_separator(input, i))
 			{
-				if ((input[i] == '\'' || input[i] == '\"') && verify_quote(input, i))
+				if ((input[i] == '\'' || input[i] == '\"') && \
+				verify_quote(input, i))
 					i = is_quote(input, i);
 				else if (input[i] == '(' && verify_parenthesis(input, i))
 					i = skip_parenthesis(input, i);
@@ -76,8 +77,8 @@ static char	**final_split(char **final, char *input, int words)
 		start = i;
 		if (is_separator(input, i))
 		{
-			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2)
-					|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
+			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2) \
+			|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
 			{
 				final[counter] = strndup(input + i, 2);
 				i += 2;
@@ -92,7 +93,8 @@ static char	**final_split(char **final, char *input, int words)
 		{
 			while (input[i] && !is_separator(input, i))
 			{
-				if ((input[i] == '\'' || input[i] == '\"') && verify_quote(input, i))
+				if ((input[i] == '\'' || input[i] == '\"') && \
+				verify_quote(input, i))
 					i = is_quote(input, i);
 				else if (input[i] == '(' && verify_parenthesis(input, i))
 					i = skip_parenthesis(input, i);
@@ -113,19 +115,19 @@ static char	**final_split(char **final, char *input, int words)
 
 char	**split_input(char *input)
 {
-    int		words;
-    char	**final;
+	int		words;
+	char	**final;
 
-    if (!input)
-	    return (NULL);
-    words = count_words(input);
-    final = (char **)malloc(sizeof(char *) * (words + 1));
-    if (!final)
-	    return (NULL);
-    final = final_split(final, input, words);
-    if (!final)
-	    return (NULL);
-    return (final);
+	if (!input)
+		return (NULL);
+	words = count_words(input);
+	final = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!final)
+		return (NULL);
+	final = final_split(final, input, words);
+	if (!final)
+		return (NULL);
+	return (final);
 }
 /*
 static int	count_words(char *input)

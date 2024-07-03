@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:01:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/23 23:03:11 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:03:39 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	transfer_nodes(t_tokens *tokens, t_tokens *right)
 	right->size = 1;
 }
 
-void    remove_last_node(t_tokens *tokens)
+void	remove_last_node(t_tokens *tokens)
 {
 	t_node	*last;
 
@@ -71,7 +71,7 @@ void	addfront_popback(t_tokens *right, t_tokens *tokens)
 	t_node	*to_move;
 
 	if (!tokens || !tokens->last)
-		return;
+		return ;
 	to_move = tokens->last;
 	// Remover do final da tokens
 	if (tokens->last->prev)

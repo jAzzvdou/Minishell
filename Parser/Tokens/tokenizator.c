@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 11:59:29 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:02:18 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	add_token(t_tokens *tokens, e_type type, char *line)
 
 t_tokens	*build_tokens(char **split)
 {
-	int		i;
-	int		ii;
+	int			i;
+	int			ii;
 	char		**splited;
 	t_tokens	*tokens;
 

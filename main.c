@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/26 14:42:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:08:55 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	start_pwd(&main);
 	start_signals();
 	while (1)
+	{
+		last_status(0);
 		parser(&main, tokenizator(user_input()));
+		printf("last status = %d.\n", last_status(-1));
+	}
 	rl_clear_history();
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:41:22 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/26 12:55:41 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:05:34 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,31 @@ void	update_env(t_env **env, char *name, char *value)
 	line = NULL;
 }
 
-int	cd_cmd(t_main *main, char **token) 
+int	cd_cmd(t_main *main, char **token)
 {
 	if (token[1] && token[2])
-		return (err(GREY"cd: too many arguments\n"RESET), 1);
+	{
+		return (err(GREY"cd: too many arguments\n"RESET), 1); // erro = 2
+		last_status(2);
+	}
 	if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))
 	{
-		if (handle_home(main)) 
+		if (handle_home(main))
 			return (1);
 	}
 	else if (token[1][0] == '~')
 	{
-		if (handle_tilde(main, token[1])) 
+		if (handle_tilde(main, token[1]))
 			return (1);
 	}
 	else if (!ft_strcmp(token[1], "-"))
 	{
-		if (handle_oldpwd(main)) 
+		if (handle_oldpwd(main))
 			return (1);
 	}
 	else
 	{
-		if (handle_path(token[1])) 
+		if (handle_path(token[1]))
 			return (1);
 	}
 	update_pwd_oldpwd(main);

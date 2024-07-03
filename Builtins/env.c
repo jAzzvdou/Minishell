@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:26 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/19 00:08:46 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:07:24 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	add_env(t_env **env, char *line, int declare_x)
 {
-	t_env *new;
-	t_env *tmp;
+	t_env	*new;
+	t_env	*tmp;
 
 	if (!line)
 		return ;
@@ -38,16 +38,16 @@ void	add_env(t_env **env, char *line, int declare_x)
 
 void	start_env(t_main *main, char **envp)
 {
-	int     i;
+	int	i;
 
 	i = -1;
 	while (envp[++i])
-		add_env(&main->env, envp[i],1);
+		add_env(&main->env, envp[i], 1);
 }
 
 void	env_cmd(t_main *main, char **token)
 {
-	int	i;
+	int		i;
 	t_env	*env;
 
 	i = 0;
@@ -58,6 +58,7 @@ void	env_cmd(t_main *main, char **token)
 		else
 		{
 			error_env(token[i]);
+			last_status(127);
 			return ;
 		}
 	}
@@ -68,4 +69,5 @@ void	env_cmd(t_main *main, char **token)
 			printf(WHITE"%s\n"RESET, env->line);
 		env = env->next;
 	}
+	last_status(0);
 }

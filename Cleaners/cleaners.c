@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:16 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 16:20:08 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:39:08 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,4 @@ void	free_tree(t_tree **tree)
 	free_tree(&(*tree)->right);
 	free(*tree);
 	*tree = NULL;
-}
-
-void	free_everything(t_main *main)
-{
-	free(main->pwd);
-	main->pwd = NULL;
-	free(main->old_pwd);
-	main->old_pwd = NULL;
-	free_env(&main->env);
-	free_tokens(&main->tokens);
-	free_tree(&main->tree);
-	rl_clear_history();
 }

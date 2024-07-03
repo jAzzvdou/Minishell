@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/02 00:12:32 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:04:53 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 # define BLUE	"\001\033[38;2;0;0;255m\002"
 # define YELLOW	"\001\033[38;2;255;255;0m\002"
 # define WHITE	"\001\033[38;2;255;255;255m\002"
-# define BLACK	"\001\033[38;2;0;0;0m\002"	
+# define BLACK	"\001\033[38;2;0;0;0m\002"
 # define GREY	"\001\033[38;2;128;128;128m\002"
-# define BROWN	"\001\033[38;2;150;75;0m\002"	
+# define BROWN	"\001\033[38;2;150;75;0m\002"
 # define ORANGE	"\001\033[38;2;255;165;0m\002"
 # define PURPLE	"\001\033[38;2;153;51;153m\002"
 # define LILAC	"\001\033[38;2;200;162;200m\002"
@@ -105,6 +105,7 @@ typedef struct s_main
 	t_tree		*tree;    //| MALLOCDADO (JA DEI FREE)
 }	t_main;
 
+
 //----------| ERRORS |----------//
 void	err(char *s);
 int	error_argc(void);
@@ -117,6 +118,7 @@ void	*error_closed(void);
 void	start_signals(void);
 
 //----------| BUILTINS |----------//
+int	last_status(int new_status);
 int	builtins(t_main *main, char **token);
 //__________ env __________
 void	env_cmd(t_main *main, char **token);

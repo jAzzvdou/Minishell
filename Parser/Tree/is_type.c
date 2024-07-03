@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 22:59:25 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/23 23:00:24 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:03:03 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ t_node	*is_type3(t_node *last)
 	tmp = last;
 	while (tmp)
 	{
-		if (tmp->type == INPUT || tmp->type == OUTPUT
-				|| tmp->type == APPEND || tmp->type == HEREDOC)
+		if (tmp->type == INPUT || tmp->type == OUTPUT \
+		|| tmp->type == APPEND || tmp->type == HEREDOC)
 			return (tmp);
 		tmp = tmp->prev;
 	}

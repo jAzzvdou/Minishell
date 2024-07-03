@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   free_everything.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 16:05:59 by btaveira         ###   ########.fr       */
+/*   Created: 2024/07/02 14:38:33 by btaveira          #+#    #+#             */
+/*   Updated: 2024/07/02 14:39:56 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	exit_cmd(t_main *main, char **token)
+void	free_everything(t_main *main)
 {
-	if (token[1] && (!only_number(token[1]) || !is_long(token[1])))
-	{
-		error_exit(token[1], 1); // erro = 2
-		last_status(2);
-	}
-	else if (token[1] && token[2])
-	{
-		error_exit(token[1], 2); // erro = 1
-		last_status(1);
-		free_matrix(token);
-		return ;
-	}
-	else
-	{
-		err(ORANGE"exit\n"RESET);
-		last_status(0);
-	}
-	free_matrix(token);
-	free_everything(main);
-	exit(1);
+	free(main->pwd);
+	main->pwd = NULL;
+	free(main->old_pwd);
+	main->old_pwd = NULL;
+	free_env(&main->env);
+	free_tokens(&main->tokens);
+	free_tree(&main->tree);
+	rl_clear_history();
 }

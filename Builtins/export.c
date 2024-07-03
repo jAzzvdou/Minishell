@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 14:22:29 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:06:06 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	swap_nodes(t_env *a, t_env *b)
 
 t_env	*alphabetical_env(t_env *tmp)
 {
-	int 		swapped;
-	t_env	*ordered;
-	t_env	*current;
+	int			swapped;
+	t_env		*ordered;
+	t_env		*current;
 
 	if (!tmp)
 		return (NULL);
@@ -48,28 +48,28 @@ t_env	*alphabetical_env(t_env *tmp)
 	return (ordered);
 }
 
-void    add_without_equal(t_env **env, char *line, int declare_x)
+void	add_without_equal(t_env **env, char *line, int declare_x)
 {
-        t_env *new;
-        t_env *tmp;
+	t_env	*new;
+	t_env	*tmp;
 
-        if (!line)
-                return ;
-        new = (t_env *)malloc(sizeof(t_env));
-        new->declare_x = declare_x;
-        new->name = ft_strdup(line);
-        new->value = NULL;
-        new->line = ft_strdup(line);
-        new->next = NULL;
-        if (!(*env))
-                *env = new;
-        else
-        {
-                tmp = *env;
-                while (tmp->next)
-                        tmp = tmp->next;
-                tmp->next = new;
-        }
+	if (!line)
+		return ;
+	new = (t_env *)malloc(sizeof(t_env));
+	new->declare_x = declare_x;
+	new->name = ft_strdup(line);
+	new->value = NULL;
+	new->line = ft_strdup(line);
+	new->next = NULL;
+	if (!(*env))
+		*env = new;
+	else
+	{
+		tmp = *env;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
 }
 
 void	export_cmd(t_main *main, char **token)
@@ -88,7 +88,8 @@ void	export_cmd(t_main *main, char **token)
 		{
 			err(GREY"minishell: export: '");
 			err(token[i]);
-			err("': not a valid identifier\n"RESET);
+			err("': not a valid identifier\n"RESET); // erro = 1
+			last_status(1);
 			i++;
 			continue ;
 		}

@@ -13,6 +13,8 @@ SRCS	=	main.c                       \
 		Builtins/echo.c              \
 		Builtins/unset.c             \
 		Cleaners/cleaners.c          \
+		Cleaners/free_everything.c   \
+		Errors/error_exit.c          \
 		Errors/errors.c              \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
@@ -26,6 +28,7 @@ SRCS	=	main.c                       \
 		Parser/Tree/is_type.c        \
 		Parser/Tree/list_functions.c \
 		Signals/signals.c            \
+		Utils/ft_itoa.c              \
 		Utils/number.c               \
 		Utils/utils1.c               \
 		Utils/utils2.c               \

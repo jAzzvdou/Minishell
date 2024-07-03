@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 16:05:59 by btaveira         ###   ########.fr       */
+/*   Created: 2024/07/02 14:44:20 by btaveira          #+#    #+#             */
+/*   Updated: 2024/07/02 14:45:03 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	exit_cmd(t_main *main, char **token)
+void	error_exit(char *token, int option)
 {
-	if (token[1] && (!only_number(token[1]) || !is_long(token[1])))
+	err(ORANGE"exit\n"RESET);
+	if (option == 1)
 	{
-		error_exit(token[1], 1); // erro = 2
-		last_status(2);
-	}
-	else if (token[1] && token[2])
-	{
-		error_exit(token[1], 2); // erro = 1
-		last_status(1);
-		free_matrix(token);
-		return ;
+		err(GREY"minishell: exit: ");
+		err(token);
+		err(": numeric argument required\n"RESET);
 	}
 	else
 	{
-		err(ORANGE"exit\n"RESET);
-		last_status(0);
+		(void)token;
+		err(GREY"minishell: exit: too many arguments\n"RESET);
 	}
-	free_matrix(token);
-	free_everything(main);
-	exit(1);
 }

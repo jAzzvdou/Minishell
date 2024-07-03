@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/26 16:44:24 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:04:21 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	error_syntax(char *cmd, int option)
 		err("'\n"RESET);
 	}
 	else if (option == 2)
-		err(GREY"minishell: syntax error near unexpected token `newline'\n"RESET);
+		err(GREY"minishell: syntax error near \
+	unexpected token `newline'\n"RESET);
 	return (0);
 }
 
@@ -41,23 +42,7 @@ void	error_env(char *cmd)
 {
 	err(GREY"env: '");
 	err(cmd);
-	err("': No such file or directory\n"RESET);
-}
-
-void	error_exit(char *token, int option)
-{
-	err(ORANGE"exit\n"RESET);
-	if (option == 1)
-	{
-		err(GREY"minishell: exit: ");
-		err(token);
-		err(": numeric argument required\n"RESET);
-	}
-	else
-	{
-		(void)token;
-		err(GREY"minishell: exit: too many arguments\n"RESET);
-	}
+	err("': No such file or directory\n"RESET); //erro = 127
 }
 
 void	*error_closed(void)
