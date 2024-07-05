@@ -17,13 +17,13 @@ void	error_exit(char *token, int option)
 	err(ORANGE"exit\n"RESET);
 	if (option == 1)
 	{
-		err(GREY"minishell: exit: ");
+		err(GREY"minichad: exit: ");
 		err(token);
 		err(": numeric argument required\n"RESET);
 	}
 	else
 	{
 		(void)token;
-		err(GREY"minishell: exit: too many arguments\n"RESET);
+		err(GREY"minichad: exit: too many arguments\n"RESET);
 	}
 }

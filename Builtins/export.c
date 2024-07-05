@@ -86,7 +86,7 @@ void	export_cmd(t_main *main, char **token)
 	{
 		if (!is_valid_identifier(token[i]))
 		{
-			err(GREY"minishell: export: '");
+			err(GREY"minichad: export: '");
 			err(token[i]);
 			err("': not a valid identifier\n"RESET); // erro = 1
 			last_status(1);

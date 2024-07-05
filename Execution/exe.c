@@ -18,42 +18,183 @@ void	make_if(t_main *main, t_tree *tree)
 	{
 		if (tree->left)
 			exec(main, tree->left);
-		if (main->last_status == 0 && tree->right)
+		if (last_status(-1) == 0 && tree->right)
 			exec(main, tree->right);
 	}
 	else if (tree->type == OR)
 	{
 		if (tree->left)
 			exec(main, tree->left);
-		if (main->last_status != 0 && tree->right)
+		if (last_status(-1) != 0 && tree->right)
 			exec(main, tree->right);
 	}
 }
-
-void	controller(t_main *main, char **token)
+/*
+void	make_pipe(t_tree *pipe)
 {
-	if (!builtins(main, token)) //| Se não for builtin.
-		//| Pode executar o comando que nem na pipex.
+	int	fd[2];
+	pid_t	pid[2];
+
+	if (pipe[fd])
+		last_status(1);
+	//| Fazer os pipes.
+	//| Lembrar de fechar os fds e o pipe certinho e dar free no que precisar.
+}
+*/
+
+int	env_size(t_env *env)
+{
+	int	count;
+	t_env	*list;
+
+	list = env;
+	count = 0;
+	while (list)
+	{
+		count++;
+		list = list->next;
+	}
+	return (count);
+}
+
+char	**list_to_args(t_env *env)
+{
+	int	i;
+	int	size;
+	char	**args;
+	t_env	*node;
+
+	size = env_size(env);
+	if (!size)
+		return (NULL);
+	args = (char **)malloc(sizeof(char *) * (size + 1));
+	node = env;
+	i = 0;
+	int ii = -1;
+	while (++ii < size)
+	{
+		args[i] = ft_strdup(node->line);
+		if (!args[i])
+		{
+			while (i > 0)
+			{
+				free(args[--i]);
+				args[i] = NULL;
+			}
+			free(args);
+			args = NULL;
+			return (NULL);
+		}
+		i++;
+		node = node->next;
+	}
+	args[i] = NULL;
+	return (args);
+}
+
+char	*pathfinder(t_main *main, char *cmd)
+{
+	int		i;
+	char	*aux;
+	char	*path;
+	char	**paths;
+	t_env	*envi;
+
+	envi = main->env;
+	while (envi && ft_strncmp(envi->line, "PATH=", 5))
+		envi = envi->next;
+	paths = ft_split(envi->line + 5, ':');
+	i = -1;
+	while (paths[++i])
+	{
+		aux = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(aux, cmd);
+		free(aux);
+		if (!access(path, F_OK | X_OK))
+			return (path);
+		free(path);
+	}
+	free_matrix(paths);
+	return (NULL);
+}
+
+void	executer(t_main *main, char **tokens, char *cmd)
+{
+	char	*path;
+	pid_t	pid;
+
+	pid = fork();
+	if (!pid)
+	{
+		//| Verificar se é relative path.
+		if (!access(cmd, F_OK | X_OK) && !ft_strchr(cmd, '/')) //| Se for já manda pro comando.
+			execve(cmd, tokens, list_to_args(main->env));
+		else //| Se não for tem que procurar o Path dele se existir
+		{
+			path = pathfinder(main, cmd); //| Já tenho essa função também, na pipex.
+			printf("path: %s.\n", path);
+			if (access(cmd, F_OK | X_OK) && ft_strchr(path, '/'))
+			{
+				err(GREY"minichad: ");
+				err(cmd);
+				err(": command not found\n"RESET);
+				free_matrix(tokens);
+				exit(1);
+			}
+			execve(path, tokens, list_to_args(main->env));
+		}
+		err(RED"ERROR: arrumar mensagem.\n");
+		free_matrix(tokens);
+		exit(1);
+	}
+}
+/*
+void	re_exec(t_main *main, char *block)
+{
+	char	*new_input;
+	pid_t	pid;
+
+	pid = fork();
+	if (!pid)
+	{
+		new_input = block;
+		free(block);
+		block = NULL;
+		parser(new_input);
+		free_everthing();
+		exit(last_status(-1));
+	}
+}
+*/
+
+void	controller(t_main *main, char **tokens)
+{
+	last_status(0);
+	if (!builtins(main, tokens)) //| Se não for builtin.
+		executer(main, tokens, tokens[0]);
+	//if (g_status == SIGINT)
+	//	last_status(130);
+	free_matrix(tokens);
 }
 
 void	exec(t_main *main, t_tree *tree)
 {
 	if (tree->type == AND || tree->type == OR)
 		make_if(main, tree);
-	else if (tree->type == PIPE)
+	/*else if (tree->type == PIPE)
 		//make_pipe(main, tree); //| LIDAR COM ISSO (FAZER A PIPEX);
 	else if (tree->type == INPUT || tree->type == OUTPUT
 		|| tree->type == HEREDOC || tree->type == APPEND)
-		//make_redir(); //| LIDAR COM ISSO (FAZER OS REDIRECTS);
+		//make_redir(); //| LIDAR COM ISSO (FAZER OS REDIRECTS);*/
 	else if (tree->left)
 		exec(main, tree->left);
 	else if (tree->right)
 		exec(main, tree->right);
 	else if (tree->exe && tree->exe->first)
 	{
-		if (tree->type == BLOCK)
-			//re_exec(main, tree); //| LIDAR COM ISSO;
-		else
-			controller(main, token_to_args(tree->exe));
+		//if (tree->type == BLOCK)
+		//	re_exec(main, tree); //| LIDAR COM ISSO;
+		//else
+			controller(main, token_to_args(tree->exe)); //| SEGFAULT
 	}
 }

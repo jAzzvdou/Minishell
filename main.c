@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		last_status(0);
 		parser(&main, tokenizator(user_input()));
-		printf("last status = %d.\n", last_status(-1));
+		printf("last status = %d.\n", last_status(-1)); //TESTES DE RETORNO
 	}
 	rl_clear_history();
 	return (0);

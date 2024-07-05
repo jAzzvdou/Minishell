@@ -21,6 +21,7 @@ int	check_tokens(t_tokens *tokens)
 	first = tokens->first;
 	last = tokens->last;
 	type = first->type;
+	last_status(2);
 	if (type == PIPE || type == OR || type == AND)
 		return (error_syntax(tokens->first->cmd, 1));
 	type = last->type;
@@ -48,5 +49,6 @@ int	check_tokens(t_tokens *tokens)
 		}
 		first = first->next;
 	}
+	last_status(0);
 	return (1);
 }

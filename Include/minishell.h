@@ -166,7 +166,8 @@ t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
-
+//---------- execution ----------//
+void	exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//
 void	free_matrix(char **matrix);
 void	free_env(t_env **env);

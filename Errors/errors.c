@@ -28,12 +28,12 @@ int	error_syntax(char *cmd, int option)
 {
 	if (option == 1)
 	{
-		err(GREY"minishell: syntax error near unexpected token `");
+		err(GREY"minichad: syntax error near unexpected token `");
 		err(cmd);
 		err("'\n"RESET);
 	}
 	else if (option == 2)
-		err(GREY"minishell: syntax error near \
+		err(GREY"minichad: syntax error near \
 	unexpected token `newline'\n"RESET);
 	return (0);
 }
@@ -48,6 +48,6 @@ void	error_env(char *cmd)
 void	*error_closed(void)
 {
 	err(RED"Error!\n");
-	err(GREY"\tMinishell Only Parses Closed Quotes/Parenthesis.\n"RESET);
+	err(GREY"\tMinichad Only Parses Closed Quotes/Parenthesis.\n"RESET);
 	return (NULL);
 }

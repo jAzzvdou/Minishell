@@ -62,7 +62,7 @@ int	cd_cmd(t_main *main, char **token)
 {
 	if (token[1] && token[2])
 	{
-		return (err(GREY"cd: too many arguments\n"RESET), 1); // erro = 2
+		return (err(GREY"minichad: cd: too many arguments\n"RESET), 1); // erro = 2
 		last_status(2);
 	}
 	if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))

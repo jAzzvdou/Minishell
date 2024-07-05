@@ -16,6 +16,7 @@ SRCS	=	main.c                       \
 		Cleaners/free_everything.c   \
 		Errors/error_exit.c          \
 		Errors/errors.c              \
+		Execution/exe.c              \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \

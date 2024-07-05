@@ -29,9 +29,12 @@ void	exit_cmd(t_main *main, char **token)
 	else
 	{
 		err(ORANGE"exit\n"RESET);
-		last_status(0);
+		if (token[1] && token[1][0])
+			last_status(ft_atoll(token[1]));
+		else
+			last_status(0);
 	}
 	free_matrix(token);
 	free_everything(main);
-	exit(1);
+	exit(0); //| EXIT_SUCCESS
 }

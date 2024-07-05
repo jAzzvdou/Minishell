@@ -31,43 +31,43 @@ void	expander(t_tokens *tokens) //| Nessa função a gente também tem que lidar
 
 char	**token_to_args(t_tokens *tokens)
 {
-	int		i;
+	int	i;
+	int	ii;
 	char	**args;
 	t_node	*node;
 
-	if (!tokens)
-	{
-		err(RED"NULL.\n"RESET);
+	if (!tokens || !tokens->first || !tokens->size)
 		return (NULL);
-	}
-	//| Aqui tem que fazer a função de expandir. -> t_tokens *expander(t_tokens *tokens);
-	//| Dentro do expander a gente tem que dar free na lista.
-	//| expander(tokens);
+	args = (char **)malloc(sizeof(char *) * (tokens->size + 1));
 	node = tokens->first;
 	i = 0;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	args = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	node = tokens->first;
-	while (node)
+	ii = -1;
+	while (++ii < tokens->size)
 	{
 		args[i] = ft_strdup(node->cmd);
+		if (!args[i])
+		{
+			while (i > 0)
+			{
+				free(args[--i]);
+				args[i] = NULL;
+			}
+			free(args);
+			args = NULL;
+			return (NULL);
+		}
 		i++;
 		node = node->next;
 	}
 	args[i] = NULL;
-	return (args);
+	return args;
 }
 
 int	last_status(int new_status)
 {
 	static int	status;
 
-	if(new_status > -1)
+	if (new_status > -1)
 		status = new_status;
 	return (status);
 }

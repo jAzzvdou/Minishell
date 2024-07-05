@@ -19,12 +19,12 @@ int	handle_home(t_main *main)
 	path = env_value(main->env, "HOME");
 	if (!path)
 	{
-		err(GREY"cd: HOME is not set\n"RESET);
+		err(GREY"minichad: cd: HOME is not set\n"RESET);
 		return (1);
 	}
 	if (chdir(path))
 	{
-		perror("cd");
+		err(GREY"cd\n"RESET);
 		return (1);
 	}
 	return (0);
@@ -39,19 +39,19 @@ int	handle_tilde(t_main *main, char *token)
 	path = env_value(main->env, "HOME");
 	if (!path)
 	{
-		err(GREY"cd: HOME is not set\n"RESET);
+		err(GREY"minichad: cd: HOME is not set\n"RESET);
 		return (1);
 	}
 	new_path = ft_strjoin(path, (token + 1)); //| Malloc
 	if (!new_path)
 	{
-		err(GREY"cd: memory allocation error\n"RESET);
+		err(GREY"minichad: cd: memory allocation error\n"RESET);
 		return (1);
 	}
 	ret = chdir(new_path);
 	if (ret)
 	{
-		err(GREY"minishell: cd"RESET);
+		err(GREY"minichad: cd"RESET);
 		free(new_path);
 		new_path = NULL;
 		return (1);
@@ -68,12 +68,12 @@ int	handle_oldpwd(t_main *main)
 	path = env_value(main->env, "OLDPWD");
 	if (!path)
 	{
-		err(GREY"cd: OLDPWD is not set\n"RESET);
+		err(GREY"minichad: cd: OLDPWD is not set\n"RESET);
 		return (1);
 	}
 	if (chdir(path))
 	{
-		err(GREY"minishell: cd 111"RESET);
+		err(GREY"minichad: cd\n"RESET);
 		return (1);
 	}
 	printf("%s\n", path);
@@ -84,7 +84,7 @@ int	handle_path(char *path)
 {
 	if (chdir(path))
 	{
-		err(GREY"minishell: cd: "); //erro = 2
+		err(GREY"minichad: cd: "); //erro = 2
 		err(path);
 		err(": No such file or directory\n"RESET);
 		return (1);
