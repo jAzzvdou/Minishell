@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 11:00:05 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:53:44 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int	handle_oldpwd(t_main *main);
 int	handle_path(char *path);
 void	update_pwd_oldpwd(t_main *main);
 //----------| FUNCTIONS |----------//
+void	parser(t_main *main, t_tokens *tokens);
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
 t_tokens	*start_tokens(void);

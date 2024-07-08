@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:40:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 16:43:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:59:28 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,24 +158,33 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		status = 1;
 	last_status(status);
 }
-/*
+
 void	re_exec(t_main *main, char *block)
 {
+	int	status;
 	char	*new_input;
 	pid_t	pid;
 
+	status = 0;
 	pid = fork();
+	if (pid == -1)
+		exit(1);
 	if (!pid)
 	{
-		new_input = block;
+		new_input = ft_strndup(block + 1, ft_strlen(block) - 2);
 		free(block);
 		block = NULL;
-		parser(new_input);
-		free_everthing();
-		exit(last_status(-1));
+		parser(main, tokenizator(new_input));
+		free_everything(main);
+		exit(1);
 	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	if (status == 139)
+		status = 1;
+	last_status(status);
 }
-*/
 
 void	controller(t_main *main, char **tokens)
 {
@@ -202,9 +211,9 @@ void	exec(t_main *main, t_tree *tree)
 		exec(main, tree->right);
 	else if (tree->exe && tree->exe->first)
 	{
-		//if (tree->type == BLOCK)
-		//	re_exec(main, tree); //| LIDAR COM ISSO;
-		//else
+		if (tree->type == BLOCK)
+			re_exec(main, tree->exe->first->cmd); //| LIDAR COM ISSO;
+		else
 			controller(main, token_to_args(tree->exe)); //| LEAK NA TREE->EXE
 	}
 }
