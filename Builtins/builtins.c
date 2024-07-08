@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/08 14:00:32 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:04:10 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**token_to_args(t_tokens *tokens)
 		node = node->next;
 	}
 	args[i] = NULL;
-	return args;
+	return (args);
 }
 
 int	last_status(int new_status)

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:40:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 14:05:36 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:43:07 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,17 @@ char	**list_to_args(t_env *env)
 	return (args);
 }
 
-char	*pathfinder(t_main *main, char *cmd)
+char	*pathfinder(char **env, char *cmd)
 {
 	int		i;
 	char	*aux;
 	char	*path;
 	char	**paths;
-	t_env	*envi;
 
-	envi = main->env;
-	while (envi && ft_strncmp(envi->line, "PATH=", 5))
-		envi = envi->next;
-	paths = ft_split(envi->line + 5, ':');
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
+		i++;
+	paths = ft_split(env[i] + 5, ':');
 	i = -1;
 	while (paths[++i])
 	{
@@ -122,8 +121,10 @@ void	executer(t_main *main, char **tokens, char *cmd)
 {
 	int	status;
 	char	*path;
+	char	**env;
 	pid_t	pid;
 
+	env = list_to_args(main->env);
 	pid = fork();
 	if (pid == -1)
 		exit(1);
@@ -132,32 +133,29 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		//| Verificar se é relative path.
 		if (!access(cmd, F_OK | X_OK)) //| Se for já manda pro comando.
 		{
-			if (execve(cmd, tokens, list_to_args(main->env)) < 0)
-			{
-				//free_matrix(tokens);
-				exit(last_status(-1));
-			}
+			if (execve(cmd, tokens, env) < 0)
+				exit(1);
 		}
 		else //| Se não for tem que procurar o Path dele se existir
 		{
-			path = pathfinder(main, cmd); //| Já tenho essa função também, na pipex.
+			path = pathfinder(env, cmd); //| Já tenho essa função também, na pipex.
 			if (!path)
 			{
 				err(GREY"minichad: ");
 				err(cmd);
 				err(": command not found\n"WHITE);
-				//free_matrix(tokens);
 				exit(1);
 			}
-			if (execve(path, tokens, list_to_args(main->env)) < 0)
-			{
-				//free_matrix(tokens);
+			if (execve(path, tokens, env) < 0)
 				exit(1);
-			}
 		}
 	}
-	//free_matrix(tokens);
+	free_matrix(env);
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	if (status == 139)
+		status = 1;
 	last_status(status);
 }
 /*
@@ -207,6 +205,6 @@ void	exec(t_main *main, t_tree *tree)
 		//if (tree->type == BLOCK)
 		//	re_exec(main, tree); //| LIDAR COM ISSO;
 		//else
-			controller(main, token_to_args(tree->exe)); //| SEGFAULT
+			controller(main, token_to_args(tree->exe)); //| LEAK NA TREE->EXE
 	}
 }
