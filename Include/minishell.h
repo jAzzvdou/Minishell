@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/03 16:04:53 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:00:05 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 # define MINISHELL_H
 
 //----------| LIBRARIES |----------//
-# include <unistd.h> // WRITE, ACCESS, PIPE, FORK, WAIT, WAITPID, EXECVE, DUP2
-# include <stdlib.h> // MALLOC, FREE, NULL
-# include <fcntl.h>  // OPEN, CLOSE
-# include <stdio.h>  // PRINTF
-# include <string.h> // PERROR
-# include <signal.h> // SIGNAL
-# include <limits.h> // LIMITS
+# include <unistd.h>   // WRITE, ACCESS, PIPE, FORK, WAIT, WAITPID, EXECVE, DUP2
+# include <stdlib.h>   // MALLOC, FREE, NULL
+# include <fcntl.h>    // OPEN, CLOSE
+# include <stdio.h>    // PRINTF
+# include <string.h>   // PERROR
+# include <signal.h>   // SIGNAL
+# include <limits.h>   // LIMITS
+# include <sys/wait.h> // WAITPID
 # include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>

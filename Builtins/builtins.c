@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 16:04:19 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:00:32 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,5 @@ int	builtins(t_main *main, char **token)
 		return (unset_cmd(main, token), 1);
 	else if (!ft_strcmp(token[0], "cd"))
 		return (cd_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "clear")) //| TIRAR FUTURAMENTE
-		return (printf(CLEAR), 1);
-	free_matrix(token);
 	return (0);
 }

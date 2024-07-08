@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:40:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/26 14:09:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:05:36 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,33 +120,45 @@ char	*pathfinder(t_main *main, char *cmd)
 
 void	executer(t_main *main, char **tokens, char *cmd)
 {
+	int	status;
 	char	*path;
 	pid_t	pid;
 
 	pid = fork();
+	if (pid == -1)
+		exit(1);
 	if (!pid)
 	{
 		//| Verificar se é relative path.
-		if (!access(cmd, F_OK | X_OK) && !ft_strchr(cmd, '/')) //| Se for já manda pro comando.
-			execve(cmd, tokens, list_to_args(main->env));
+		if (!access(cmd, F_OK | X_OK)) //| Se for já manda pro comando.
+		{
+			if (execve(cmd, tokens, list_to_args(main->env)) < 0)
+			{
+				//free_matrix(tokens);
+				exit(last_status(-1));
+			}
+		}
 		else //| Se não for tem que procurar o Path dele se existir
 		{
 			path = pathfinder(main, cmd); //| Já tenho essa função também, na pipex.
-			printf("path: %s.\n", path);
-			if (access(cmd, F_OK | X_OK) && ft_strchr(path, '/'))
+			if (!path)
 			{
 				err(GREY"minichad: ");
 				err(cmd);
-				err(": command not found\n"RESET);
-				free_matrix(tokens);
+				err(": command not found\n"WHITE);
+				//free_matrix(tokens);
 				exit(1);
 			}
-			execve(path, tokens, list_to_args(main->env));
+			if (execve(path, tokens, list_to_args(main->env)) < 0)
+			{
+				//free_matrix(tokens);
+				exit(1);
+			}
 		}
-		err(RED"ERROR: arrumar mensagem.\n");
-		free_matrix(tokens);
-		exit(1);
 	}
+	//free_matrix(tokens);
+	waitpid(pid, &status, 0);
+	last_status(status);
 }
 /*
 void	re_exec(t_main *main, char *block)

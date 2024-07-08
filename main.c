@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/03 16:08:55 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:55:57 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tree)
 		return ;
 	main->tree = tree;
-	print_tree(main->tree, 0); //| Printar a árvore.
-	//exec(main, main->tree);  //| Fazer a execução da árvore.
-	builtins(main, token_to_args(main->tokens));
+	exec(main, main->tree);  //| Fazer a execução da árvore.
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
 }
@@ -64,10 +62,3 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	return (0);
 }
-
-//| Fazer expansão de *.
-//| Fazer expansão de $ (lembrar de tratar $0).
-//| Arrumar token_to_args();.
-//| Fazer make_pipe();.
-//| Fazer make_redirs();.
-//| Fazer re_exec();.
