@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/08 11:25:51 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:59:21 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	exit_cmd(t_main *main, char **token)
 	}
 	free_matrix(token);
 	free_everything(main);
+	printf("last status: %d\n", last_status(-1));
 	if (last_status(-1))
 		exit(last_status(-1));
 	exit(1);

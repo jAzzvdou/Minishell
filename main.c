@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 12:55:57 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:57:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		last_status(0);
 		parser(&main, tokenizator(user_input()));
-		printf("last status = %d.\n", last_status(-1)); //TESTES DE RETORNO
+		printf("last status: %d\n", last_status(-1));
 	}
 	rl_clear_history();
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:40:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 16:59:28 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:07:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	make_pipe(t_tree *pipe)
 	//| Lembrar de fechar os fds e o pipe certinho e dar free no que precisar.
 }
 */
-
 int	env_size(t_env *env)
 {
 	int	count;
@@ -134,7 +133,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		if (!access(cmd, F_OK | X_OK)) //| Se for já manda pro comando.
 		{
 			if (execve(cmd, tokens, env) < 0)
-				exit(1);
+				exit(127);
 		}
 		else //| Se não for tem que procurar o Path dele se existir
 		{
@@ -144,10 +143,10 @@ void	executer(t_main *main, char **tokens, char *cmd)
 				err(GREY"minichad: ");
 				err(cmd);
 				err(": command not found\n"WHITE);
-				exit(1);
+				exit(127);
 			}
 			if (execve(path, tokens, env) < 0)
-				exit(1);
+				exit(127);
 		}
 	}
 	free_matrix(env);
@@ -176,7 +175,7 @@ void	re_exec(t_main *main, char *block)
 		block = NULL;
 		parser(main, tokenizator(new_input));
 		free_everything(main);
-		exit(1);
+		exit(last_status(-1));
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
