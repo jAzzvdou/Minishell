@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/03 16:07:58 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:48:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ char	*free_function(char *s1, char *s2)
 
 int	heredoc(t_node *token, char *file, int fd)
 {
-	const int	std_in = dup(STDIN_FILENO);
+	//const int	std_in = dup(STDIN_FILENO);
 	char		*line;
 
 	while (1)
 	{
+		//inside_heredoc(1);
 		line = readline(GREEN"> ");
 		if (!line)
 		{
@@ -52,9 +53,16 @@ int	heredoc(t_node *token, char *file, int fd)
 		free(line);
 		line = NULL;
 	}
+	//inside_heredoc(0);
 	close(fd);
-	close(std_in);
+	//close(std_in);
 	free(token->cmd);
+	/*if (g_status == SIGINT)
+	{
+		unlink(file);
+		free(file);
+		file = NULL;
+	}*/
 	token->cmd = file;
 	printf("heredoc: %s\n", token->cmd);
 	return (1);

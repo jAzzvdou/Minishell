@@ -6,11 +6,13 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/09 13:57:45 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:07:23 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Include/minishell.h"
+
+volatile int	g_status;
 
 char	*user_input(void)
 {
@@ -37,7 +39,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tree)
 		return ;
 	main->tree = tree;
-	exec(main, main->tree);  //| Fazer a execução da árvore.
+	exec(main, main->tree);
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
 }
@@ -55,7 +57,8 @@ int	main(int argc, char **argv, char **envp)
 	start_signals();
 	while (1)
 	{
-		last_status(0);
+		g_status = 0;
+		//last_status(0);
 		parser(&main, tokenizator(user_input()));
 		printf("last status: %d\n", last_status(-1));
 	}

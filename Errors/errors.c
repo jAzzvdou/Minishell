@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/03 15:04:21 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:38:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	err(char *s)
 {
-	write(2, s, ft_strlen(s));
+	write(STDERR_FILENO, s, ft_strlen(s));
 }
 
 int	error_argc(void)

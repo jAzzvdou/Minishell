@@ -6,13 +6,13 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:47:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/03 15:56:48 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:29:02 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-volatile sig_atomic_t g_status = 0;
+//volatile int	g_status;
 
 void	handle_sigint(int sig)
 {
@@ -24,6 +24,7 @@ void	handle_sigint(int sig)
 			{
 				perror("ioctl");
 				g_status = 1; // Atualiza o status global para indicar erro
+				last_status(130);
 				return ;
 			}
 		}
@@ -33,9 +34,11 @@ void	handle_sigint(int sig)
 			{
 				perror("write");
 				g_status = 1; // Atualiza o status global para indicar erro
+				last_status(130);
 				return ;
 			}
 		}
+		last_status(130);
 		rl_replace_line("", 1); // Substitui a linha atual de entrada por uma linha vazia
 		rl_on_new_line(); // Move o cursor para a nova linha
 				  //rl_redisplay(); // Redisplay para garantir que a linha é atualizada

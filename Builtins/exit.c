@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/09 13:59:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:57:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	exit_cmd(t_main *main, char **token)
 {
 	if (token[1] && (!only_number(token[1]) || !is_long(token[1])))
 	{
-		error_exit(token[1], 1); // erro = 2
+		error_exit(token[1], 1);
 		last_status(2);
 	}
 	else if (token[1] && token[2])
 	{
-		error_exit(token[1], 2); // erro = 1
+		error_exit(token[1], 2);
 		last_status(1);
 		return ;
 	}

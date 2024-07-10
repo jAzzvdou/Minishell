@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/08 16:53:44 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:47:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@
 # define PART1	"🗿"RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"c"BLUE"h"
 # define PART2	LILAC"a"PURPLE"d"BROWN"!"GREY"🗿 "WHITE
 # define PROMPT PART1""PART2
+
+//----------| GLOBAL |----------//
+extern volatile int	g_status;
 
 //----------| STRUCTS |----------//
 typedef enum type
@@ -124,7 +127,7 @@ int	builtins(t_main *main, char **token);
 //__________ env __________
 void	env_cmd(t_main *main, char **token);
 void	start_env(t_main *main, char **envp);
-void	add_env(t_env **env, char *line,int declare_x);
+void	add_env(t_env **env, char *line, int declare_x);
 void	update_env(t_env **env, char *name, char *value);
 char	*env_value(t_env *env, char *name);
 //__________ pwd __________
@@ -153,6 +156,11 @@ int	handle_path(char *path);
 void	update_pwd_oldpwd(t_main *main);
 //----------| FUNCTIONS |----------//
 void	parser(t_main *main, t_tokens *tokens);
+//__________ execution __________
+void	exec(t_main *main, t_tree *tree);
+void	make_if(t_main *main, t_tree *tree);
+void	re_exec(t_main *main, char *block);
+void	controller(t_main *main, char **tokens);
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
 t_tokens	*start_tokens(void);
