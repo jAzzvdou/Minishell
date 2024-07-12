@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/10 12:07:23 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:55:28 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,11 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	return (0);
 }
+
+/*
+Casos para tratar:
+- Arrumar o export e o unset (pequenos erros).
+- Arrumar os Signals dentro do Heredoc. Além disso temos que fazer os REDIRS para o Heredoc funcionar corretamente.
+- cat + ctrlC = last_status(130);. Atualmente está last_status(2);
+- cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
+*/
