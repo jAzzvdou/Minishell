@@ -159,6 +159,7 @@ void	parser(t_main *main, t_tokens *tokens);
 //__________ execution __________
 void	exec(t_main *main, t_tree *tree);
 void	make_if(t_main *main, t_tree *tree);
+void	make_pipe(t_main *main, t_tree *pipex);
 void	re_exec(t_main *main, char *block);
 void	controller(t_main *main, char **tokens);
 //__________ tokens __________
