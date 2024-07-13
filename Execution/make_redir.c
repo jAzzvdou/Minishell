@@ -39,10 +39,23 @@ void	set_redir(t_main *main, t_tree *tree)
 
 void	make_redir(t_main *main, t_tree *tree)
 {
-	int	in;
-	int	out;
+	int		in;
+	int		out;
+	static int	backup[3];
 
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
 	if (!tree->fd) //| Caso não tenha FD ainda seta os FDs dos nodes da árvore.
 		set_redir(main, tree);
+	if (tree->fd != -1 || !last_status(-1))
+	{
+		backup[0] = in;
+		backup[1] = out;
+		backup[2] = tree->fd;
+		exec(main, tree->left); //| DEU CERTO ENTÃO EXECUTA.
+	}
+	dup2(in, STDIN_FILENO);
+	close(in);
+	dup2(out, STDOUT_FILENO);
+	close(out);
+}
