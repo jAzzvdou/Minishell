@@ -20,7 +20,7 @@ void	err(char *s)
 int	error_argc(void)
 {
 	err(RED"Error!\n"RESET);
-	err(GREY"\nUsage:"YELLOW"./minishell\n"RESET);
+	err(GREY"\tUsage:"YELLOW"./minishell\n"RESET);
 	return (1);
 }
 

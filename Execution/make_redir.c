@@ -85,7 +85,7 @@ void	make_redir(t_main *main, t_tree *tree)
 
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
-	printf("tree->fd == %d\n", tree->fd);
+	//printf("tree->fd == %d\n", tree->fd);
 	set_redir(main, tree);
 	if (tree->fd >= 0 || !last_status(-1))
 	{
