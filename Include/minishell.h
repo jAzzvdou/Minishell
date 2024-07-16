@@ -84,8 +84,7 @@ typedef struct s_tokens
 typedef struct s_tree
 {
 	e_type		type;
-	int		fdin;
-	int		fdout;
+	int		fd;
 	t_tokens	*exe;
 	struct s_tree	*left;
 	struct s_tree	*right;
@@ -160,6 +159,7 @@ void	parser(t_main *main, t_tokens *tokens);
 void	exec(t_main *main, t_tree *tree);
 void	make_if(t_main *main, t_tree *tree);
 void	make_pipe(t_main *main, t_tree *pipex);
+void	make_redir(t_main *main, t_tree *tree);
 void	re_exec(t_main *main, char *block);
 void	controller(t_main *main, char **tokens);
 //__________ tokens __________

@@ -64,7 +64,7 @@ int	heredoc(t_node *token, char *file, int fd)
 		file = NULL;
 	}*/
 	token->cmd = file;
-	printf("heredoc: %s\n", token->cmd);
+	printf(ORANGE"heredoc: %s\n"RESET, token->cmd);
 	return (1);
 }
 
