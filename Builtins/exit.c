@@ -35,7 +35,7 @@ void	exit_cmd(t_main *main, char **token)
 	}
 	free_matrix(token);
 	free_everything(main);
-	printf("last status: %d\n", last_status(-1));
+	//printf("last status: %d\n", last_status(-1));
 	if (last_status(-1))
 		exit(last_status(-1));
 	exit(1);

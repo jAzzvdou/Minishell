@@ -36,7 +36,7 @@ void	print_type(e_type type)
 
 void	exec(t_main *main, t_tree *tree)
 {
-	print_type(tree->type);
+	//print_type(tree->type);
 	if (tree->type == AND || tree->type == OR)
 		make_if(main, tree);
 	else if (tree->type == PIPE)
