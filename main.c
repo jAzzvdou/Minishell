@@ -35,11 +35,11 @@ void	parser(t_main *main, t_tokens *tokens)
 	main->tokens = tokens;
 	if (!is_there_heredoc(main->tokens)) //| Tratar as aspas do Delimiter.
 		return ;
+	//main->tokens = expander(main->tokens); //| Vamos expandir aqui, vai ser melhor para a execução.
 	tree = build_tree(main->tokens);
 	if (!tree)
 		return ;
 	main->tree = tree;
-	//| Vamos expandir aqui, vai ser melhor para a execução.
 	exec(main, main->tree);
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
