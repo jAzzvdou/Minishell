@@ -1,20 +1,81 @@
 #include "../Include/minishell.h"
 
-//| AQUI VAMOS EXPANDIR O WILDCARD E AS VARIÁVEIS DE AMBIENTE.
+t_tokens	*before_wildcard(t_tokens *tokens, t_tokens *wildcard)
+{
+	t_tokens	*tmp;
+	t_tokens	*before;
+
+	before = start_tokens();
+	tmp = tokens;
+	while (tmp)
+	{
+		if (tmp == wildcard)
+			break ;
+		add_token(before, tmp->type, tmp->cmd);
+		tmp = tmp->next;
+	}
+	free_tokens(tokens);
+	return (before);
+}
+
+t_tokens	*after_wildcard(t_tokens *tokens)
+{
+	t_tokens	*tmp;
+	t_tokens	*after;
+
+	after = start_tokens(); 
+	tmp = tokens;
+	while (tmp)
+	{
+		add_token(after, tmp->type, tmp->cmd);
+		tmp = tmp->next;
+	}
+	return (after);
+}
+
+t_tokens	*expand_wildcard(t_tokens *wildcard)
+{
+	DIR	*dir;
+	struct dirent	*entry;
+	t_tokens	*expanded;
+
+	dir = opendir(".");
+	if (!dir)
+		return (NULL);
+	while (/*Enquanto tiver coisa na pasta*/)
+	{
+		if (/*Se for direfente de '.' e se encaixar no pattern*/)
+			//Entre na lista;
+	}
+	closedir();
+	return (expanded);
+}
+
+t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
+{
+	//| JUNTAR AS DUAS LISTAS.
+}
 
 t_tokens	*wildcard(t_tokens *tokens)
 {
 	t_tokens	*tmp;
+	t_tokens	*after;
 	t_tokens	*expanded;
 
+	after = NULL;
 	tmp = tokens;
 	while (tmp)
 	{
 		if (tmp->first->type == CMD
 			&& ft_strchr(tmp->first->cmd, '*'))
 		{
-			//| Pegar a lista depois de *.
-			//| tokens -> tokens expandidos.
+			if (tmp->next)
+				after = after_wildcard(tmp->next);
+			if (tmp->prev)
+				before = before_wildcard(tokens, tmp);
+			expanded = expand_wildcard(tmp);
+			expanded = merge_lists(before, expanded);
+			expanded = merge_lists(expanded, after);
 		}
 		tmp = tmp->next;
 	}
@@ -32,61 +93,7 @@ t_tokens	*expander(t_tokens *tokens)
 	tmp = NULL;
 	return (expanded);
 }
-
-/* Exemplo de Wildcard do Chat:
-typedef struct s_token {
-    char *str;
-    struct s_token *next;
-} t_token;
-
-t_token *create_token(char *str) {
-    t_token *new_token = malloc(sizeof(t_token));
-    if (!new_token)
-        return NULL;
-    new_token->str = strdup(str);
-    new_token->next = NULL;
-    return new_token;
-}
-
-void add_token(t_token **tokens, t_token *new_token) {
-    if (!*tokens) {
-        *tokens = new_token;
-        return;
-    }
-    t_token *temp = *tokens;
-    while (temp->next)
-        temp = temp->next;
-    temp->next = new_token;
-}
-
-void free_tokens(t_token *tokens) {
-    t_token *temp;
-    while (tokens) {
-        temp = tokens;
-        tokens = tokens->next;
-        free(temp->str);
-        free(temp);
-    }
-}
-
-t_token *split_tokens(t_token **tokens, t_token *wildcard) {
-    t_token *after_wildcard = NULL;
-
-    if (!wildcard || !tokens)
-        return NULL;
-
-    while (*tokens && *tokens != wildcard) {
-        tokens = &(*tokens)->next;
-    }
-
-    if (*tokens) {
-        after_wildcard = (*tokens)->next;
-        (*tokens)->next = NULL;
-    }
-
-    return after_wildcard;
-}
-
+/*
 t_token *expand_wildcard(const char *pattern) {
     DIR *dir;
     struct dirent *entry;
@@ -106,56 +113,5 @@ t_token *expand_wildcard(const char *pattern) {
 
     closedir(dir);
     return expanded_tokens;
-}
-
-t_token *merge_tokens(t_token *before, t_token *expanded, t_token *after) {
-    t_token *merged = NULL;
-    t_token *temp;
-
-    // Adicionar tokens antes do wildcard
-    while (before) {
-        t_token *new_token = create_token(before->str);
-        if (new_token)
-            add_token(&merged, new_token);
-        before = before->next;
-    }
-
-    // Adicionar tokens expandidos
-    while (expanded) {
-        t_token *new_token = create_token(expanded->str);
-        if (new_token)
-            add_token(&merged, new_token);
-        expanded = expanded->next;
-    }
-
-    // Adicionar tokens após o wildcard
-    while (after) {
-        t_token *new_token = create_token(after->str);
-        if (new_token)
-            add_token(&merged, new_token);
-        after = after->next;
-    }
-
-    return merged;
-}
-
-t_token *expand_wildcards_in_tokens(t_token *tokens) {
-    t_token *expanded_tokens = NULL;
-    t_token *current = tokens;
-
-    while (current) {
-        if (strchr(current->str, '*')) {
-            t_token *before = tokens;
-            t_token *after = split_tokens(&tokens, current);
-            t_token *expanded = expand_wildcard(current->str);
-            expanded_tokens = merge_tokens(before, expanded, after);
-            free_tokens(expanded); // Liberar tokens expandidos
-            free_tokens(after); // Liberar tokens após o wildcard
-            tokens = expanded_tokens; // Atualizar tokens
-        }
-        current = current->next;
-    }
-
-    return tokens;
 }
 */
