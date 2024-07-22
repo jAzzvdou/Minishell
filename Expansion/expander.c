@@ -103,6 +103,8 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 		entry = readdir(dir);
 	}
 	closedir(dir);
+	if (!expanded->first)
+		add_token(expanded, wildcard->type, wildcard->cmd);
 	return (expanded);
 }
 
