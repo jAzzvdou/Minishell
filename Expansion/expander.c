@@ -34,6 +34,45 @@ t_tokens	*after_wildcard(t_tokens *tokens, t_node *node)
 	return (after);
 }
 
+int	is_match(const char *file, const char *pattern)
+{
+	const char	*f;
+	const char	*p;
+	const char	*star;
+	const char	*match;
+
+	f = file;
+	p = pattern;
+	star = NULL;
+	match = f;
+	while (*f)
+	{
+		if (*p == '*')
+		{
+			star = p++;
+			match = f;
+		}
+		else if (*p == *f)
+		{
+			p++;
+			f++;
+		}
+		else if (star)
+		{
+			p = star + 1;
+			match++;
+			f = match;
+		}
+		else
+			return (0);
+	}
+	while (*p == '*')
+		p++;
+	if (*p)
+		return (0);
+	return (1);
+}	
+
 /*
 struct dirent
 {
@@ -59,7 +98,7 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 	while (entry)
 	{
 		//| Pula os arquivos que começam com '.'.
-		if (*(char *)entry->d_name != '.' /*&& is_match((char *)entry->d_name, wildcard->cmd)*/) //| Caso dê match, adiciona na lista.
+		if (*(char *)entry->d_name != '.' && is_match((char *)entry->d_name, wildcard->cmd)) //| Caso dê match, adiciona na lista.
 			add_token(expanded, wildcard->type, (char *)entry->d_name);
 		entry = readdir(dir);
 	}
@@ -138,7 +177,6 @@ t_tokens	*expander(t_tokens *tokens)
 	//expanded = expansion_var(tmp); //| Expandir VAR.
 	//free(tmp);
 	//tmp = NULL;
-	//free_tokens(&tokens);
 	return (tmp); //| SÓ PARA TESTES, O RETURN CERTO É O DE BAIXO.
 	//return (expanded);
 }
