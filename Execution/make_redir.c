@@ -72,8 +72,6 @@ void	set_redir(t_main *main, t_tree *tree)
 			dup2(tree->fd, STDIN_FILENO);
 			close(tree->fd);
 		}
-		if (tree->type == HEREDOC)
-			unlink(tree->right->exe->first->cmd);
 	}
 }
 
@@ -93,6 +91,8 @@ void	make_redir(t_main *main, t_tree *tree)
 		//backup[1] = out;
 		//backup[2] = tree->fd;
 		exec(main, tree->left); //| DEU CERTO ENTÃO EXECUTA.
+		if (tree->type == HEREDOC)
+			unlink(tree->right->exe->first->cmd);
 	}
 	dup2(in, STDIN_FILENO);
 	close(in);
