@@ -25,6 +25,7 @@
 # include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <dirent.h>   // DIR, OPENDIR, READDIR, CLOSEDIR
 
 //----------| DEFINES |----------//
 //__________ colors __________
@@ -164,8 +165,10 @@ void	re_exec(t_main *main, char *block);
 void	controller(t_main *main, char **tokens);
 //__________ tokens __________
 int	check_tokens(t_tokens *tokens);
+void	add_token(t_tokens *tokens, e_type type, char *line);
 t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
+t_tokens	*expander(t_tokens *tokens);
 char	**token_to_args(t_tokens *tokens);
 t_node	*is_type1(t_node *last);
 t_node	*is_type2(t_node *last);
