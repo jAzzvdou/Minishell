@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/10 12:47:26 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:07:41 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,12 @@ t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
+//__________ expansion _______
+char *get_env_value(t_env *env, const char *name);
+void handle_quotes(const char **start, int *in_double_quotes, int *in_single_quotes);
+int expand_var(t_main *main, char **expanded, const char **start);
+char *expand_variables(t_main *main, const char *cmd);
+void expand_tokens(t_main *main, t_tokens *tokens);
 //---------- execution ----------//
 void	exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//

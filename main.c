@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/12 14:55:28 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:14:58 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	free_tree(&main->tree);
 }
 
-int	main(int argc, char **argv, char **envp)
+/*int	main(int argc, char **argv, char **envp)
 {
 	t_main	main;
 
@@ -65,6 +65,28 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	return (0);
+}*/
+
+int main(int argc, char **argv, char **envp) {
+    t_main main;
+
+    (void)argv;
+    if (argc != 1)
+        return (error_argc());
+    main = (t_main){0};
+    start_env(&main, envp);
+    start_pwd(&main);
+    start_signals();
+    while (1) {
+        g_status = 0;
+        char *input = user_input();
+        t_tokens *tokens = tokenizator(input);
+        expand_tokens(&main, tokens);
+        parser(&main, tokens);
+        free(input);
+    }
+    rl_clear_history();
+    return (0);
 }
 
 /*
