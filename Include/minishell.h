@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/01 11:48:08 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:32:52 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,13 +179,19 @@ t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
-//__________ expansion _______
+//__________ expansion __________
+t_tokens	*before_wildcard(t_tokens *tokens, t_node *node);
+t_tokens	*after_wildcard(t_tokens *tokens, t_node *node);
+int	is_match(const char *file, const char *pattern);
+t_tokens	*expand_wildcard(t_node *wildcard);
+t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
+t_tokens	*wildcard(t_tokens *tokens);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
-char *get_env_value(t_env *env, const char *name);
-void handle_quotes(const char **start, int *in_double_quotes, int *in_single_quotes);
-int expand_var(t_main *main, char **expanded, const char **start);
-char *expand_variables(t_main *main, const char *cmd);
-void expand_tokens(t_main *main, t_tokens *tokens);
+char	*get_env_value(t_env *env, const char *name);
+void	handle_quotes(const char **start, int *in_double_quotes, int *in_single_quotes);
+int	expand_var(t_main *main, char **expanded, const char **cmd);
+char	*expand_variables(t_main *main, const char *cmd);
+void	expand_tokens(t_main *main, t_tokens *tokens);
 //---------- execution ----------//
 void	exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//

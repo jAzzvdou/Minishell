@@ -23,6 +23,7 @@ SRCS	=	main.c                       \
 		Execution/re_exec.c          \
 		Execution/controller.c       \
 		Expansion/expander.c         \
+		Expansion/wildcard.c         \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \
