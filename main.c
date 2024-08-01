@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/31 18:14:58 by bruno            ###   ########.fr       */
+/*   Updated: 2024/08/01 11:45:36 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	main->tokens = tokens;
 	if (!is_there_heredoc(main->tokens)) //| Tratar as aspas do Delimiter.
 		return ;
-	main->tokens = expander(main->tokens); //| Vamos expandir aqui, vai ser melhor para a execução.
+	main->tokens = expander(main, main->tokens);
 	tree = build_tree(main->tokens);
 	if (!tree)
 		return ;
@@ -45,7 +45,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	free_tree(&main->tree);
 }
 
-/*int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_main	main;
 
@@ -65,30 +65,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	}
 	rl_clear_history();
 	return (0);
-}*/
-
-int main(int argc, char **argv, char **envp) {
-    t_main main;
-
-    (void)argv;
-    if (argc != 1)
-        return (error_argc());
-    main = (t_main){0};
-    start_env(&main, envp);
-    start_pwd(&main);
-    start_signals();
-    while (1) {
-        g_status = 0;
-        char *input = user_input();
-        t_tokens *tokens = tokenizator(input);
-        expand_tokens(&main, tokens);
-        parser(&main, tokens);
-        free(input);
-    }
-    rl_clear_history();
-    return (0);
 }
-
 /*
 Casos para tratar:
 - Arrumar o export e o unset (pequenos erros).

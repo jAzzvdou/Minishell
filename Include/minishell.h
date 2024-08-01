@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/31 18:07:41 by bruno            ###   ########.fr       */
+/*   Updated: 2024/08/01 11:48:08 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ int	check_tokens(t_tokens *tokens);
 void	add_token(t_tokens *tokens, e_type type, char *line);
 t_tokens	*start_tokens(void);
 t_tokens	*tokenizator(char *user_input);
-t_tokens	*expander(t_tokens *tokens);
 char	**token_to_args(t_tokens *tokens);
 t_node	*is_type1(t_node *last);
 t_node	*is_type2(t_node *last);
@@ -181,6 +180,7 @@ t_tree	*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int	is_there_heredoc(t_tokens *tokens);
 //__________ expansion _______
+t_tokens	*expander(t_main *main, t_tokens *tokens);
 char *get_env_value(t_env *env, const char *name);
 void handle_quotes(const char **start, int *in_double_quotes, int *in_single_quotes);
 int expand_var(t_main *main, char **expanded, const char **start);
