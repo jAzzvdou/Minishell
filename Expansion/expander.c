@@ -6,20 +6,11 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 12:02:22 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:35:17 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-t_tokens	*expander(t_main *main, t_tokens *tokens)
-{
-	t_tokens	*expanded;
-
-	expanded = wildcard(tokens);
-	expand_tokens(main, expanded);
-	return (expanded);
-}
 
 char	*get_env_value(t_env *env, const char *name)
 {
@@ -46,10 +37,6 @@ void	handle_quotes(const char **start, int *doubles, int *singles)
 	}
 }
 
-// Lidar com $$ -> Nada.
-// Lidar com $? -> Printar retorno do último comando. last_status(-1);
-// LIdar com $0 -> minichad
-
 int	expand_var(t_main *main, char **expanded, const char **start)
 {
 	const char *end = *start + 1;
@@ -59,8 +46,6 @@ int	expand_var(t_main *main, char **expanded, const char **start)
 	char *value = get_env_value(main->env, name);
 	if (!strncmp(*start, "$0", 2))
 		value = "minichad";
-	//else if (!strncmp(*start, "$?", 2))
-	//	value = ft_itoa(last_status(-1));
 	strcat(*expanded, value);
 	free(name);
 	name = NULL;
@@ -82,7 +67,7 @@ char	*expand_variables(t_main *main, const char *cmd)
 			{
 				free(expanded);
 				expanded = NULL;
-				return strdup(""); // Retorna uma string vazia para representar o prompt
+				return strdup("");
 			}
 		}
 		else
@@ -92,7 +77,6 @@ char	*expand_variables(t_main *main, const char *cmd)
 	return expanded;
 }
 
-// Primeira parte está correta.
 void	expand_tokens(t_main *main, t_tokens *tokens)
 {
 	char	*expanded_cmd;
@@ -112,4 +96,17 @@ void	expand_tokens(t_main *main, t_tokens *tokens)
 		}
 		tmp = tmp->next;
 	}
+}
+
+t_tokens	*expander(t_main *main, t_tokens *tokens)
+{
+	//t_tokens	*tmp;
+	t_tokens	*expanded;
+
+	expanded = wildcard(tokens);
+	expand_tokens(main, expanded);
+	//expanded = variables(main, tmp);
+	//| Free em tokens.
+	//| Free em tmp.
+	return (expanded);
 }

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 12:17:09 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:53:24 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ void		exit_cmd(t_main *main, char **token);
 //__________ export __________
 void		export_cmd(t_main *main, char **token);
 t_env		*alphabetical_env(t_env *tmp);
-void		add_without_equal(t_env **env, char *line, int declare_x);
 void		handle_no_args(t_env *env);
 int			is_valid_identifier(char *token);
 void		up_env_var(t_env *env_var, char *equals_sign, char *token);
@@ -187,11 +186,6 @@ t_tokens	*expand_wildcard(t_node *wildcard);
 t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
 t_tokens	*wildcard(t_tokens *tokens);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
-char		*get_env_value(t_env *env, const char *name);
-void		handle_quotes(const char **start, int *doubles, int *singles);
-int			expand_var(t_main *main, char **expanded, const char **cmd);
-char		*expand_variables(t_main *main, const char *cmd);
-void		expand_tokens(t_main *main, t_tokens *tokens);
 //---------- execution ----------//
 void		exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//

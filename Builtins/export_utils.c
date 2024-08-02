@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:28:25 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 11:55:34 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:29:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	add_new_env_var(t_main *main, char *token, char *equals_sign)
 
 	if (*(equals_sign + 1) == '\0')
 	{
-		empty_value_line = ft_strjoin(token, "\"\"");
+		empty_value_line = ft_strjoin(token, "");
 		add_env(&main->env, empty_value_line, 1);
 		free(empty_value_line);
 	}
@@ -81,5 +81,11 @@ void	handle_equal_sign(t_main *main, char *token)
 		add_new_env_var(main, token, equals_sign);
 	}
 	else
-		add_without_equal(&main->env, token, 0);
+	{
+		err(GREY"minichad: export: '");
+		err(token);
+		err("': need '=' after variable name\n"RESET);
+		last_status(1);
+		return ;
+	}
 }

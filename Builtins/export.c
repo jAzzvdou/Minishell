@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 10:50:06 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:27:46 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,6 @@ t_env	*alphabetical_env(t_env *tmp)
 		}
 	}
 	return (ordered);
-}
-
-void	add_without_equal(t_env **env, char *line, int declare_x)
-{
-	t_env	*new;
-	t_env	*tmp;
-
-	if (!line)
-		return ;
-	new = (t_env *)malloc(sizeof(t_env));
-	new->declare_x = declare_x;
-	new->name = ft_strdup(line);
-	new->value = NULL;
-	new->line = ft_strdup(line);
-	new->next = NULL;
-	if (!(*env))
-		*env = new;
-	else
-	{
-		tmp = *env;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
 }
 
 void	export_cmd(t_main *main, char **token)
