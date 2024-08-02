@@ -6,33 +6,27 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/08 15:04:10 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:23:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-/*
-void	expander(t_tokens *tokens) //| Nessa função a gente também tem que lidar com '$USER', "$USER", '"$USER"' ou "'$USER'".
+void	free_args(char **args, int i)
 {
-	asterisk(tokens);
-	//| passar todos os tokens pela função que vai expandir os $.
-	while (nodes) //| Passar em todos os nodes da lista procurando '$'.
+	while (i > 0)
 	{
-		if (node->cmd[i] == '$')
-			//| Procurar essa variável pra expandir.
-			//	-> Caso tenha número depois, sem ser o '0', expande pra NULL. Caso tenha algum sinal, sem ser '$' ou '_', expande pra NULL.
-			//| Agora cmd vai ser igual a essa variável.
-		}
-		node = node->next;
+		free(args[--i]);
+		args[i] = NULL;
 	}
+	free(args);
+	args = NULL;
 }
-*/
 
 char	**token_to_args(t_tokens *tokens)
 {
-	int	i;
-	int	ii;
+	int		i;
+	int		ii;
 	char	**args;
 	t_node	*node;
 
@@ -46,16 +40,7 @@ char	**token_to_args(t_tokens *tokens)
 	{
 		args[i] = ft_strdup(node->cmd);
 		if (!args[i])
-		{
-			while (i > 0)
-			{
-				free(args[--i]);
-				args[i] = NULL;
-			}
-			free(args);
-			args = NULL;
-			return (NULL);
-		}
+			return (free_args(args, i), NULL);
 		i++;
 		node = node->next;
 	}
@@ -83,10 +68,10 @@ int	builtins(t_main *main, char **token)
 	else if (!ft_strcmp(token[0], "pwd"))
 		return (printf("%s\n", main->pwd), 1);
 	else if (!ft_strcmp(token[0], "echo"))
-		return (echo_cmd(token), 1); //| LEMBRAR DE TRATAR '$0' E '$$'.
+		return (echo_cmd(token), 1);
 	else if (!ft_strcmp(token[0], "export"))
 		return (export_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "unset")) // sempre retorna 0
+	else if (!ft_strcmp(token[0], "unset"))
 		return (unset_cmd(main, token), 1);
 	else if (!ft_strcmp(token[0], "cd"))
 		return (cd_cmd(main, token), 1);

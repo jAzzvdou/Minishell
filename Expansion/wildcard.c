@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/01 14:31:46 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:31:04 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_tokens	*after_wildcard(t_tokens *tokens, t_node *node)
 	t_node		*tmp;
 	t_tokens	*after;
 
-	after = start_tokens(); 
+	after = start_tokens();
 	tmp = tokens->first;
 	while (tmp && ft_strcmp(tmp->cmd, node->cmd))
 		tmp = tmp->next;
@@ -83,24 +83,13 @@ int	is_match(const char *file, const char *pattern)
 	if (*p)
 		return (0);
 	return (1);
-}	
-
-/*
-struct dirent
-{
-	ino_t		d_ino;       //| Número do inode
-	off_t		d_off;       //| Deslocamento
-	unsigned short	d_reclen;    //| Comprimento do registro
-	unsigned char	d_type;      //| Tipo de arquivo
-	char		d_name[256]; //| Nome do arquivo
-};
-*/
+}
 
 t_tokens	*expand_wildcard(t_node *wildcard)
 {
-	DIR		*dir;   //| 'DIR' é uma estrutura que representa um diretório aberto.
-	struct dirent	*entry; //| Struct comentada acima.
-	t_tokens	*expanded;
+	DIR				*dir;
+	struct dirent	*entry;
+	t_tokens		*expanded;
 
 	expanded = start_tokens();
 	dir = opendir(".");
@@ -109,8 +98,8 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 	entry = readdir(dir);
 	while (entry)
 	{
-		//| Pula os arquivos que começam com '.'.
-		if (*(char *)entry->d_name != '.' && is_match((char *)entry->d_name, wildcard->cmd)) //| Caso dê match, adiciona na lista.
+		if (*(char *)entry->d_name != '.'
+			&& is_match((char *)entry->d_name, wildcard->cmd))
 			add_token(expanded, wildcard->type, (char *)entry->d_name);
 		entry = readdir(dir);
 	}

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:44:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/01 11:45:36 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:18:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	if (!tokens || !check_tokens(tokens))
 		return ;
 	main->tokens = tokens;
-	if (!is_there_heredoc(main->tokens)) //| Tratar as aspas do Delimiter.
+	if (!is_there_heredoc(main->tokens))
 		return ;
 	main->tokens = expander(main, main->tokens);
 	tree = build_tree(main->tokens);
@@ -59,9 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_status = 0;
-		//last_status(0);
 		parser(&main, tokenizator(user_input()));
-		//printf("last status: %d\n", last_status(-1));
 	}
 	rl_clear_history();
 	return (0);
@@ -69,7 +67,8 @@ int	main(int argc, char **argv, char **envp)
 /*
 Casos para tratar:
 - Arrumar o export e o unset (pequenos erros).
-- Arrumar os Signals dentro do Heredoc. Além disso temos que fazer os REDIRS para o Heredoc funcionar corretamente.
+- Arrumar os Signals dentro do Heredoc.
+Além disso temos que fazer os REDIRS para o Heredoc funcionar corretamente.
 - cat + ctrlC = last_status(130);. Atualmente está last_status(2);
 - cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
 */

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_redir.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/02 12:22:16 by jazevedo          #+#    #+#             */
+/*   Updated: 2024/08/02 12:27:26 by jazevedo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
@@ -7,16 +18,16 @@ void	infile(t_tree *tree)
 
 	file = tree->right->exe->first->cmd;
 	tree->fd = open(file, O_RDONLY);
-	if (!access(file, F_OK) && access(file, W_OK | R_OK)) //| Caso não possa escrever ou nem ler do arquivo.
-        {
-                err(GREY"minichad: Permission denied\n"RESET);
-                last_status(1);
-        }
-        else if (access(file, F_OK)) //| Caso não ache o arquivo.
-        {
-                err(GREY"minichad: No such file or directory\n"RESET);
-                last_status(1);
-        }
+	if (!access(file, F_OK) && access(file, W_OK | R_OK))
+	{
+		err(GREY"minichad: Permission denied\n"RESET);
+		last_status(1);
+	}
+	else if (access(file, F_OK))
+	{
+		err(GREY"minichad: No such file or directory\n"RESET);
+		last_status(1);
+	}
 }
 
 void	outfile(t_tree *tree)
@@ -25,53 +36,51 @@ void	outfile(t_tree *tree)
 
 	file = tree->right->exe->first->cmd;
 	if (tree->type == OUTPUT)
-		tree->fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 00700); //| Substitui o que tem dentro.
+		tree->fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 00700);
 	else if (tree->type == APPEND)
-		tree->fd = open(file, O_CREAT | O_RDWR | O_APPEND, 00700); //| Adiciona no final do arquivo.
-	//| Verificar as permissões do arquivo para ver se é possível escrever ou ler ele.
-	if (!access(file, F_OK) && access(file, W_OK | R_OK)) //| Caso não possa escrever ou nem ler do arquivo.
+		tree->fd = open(file, O_CREAT | O_RDWR | O_APPEND, 00700);
+	if (!access(file, F_OK) && access(file, W_OK | R_OK))
 	{
 		err(GREY"minichad: Permission denied\n"RESET);
 		last_status(1);
 	}
-	else if (access(file, F_OK)) //| Caso não ache o arquivo.
+	else if (access(file, F_OK))
 	{
 		err(GREY"minichad: No such file or directory\n"RESET);
 		last_status(1);
 	}
 }
 
+void	dup_close(t_tree *tree, int std)
+{
+	dup2(tree->fd, std);
+	close(tree->fd);
+}
+
 void	set_redir(t_main *main, t_tree *tree)
 {
-	e_type	type;
+	t_type	type;
 
 	type = tree->left->type;
 	if (type == INPUT || type == OUTPUT
 		|| type == APPEND || type == HEREDOC)
-		set_redir(main, tree->left); //| Caso o LEFT seja REDIR também.
+		set_redir(main, tree->left);
 	type = tree->type;
 	if ((type == OUTPUT || type == APPEND)
-		&& (tree->left->fd >= 0 || !last_status(-1))) //| OUTFILE caso o seput dos REDIRs esteja certo.
+		&& (tree->left->fd >= 0 || !last_status(-1)))
 	{
-		outfile(tree); //| EM FASE DE TESTES.
+		outfile(tree);
 		if (tree->fd >= 0)
-		{
-			dup2(tree->fd, STDOUT_FILENO);
-			close(tree->fd);
-		}
+			dup_close(tree, STDOUT_FILENO);
 	}
-	//| CASO Tree->left->fd == -1, tem que setar o atual para -1.
-	else if (tree->left->fd < 0) //| DEU ERRADO.
+	else if (tree->left->fd < 0)
 		tree->fd = -1;
 	else if ((type == INPUT || type == HEREDOC)
-		 && (tree->left->fd >= 0 || !last_status(-1)))
+		&& (tree->left->fd >= 0 || !last_status(-1)))
 	{
-		infile(tree); // FAZER INPUT E HEREDOC.
+		infile(tree);
 		if (tree->fd >= 0)
-		{
-			dup2(tree->fd, STDIN_FILENO);
-			close(tree->fd);
-		}
+			dup_close(tree, STDIN_FILENO);
 	}
 }
 
@@ -79,18 +88,13 @@ void	make_redir(t_main *main, t_tree *tree)
 {
 	int		in;
 	int		out;
-	//static int	backup[3];
 
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
-	//printf("tree->fd == %d\n", tree->fd);
 	set_redir(main, tree);
 	if (tree->fd >= 0 || !last_status(-1))
 	{
-		//backup[0] = in;
-		//backup[1] = out;
-		//backup[2] = tree->fd;
-		exec(main, tree->left); //| DEU CERTO ENTÃO EXECUTA.
+		exec(main, tree->left);
 		if (tree->type == HEREDOC)
 			unlink(tree->right->exe->first->cmd);
 	}

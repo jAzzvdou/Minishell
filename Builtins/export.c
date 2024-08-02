@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:39:39 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 16:06:06 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:50:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	export_cmd(t_main *main, char **token)
 		{
 			err(GREY"minichad: export: '");
 			err(token[i]);
-			err("': not a valid identifier\n"RESET); // erro = 1
+			err("': not a valid identifier\n"RESET);
 			last_status(1);
 			i++;
 			continue ;

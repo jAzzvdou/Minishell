@@ -6,54 +6,53 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:47:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/10 12:29:02 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:40:04 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-//volatile int	g_status;
+void	err_signal(char *err)
+{
+	perror(err);
+	g_status = 1;
+	last_status(130);
+}
 
 void	handle_sigint(int sig)
 {
-	if (sig == SIGINT) // Verifica se o sinal recebido é SIGINT
+	if (sig == SIGINT)
 	{
-		if (RL_ISSTATE(RL_STATE_READCMD)) // Verifica se o Readline está em estado de leitura de comando
+		if (RL_ISSTATE(RL_STATE_READCMD))
 		{
-			if (ioctl(STDIN_FILENO, TIOCSTI, "\n") == -1) // Injeta um '\n' na entrada padrão (simula a tecla Enter)
+			if (ioctl(STDIN_FILENO, TIOCSTI, "\n") == -1)
 			{
-				perror("ioctl");
-				g_status = 1; // Atualiza o status global para indicar erro
-				last_status(130);
+				err_signal("ioctl");
 				return ;
 			}
 		}
 		else
 		{
-			if (write(STDIN_FILENO, "\n", 1) == -1) // Escreve um '\n' na entrada padrão
+			if (write(STDIN_FILENO, "\n", 1) == -1)
 			{
-				perror("write");
-				g_status = 1; // Atualiza o status global para indicar erro
-				last_status(130);
+				err_signal("write");
 				return ;
 			}
 		}
 		last_status(130);
-		rl_replace_line("", 1); // Substitui a linha atual de entrada por uma linha vazia
-		rl_on_new_line(); // Move o cursor para a nova linha
-				  //rl_redisplay(); // Redisplay para garantir que a linha é atualizada
+		rl_replace_line("", 1);
+		rl_on_new_line();
 	}
 	return ;
 }
 
 void	start_signals(void)
 {
-	struct	sigaction sig;
+	struct sigaction	sig;
 
 	sig.sa_handler = handle_sigint;
 	sigemptyset(&sig.sa_mask);
-	sig.sa_flags = SA_RESTART; // Garante que chamadas interrompidas sejam reiniciadas
+	sig.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sig, NULL);
-	signal(SIGQUIT, SIG_IGN); // Ignorar SIGQUIT
-	signal(SIGTSTP, SIG_IGN); // Ignorar SIGTSTP (Ctrl+Z)
+	signal(SIGQUIT, SIG_IGN);
 }

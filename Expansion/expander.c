@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/01 15:50:15 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:02:22 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,16 @@ char	*get_env_value(t_env *env, const char *name)
     return ("");
 }
 
-void	handle_quotes(const char **start, int *in_double_quotes, int *in_single_quotes)
+void	handle_quotes(const char **start, int *doubles, int *singles)
 {
-	if (**start == '\"' && !*in_single_quotes)
+	if (**start == '\"' && !*singles)
 	{
-		*in_double_quotes = !*in_double_quotes;
+		*doubles = !*doubles;
 		(*start)++;
 	}
-	else if (**start == '\'' && !*in_double_quotes)
+	else if (**start == '\'' && !*doubles)
 	{
-		*in_single_quotes = !*in_single_quotes;
+		*singles = !*singles;
 		(*start)++;
 	}
 }
@@ -70,13 +70,13 @@ int	expand_var(t_main *main, char **expanded, const char **start)
 
 char	*expand_variables(t_main *main, const char *cmd)
 {
-	int in_single_quotes = 0;
-	int in_double_quotes = 0;
+	int singles = 0;
+	int doubles = 0;
 	char *expanded = calloc(INT_MAX, 1); //| <- Gambiarra sinistra.
 	while (*cmd)
 	{
-		handle_quotes(&cmd, &in_double_quotes, &in_single_quotes);
-		if (*cmd == '$' && !in_single_quotes)
+		handle_quotes(&cmd, &doubles, &singles);
+		if (*cmd == '$' && !singles)
 		{
 			if (!expand_var(main, &expanded, &cmd)) 
 			{

@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/12 14:47:30 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:25:13 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	error_syntax(char *cmd, int option)
 	}
 	else if (option == 2)
 	{
-		err(GREY"minichad: syntax error near"); 
+		err(GREY"minichad: syntax error near");
 		err(" unexpected token `newline'\n"RESET);
 	}
 	return (0);
@@ -44,7 +44,7 @@ void	error_env(char *cmd)
 {
 	err(GREY"env: '");
 	err(cmd);
-	err("': No such file or directory\n"RESET); //erro = 127
+	err("': No such file or directory\n"RESET);
 }
 
 void	*error_closed(void)

@@ -6,11 +6,11 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:05:19 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 15:28:22 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:13:50 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../Include/minishell.h"
+#include "../Include/minishell.h"
 
 int	handle_home(t_main *main)
 {
@@ -42,7 +42,7 @@ int	handle_tilde(t_main *main, char *token)
 		err(GREY"minichad: cd: HOME is not set\n"RESET);
 		return (1);
 	}
-	new_path = ft_strjoin(path, (token + 1)); //| Malloc
+	new_path = ft_strjoin(path, (token + 1));
 	if (!new_path)
 	{
 		err(GREY"minichad: cd: memory allocation error\n"RESET);
@@ -53,11 +53,9 @@ int	handle_tilde(t_main *main, char *token)
 	{
 		err(GREY"minichad: cd"RESET);
 		free(new_path);
-		new_path = NULL;
 		return (1);
 	}
 	free(new_path);
-	new_path = NULL;
 	return (0);
 }
 
@@ -73,7 +71,10 @@ int	handle_oldpwd(t_main *main)
 	}
 	if (chdir(path))
 	{
-		err(GREY"minichad: cd\n"RESET);
+		err(GREY"minichad: cd: ");
+		err(path);
+		err(": No such file or directory\n"RESET);
+		last_status(1);
 		return (1);
 	}
 	printf("%s\n", path);
@@ -84,9 +85,10 @@ int	handle_path(char *path)
 {
 	if (chdir(path))
 	{
-		err(GREY"minichad: cd: "); //erro = 2
+		err(GREY"minichad: cd: ");
 		err(path);
 		err(": No such file or directory\n"RESET);
+		last_status(1);
 		return (1);
 	}
 	return (0);

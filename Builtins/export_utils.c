@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:28:25 by bruno             #+#    #+#             */
-/*   Updated: 2024/06/24 18:44:12 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:55:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_valid_identifier(char *token)
 	return (is_valid);
 }
 
-void	update_existing_env_var(t_env *env_var, char *equals_sign, char *token)
+void	up_env_var(t_env *env_var, char *equals_sign, char *token)
 {
 	free(env_var->value);
 	env_var->value = ft_strdup(equals_sign + 1);
@@ -71,7 +71,7 @@ void	handle_equal_sign(t_main *main, char *token)
 		{
 			if (!ft_strcmp(env_var->name, name))
 			{
-				update_existing_env_var(env_var, equals_sign, token);
+				up_env_var(env_var, equals_sign, token);
 				free(name);
 				return ;
 			}

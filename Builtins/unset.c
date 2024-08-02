@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:01:20 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/08 13:31:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:19:38 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,28 @@ void	free_env_node(t_env *node)
 void	unset_cmd(t_main *main, char **token)
 {
 	int		i;
-	t_env	*temp;
+	t_env	*tmp;
 	t_env	*prev;
 
-	if (!token[1])
-		return ;
-	i = 1;
-	while (token[i])
+	i = 0;
+	while (token[++i])
 	{
-		temp = main->env;
+		tmp = main->env;
 		prev = NULL;
-		while (temp)
+		while (tmp)
 		{
-			if (!ft_strcmp(temp->name, token[i]))
+			if (!ft_strcmp(tmp->name, token[i]))
 			{
 				if (prev)
-					prev->next = temp->next;
+					prev->next = tmp->next;
 				else
-					main->env = temp->next;
-				free_env_node(temp);
+					main->env = tmp->next;
+				free_env_node(tmp);
 				break ;
 			}
-			prev = temp;
-			temp = temp->next;
+			prev = tmp;
+			tmp = tmp->next;
 		}
-		i++;
 	}
 	last_status(0);
 }

@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/12 14:38:51 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:31:44 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,25 @@ char	*free_function(char *s1, char *s2)
 	return (tmp);
 }
 
+void	err_heredoc(char *cmd)
+{
+	err(GREY"minichad: warning: here-document");
+	err("at line N delimited by end-of-file (wanted `");
+	err(cmd);
+	err("')\n"RESET);
+	last_status(0);
+}
+
 int	heredoc(t_node *token, char *file, int fd)
 {
-	//const int	std_in = dup(STDIN_FILENO);
-	char		*line;
+	char	*line;
 
 	while (1)
 	{
-		//inside_heredoc(1);
 		line = readline(GREEN"> ");
 		if (!line)
 		{
-			err(GREY"minichad: warning: here-document");
-			err("at line N delimited by end-of-file (wanted `");
-			err(token->cmd);
-			err("')\n"RESET);
-			last_status(0);
+			err_heredoc(token->cmd);
 			break ;
 		}
 		if (!ft_strcmp(token->cmd, line))
@@ -53,18 +56,9 @@ int	heredoc(t_node *token, char *file, int fd)
 		free(line);
 		line = NULL;
 	}
-	//inside_heredoc(0);
 	close(fd);
-	//close(std_in);
 	free(token->cmd);
-	/*if (g_status == SIGINT)
-	{
-		unlink(file);
-		free(file);
-		file = NULL;
-	}*/
 	token->cmd = file;
-	printf(ORANGE"heredoc: %s\n"RESET, token->cmd);
 	return (1);
 }
 

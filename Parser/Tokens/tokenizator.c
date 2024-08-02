@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:12 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/02 15:02:18 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:39:35 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tokens	*start_tokens(void)
 	return (tokens);
 }
 
-void	add_token(t_tokens *tokens, e_type type, char *line)
+void	add_token(t_tokens *tokens, t_type type, char *line)
 {
 	t_node	*new;
 

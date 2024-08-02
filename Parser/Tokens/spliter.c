@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:23 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/02 15:01:14 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:33:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static	char	**final_split(char **final, char *cmd, int words)
 
 char	**spliter(char *cmd)
 {
-	//int             i;
 	int		words;
 	char	**final;
 	char	**trim;
@@ -84,14 +83,5 @@ char	**spliter(char *cmd)
 	if (!final)
 		return (NULL);
 	trim = final_split(final, cmd, words);
-        /*i = -1;
-        while (trim[++i])
-        {
-                if ((trim[i][0] == '\'' || trim[i][0] == '\"')
-                        && verify_quote(trim[i], 0))
-                        trim[i] = remove_quote(trim[i], trim[i][0]);
-		//else if ((trim[i][0] == '(' && verify_parenthesis(trim[i], 0)))
-		//	trim[i] = ft_strndup(trim[i] + 1, ft_strlen(trim[i]) - 2);
-	}*/
 	return (trim);
 }

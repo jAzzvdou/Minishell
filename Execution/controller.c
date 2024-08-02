@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:39:29 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/12 14:23:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:16:20 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	env_size(t_env *env)
 {
-	int	count;
+	int		count;
 	t_env	*list;
 
 	list = env;
@@ -29,8 +29,8 @@ int	env_size(t_env *env)
 
 char	**list_to_args(t_env *env)
 {
-	int	i;
-	int	size;
+	int		size;
+	int		i[2];
 	char	**args;
 	t_env	*node;
 
@@ -39,26 +39,17 @@ char	**list_to_args(t_env *env)
 		return (NULL);
 	args = (char **)malloc(sizeof(char *) * (size + 1));
 	node = env;
-	i = 0;
-	int ii = -1;
-	while (++ii < size)
+	i[0] = 0;
+	i[1] = -1;
+	while (++i[1] < size)
 	{
-		args[i] = ft_strdup(node->line);
-		if (!args[i])
-		{
-			while (i > 0)
-			{
-				free(args[--i]);
-				args[i] = NULL;
-			}
-			free(args);
-			args = NULL;
-			return (NULL);
-		}
-		i++;
+		args[i[0]] = ft_strdup(node->line);
+		if (!args[i[0]])
+			return (free_args(args, i[0]), NULL);
+		i[0]++;
 		node = node->next;
 	}
-	args[i] = NULL;
+	args[i[0]] = NULL;
 	return (args);
 }
 
@@ -89,7 +80,7 @@ char	*pathfinder(char **env, char *cmd)
 
 void	executer(t_main *main, char **tokens, char *cmd)
 {
-	int	status;
+	int		status;
 	char	*path;
 	char	**env;
 	pid_t	pid;

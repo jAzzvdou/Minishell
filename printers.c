@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 23:14:45 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/06/24 18:10:47 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:41:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	debug(void)
 {
-	int		start;
+	int			start;
 	static int	i;
 
 	start = 0;
@@ -22,7 +22,7 @@ void	debug(void)
 	printf(YELLOW"Debug %d.\n"RESET, i);
 }
 
-void    print_tokens(t_tokens *tokens)
+void	print_tokens(t_tokens *tokens)
 {
 	t_node	*nodes;
 
@@ -37,7 +37,7 @@ void    print_tokens(t_tokens *tokens)
 	}
 }
 
-void    revprint_tokens(t_tokens *tokens)
+void	revprint_tokens(t_tokens *tokens)
 {
 	t_node	*nodes;
 

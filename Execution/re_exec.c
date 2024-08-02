@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:40:55 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/10 12:41:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:28:37 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	re_exec(t_main *main, char *block)
 {
-	int	status;
+	int		status;
 	char	*new_input;
 	pid_t	pid;
 
