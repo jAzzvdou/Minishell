@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 15:12:34 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:04:17 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,108 @@ int	is_var(char *cmd)
 	return (is_var);
 }
 
+char	*concatenator(char **matrix)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*new_str;
+
+	i = 0;
+	len = 0;
+	while(matrix[i])
+	{
+		len+= ft_strlen(matrix[i]);
+		i++;
+	}
+	new_str = malloc(sizeof(char) * len + 1);
+	i = 0;
+	len = 0;
+	while(matrix[i])
+	{
+		j = 0;
+		while(matrix[i][j])
+		{
+			new_str[len] = matrix[i][j];
+			j++;
+		}
+		i++;
+	}
+	new_str[len] = '\0';
+	free_matrix(matrix);
+	return(new_str);
+}
+
+/*char	*handle_quotes(char *str)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	quote = str[0];
+
+}*/
+
+int	is_valid(int c)
+{
+	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+	|| (c == '0') || (c == '?') || (c == '-') || (c == '_'))
+		return (1);
+	return (0);
+}
+
+char	*find_var(t_main *main,char *var)
+{
+	t_env	*env;
+
+	if(!is_valid(var[0]))
+	{
+		free(var);
+		var = NULL;
+		return (NULL);
+	}
+	env = main->env;
+	while(env)
+	{
+		if(ft_strcmp(var,env->name) == 0)
+		{
+			free(var);
+			return(env->value);
+		}
+	}
+	return (NULL);
+}
+
+int		find_dollar(char *str)
+{
+	int	i;
+
+	if(!str || !str[0])
+		return (0);
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == '$')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*change_var(t_main *main,char *var)
+{
+	if(var[0] == '\"')
+	{
+		var = ft_strtrim(var, (char *)var[0]); //handle_quotes(var);
+		if(find_dollar(var + 1))
+			return (expand(main,var));
+	}
+	if(var[0] == '$' && var[1])
+		var = ft_strndup(var + 1, ft_strlen(var) - 1);
+	var = find_var(main,var);
+	return (var);
+}
+
 char	*expand(t_main *main, char *cmd)
 {
 	int	i;
@@ -40,12 +142,12 @@ char	*expand(t_main *main, char *cmd)
 	while (splited[i])
 	{
 		if (splited[i][0] == '\'')
-			splited[i] = handle_quotes(splited[i]); //| Fazer essa função. Remover as aspas.
+			splited[i] = ft_strtrim(splited[i],(char *)splited[i][0]);//handle_quotes(splited[i]); //| Fazer essa função. Remover as aspas.
 		else
-			splited[i] = search_var(splited[i]); //| Fazer essa função. Pesquisar o VAR em ENV e substituir.
+			splited[i] = change_var(main, splited[i]);
 		i++;
 	}
-	return (concatenator(splited)); //| Fazer essa função. Concatenar todas as strings de splited em uma só.
+	return (concatenator(splited));
 }
 
 char	*not_expand(char *cmd)
@@ -57,7 +159,8 @@ char	*not_expand(char *cmd)
 	i = 0;
 	while (splited[i])
 	{
-		splited[i] = handle_quotes(splited[i]);
+		if(splited[i][0] == '\"' || splited[i][0] == '\'')
+			splited[i] = ft_strtrim(splited[i],(char *)splited[i][0]);//handle_quotes(splited[i]);
 		i++;
 	}
 	return (concatenator(splited));
@@ -75,7 +178,7 @@ t_tokens	*variables(t_main *main, t_tokens *tokens)
 		if (is_var(tmp->cmd))
 			add_token(expanded, tmp->type, expand(main, tmp->cmd));
 		else
-			add_token(expaded, tmp->type, not_expand(tmp->cmd));
+			add_token(expanded, tmp->type, not_expand(tmp->cmd));
 		tmp = tmp->next;
 	}
 	// Free em tokens.
@@ -88,7 +191,7 @@ t_tokens	*expander(t_main *main, t_tokens *tokens)
 	t_tokens	*expanded;
 
 	tmp = wildcard(tokens);
-	expand = variables(main, tmp);
+	expanded = variables(main, tmp);
 	//| Free em tokens.
 	//| Free em tmp.
 	return (expanded);

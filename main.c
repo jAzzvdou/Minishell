@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:11:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 14:41:14 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:04:58 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 /*
 Casos para tratar:
 - Arrumar as aspas do delimitador do Heredoc.
-- Arrumar os Signals dentro do H'github/copilot.vim',eredoc.
+- Arrumar os Signals dentro do Heredoc.
 - cat + ctrlC = last_status(130);. Atualmente está last_status(2);
 - cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
 */
