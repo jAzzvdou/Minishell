@@ -6,106 +6,89 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 17:35:17 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:12:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-char	*get_env_value(t_env *env, const char *name)
+int	is_var(char *cmd)
 {
-    while (env)
-    {
-        if (!ft_strcmp(env->name, name))
-            return (env->value);
-        env = env->next;
-    }
-    return ("");
-}
+	int	i;
+	int	is_var;
 
-void	handle_quotes(const char **start, int *doubles, int *singles)
-{
-	if (**start == '\"' && !*singles)
+	if (!cmd || !cmd[0])
+		return (0);
+	is_var = 0;
+	i = 0;
+	while (cmd[i])
 	{
-		*doubles = !*doubles;
-		(*start)++;
+		if (cmd[i] == '$' && cmd[i + 1] && cmd[i + 1] != ' ')
+			is_var = 1;
+		i++;
 	}
-	else if (**start == '\'' && !*doubles)
-	{
-		*singles = !*singles;
-		(*start)++;
-	}
+	return (is_var);
 }
 
-int	expand_var(t_main *main, char **expanded, const char **start)
+char	*expand(t_main *main, char *cmd)
 {
-	const char *end = *start + 1;
-	while (isalnum(*end) || *end == '_')
-		end++;
-	char *name = strndup(*start + 1, end - *start - 1);
-	char *value = get_env_value(main->env, name);
-	if (!strncmp(*start, "$0", 2))
-		value = "minichad";
-	strcat(*expanded, value);
-	free(name);
-	name = NULL;
-	*start = end - 1;
-	return (1);
-}
+	int	i;
+	char	**splited;
 
-char	*expand_variables(t_main *main, const char *cmd)
-{
-	int singles = 0;
-	int doubles = 0;
-	char *expanded = calloc(INT_MAX, 1); //| <- Gambiarra sinistra.
-	while (*cmd)
+	splited = split_variable(cmd); //| Fazer essa função. Splitar cmd em novas strings.
+	i = 0;
+	while (splited[i])
 	{
-		handle_quotes(&cmd, &doubles, &singles);
-		if (*cmd == '$' && !singles)
-		{
-			if (!expand_var(main, &expanded, &cmd)) 
-			{
-				free(expanded);
-				expanded = NULL;
-				return strdup("");
-			}
-		}
+		if (splited[i][0] == '\'')
+			splited[i] = handle_quotes(splited[i]); //| Fazer essa função. Remover as aspas.
 		else
-			strncat(expanded, cmd, 1);
-		cmd++;
+			splited[i] = search_var(splited[i]); //| Fazer essa função. Pesquisar o VAR em ENV e substituir.
+		i++;
 	}
-	return expanded;
+	return (concatenator(splited)); //| Fazer essa função. Concatenar todas as strings de splited em uma só.
 }
 
-void	expand_tokens(t_main *main, t_tokens *tokens)
+char	*not_expand(char *cmd)
 {
-	char	*expanded_cmd;
-	t_node	*tmp;
+	int	i;
+	char	**splited;
 
+	splited = split_variable(cmd);
+	i = 0;
+	while (splited[i])
+	{
+		splited[i] = handle_quotes(splited[i]);
+		i++;
+	}
+	return (concatenator(splited));
+}
+
+t_tokens	*variables(t_main *main, t_tokens *tokens)
+{
+	t_node		*tmp;
+	t_tokens	*expanded;
+
+	expanded = start_tokens();
 	tmp = tokens->first;
 	while (tmp)
 	{
-		if (tmp->cmd)
-		{
-			expanded_cmd = expand_variables(main, tmp->cmd);
-			if (expanded_cmd)
-			{
-				free(tmp->cmd);
-				tmp->cmd = expanded_cmd;
-			}
-		}
+		if (is_var(tmp->cmd))
+			add_token(expanded, tmp->type, expand(main, tmp->cmd));
+		else
+			add_token(expaded, tmp->type, not_expand(tmp->cmd));
 		tmp = tmp->next;
 	}
+	// Free em tokens.
+	return (expanded);
 }
 
 t_tokens	*expander(t_main *main, t_tokens *tokens)
 {
-	//t_tokens	*tmp;
+	t_tokens	*tmp;
 	t_tokens	*expanded;
 
-	expanded = wildcard(tokens);
-	expand_tokens(main, expanded);
-	//expanded = variables(main, tmp);
+	tmp = wildcard(tokens);
+	expand = variables(main, tmp);
 	//| Free em tokens.
 	//| Free em tmp.
 	return (expanded);
