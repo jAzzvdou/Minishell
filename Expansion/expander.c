@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 17:04:17 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:02:58 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*concatenator(char **matrix)
 
 	i = 0;
 	len = 0;
-	while(matrix[i])
+	while (matrix[i])
 	{
 		len+= ft_strlen(matrix[i]);
 		i++;
@@ -47,10 +47,10 @@ char	*concatenator(char **matrix)
 	new_str = malloc(sizeof(char) * len + 1);
 	i = 0;
 	len = 0;
-	while(matrix[i])
+	while (matrix[i])
 	{
 		j = 0;
-		while(matrix[i][j])
+		while (matrix[i][j])
 		{
 			new_str[len] = matrix[i][j];
 			j++;
@@ -74,8 +74,8 @@ char	*concatenator(char **matrix)
 
 int	is_valid(int c)
 {
-	if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-	|| (c == '0') || (c == '?') || (c == '-') || (c == '_'))
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c == '0') || (c == '?') || (c == '-') || (c == '_'))
 		return (1);
 	return (0);
 }
@@ -84,34 +84,34 @@ char	*find_var(t_main *main,char *var)
 {
 	t_env	*env;
 
-	if(!is_valid(var[0]))
+	if (!is_valid(var[0]))
 	{
 		free(var);
 		var = NULL;
 		return (NULL);
 	}
 	env = main->env;
-	while(env)
+	while (env)
 	{
-		if(ft_strcmp(var,env->name) == 0)
+		if (ft_strcmp(var,env->name) == 0)
 		{
 			free(var);
-			return(env->value);
+			return (env->value);
 		}
 	}
 	return (NULL);
 }
 
-int		find_dollar(char *str)
+int	find_dollar(char *str)
 {
 	int	i;
 
-	if(!str || !str[0])
+	if (!str || !str[0])
 		return (0);
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '$')
+		if (str[i] == '$')
 			return (1);
 		i++;
 	}
@@ -120,16 +120,77 @@ int		find_dollar(char *str)
 
 char	*change_var(t_main *main,char *var)
 {
-	if(var[0] == '\"')
+	if (var[0] == '\"')
 	{
 		var = ft_strtrim(var, (char *)var[0]); //handle_quotes(var);
-		if(find_dollar(var + 1))
+		if (find_dollar(var + 1))
 			return (expand(main,var));
 	}
-	if(var[0] == '$' && var[1])
+	if (var[0] == '$' && var[1])
 		var = ft_strndup(var + 1, ft_strlen(var) - 1);
 	var = find_var(main,var);
 	return (var);
+}
+
+int	can_continue(int c)
+{
+	if (c == ' ' || c == '\'' || c == '\"' || c == '$')
+		return (0);
+	return (1);
+}
+
+int	count_variables(char *cmd)
+{
+	int	i;
+	int	words;
+	char	quote;
+	
+	words = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		while (cmd[i] && cmd[i] == ' ')
+			i++;
+		if (cmd[i] == '\0')
+			break ;
+		else if (cmd[i] == '\'' || cmd[i] == '\"')
+		{
+			words++;
+			quote = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != quote)
+				i++;
+			i++;
+		}
+		else if (cmd[i] == '$')
+		{
+			words++;
+			i++;
+			while (cmd[i] && can_continue(cmd[i]))
+				i++;
+		}
+		else
+		{
+			words++;
+			i++;
+			while (cmd[i] && can_continue(cmd[i]))
+				i++;
+		}
+	}
+	return (words);
+}
+
+//| TERMINAR ESSA FUNÇÃO
+char	**split_variable(char *cmd)
+{
+	int	size;
+	char	**split;
+
+	size = count_variables(cmd);
+	split = malloc(sizeof(char *) * size + 1);
+
+	split[] = NULL;
+	return (split);
 }
 
 char	*expand(t_main *main, char *cmd)
@@ -159,7 +220,7 @@ char	*not_expand(char *cmd)
 	i = 0;
 	while (splited[i])
 	{
-		if(splited[i][0] == '\"' || splited[i][0] == '\'')
+		if (splited[i][0] == '\"' || splited[i][0] == '\'')
 			splited[i] = ft_strtrim(splited[i],(char *)splited[i][0]);//handle_quotes(splited[i]);
 		i++;
 	}
