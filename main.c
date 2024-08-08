@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:11:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 17:04:58 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:54:25 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv, char **envp)
 	start_env(&main, envp);
 	start_pwd(&main);
 	start_signals();
+	last_status(0);
 	while (1)
 	{
 		g_status = 0;

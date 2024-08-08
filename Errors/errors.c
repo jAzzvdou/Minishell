@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:39:56 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 11:25:13 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:33:55 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	error_syntax(char *cmd, int option)
 		err(GREY"minichad: syntax error near");
 		err(" unexpected token `newline'\n"RESET);
 	}
+	last_status(2);
 	return (0);
 }
 

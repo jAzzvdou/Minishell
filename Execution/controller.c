@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:39:29 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 12:16:20 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:07:47 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 
 void	controller(t_main *main, char **tokens)
 {
-	last_status(0);
 	if (!builtins(main, tokens))
 		executer(main, tokens, tokens[0]);
-	//if (g_status == SIGINT)
-	//	last_status(130);
 	free_matrix(tokens);
 }

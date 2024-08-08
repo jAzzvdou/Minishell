@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:10:18 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 11:39:00 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:33:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	check_tokens(t_tokens *tokens)
 	first = tokens->first;
 	last = tokens->last;
 	type = first->type;
-	last_status(2);
 	if (type == PIPE || type == OR || type == AND)
 		return (error_syntax(tokens->first->cmd, 1));
 	type = last->type;
@@ -49,6 +48,5 @@ int	check_tokens(t_tokens *tokens)
 		}
 		first = first->next;
 	}
-	last_status(0);
 	return (1);
 }

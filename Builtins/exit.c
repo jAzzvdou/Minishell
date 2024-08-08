@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:08 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 11:15:33 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:48:22 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ void	exit_cmd(t_main *main, char **token)
 		err(ORANGE"exit\n"RESET);
 		if (token[1] && token[1][0])
 			last_status(ft_atoll(token[1]));
-		else
-			last_status(0);
 	}
 	free_matrix(token);
 	free_everything(main);
-	if (last_status(-1))
-		exit(last_status(-1));
-	exit(1);
+	exit(last_status(-1));
 }

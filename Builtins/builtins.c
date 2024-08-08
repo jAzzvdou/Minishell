@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:45 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 10:23:34 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:49:16 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	last_status(int new_status)
 
 	if (new_status > -1)
 		status = new_status;
+	printf("status = %d\n", status);
 	return (status);
 }
 

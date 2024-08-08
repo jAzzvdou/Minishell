@@ -6,11 +6,13 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 18:02:58 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:34:59 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+char	*expand(t_main *main, char *cmd);
 
 int	is_var(char *cmd)
 {
@@ -41,7 +43,7 @@ char	*concatenator(char **matrix)
 	len = 0;
 	while (matrix[i])
 	{
-		len+= ft_strlen(matrix[i]);
+		len += ft_strlen(matrix[i]);
 		i++;
 	}
 	new_str = malloc(sizeof(char) * len + 1);
@@ -54,23 +56,14 @@ char	*concatenator(char **matrix)
 		{
 			new_str[len] = matrix[i][j];
 			j++;
+			len++;
 		}
 		i++;
 	}
 	new_str[len] = '\0';
-	free_matrix(matrix);
-	return(new_str);
+	//free_matrix(matrix);
+	return (new_str);
 }
-
-/*char	*handle_quotes(char *str)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	quote = str[0];
-
-}*/
 
 int	is_valid(int c)
 {
@@ -80,7 +73,7 @@ int	is_valid(int c)
 	return (0);
 }
 
-char	*find_var(t_main *main,char *var)
+char	*find_var(t_main *main, char *var)
 {
 	t_env	*env;
 
@@ -90,14 +83,21 @@ char	*find_var(t_main *main,char *var)
 		var = NULL;
 		return (NULL);
 	}
+	if (var[0] == '0')
+		return ("minichad");
+	else if (var[0] == '?')
+		return (ft_itoa(last_status(-1)));
+	else if (var[0] == '-')
+		return ("himBHs");
 	env = main->env;
 	while (env)
 	{
-		if (ft_strcmp(var,env->name) == 0)
+		if (!ft_strcmp(var,env->name))
 		{
 			free(var);
 			return (env->value);
 		}
+		env = env->next;
 	}
 	return (NULL);
 }
@@ -108,7 +108,7 @@ int	find_dollar(char *str)
 
 	if (!str || !str[0])
 		return (0);
-	i = 0;
+	i = 1;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -118,17 +118,17 @@ int	find_dollar(char *str)
 	return (0);
 }
 
-char	*change_var(t_main *main,char *var)
+char	*change_var(t_main *main, char *var)
 {
 	if (var[0] == '\"')
 	{
-		var = ft_strtrim(var, (char *)var[0]); //handle_quotes(var);
-		if (find_dollar(var + 1))
-			return (expand(main,var));
+		var = ft_strndup(var + 1, ft_strlen(var) - 2);
+		if (find_dollar(var))
+			return (expand(main, var));
 	}
 	if (var[0] == '$' && var[1])
 		var = ft_strndup(var + 1, ft_strlen(var) - 1);
-	var = find_var(main,var);
+	var = find_var(main, var);
 	return (var);
 }
 
@@ -144,7 +144,7 @@ int	count_variables(char *cmd)
 	int	i;
 	int	words;
 	char	quote;
-	
+
 	words = 0;
 	i = 0;
 	while (cmd[i])
@@ -152,15 +152,15 @@ int	count_variables(char *cmd)
 		while (cmd[i] && cmd[i] == ' ')
 			i++;
 		if (cmd[i] == '\0')
-			break ;
+			break;
 		else if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
 			words++;
-			quote = cmd[i];
-			i++;
+			quote = cmd[i++];
 			while (cmd[i] && cmd[i] != quote)
 				i++;
-			i++;
+			if (cmd[i] == quote)
+				i++;
 		}
 		else if (cmd[i] == '$')
 		{
@@ -172,24 +172,70 @@ int	count_variables(char *cmd)
 		else
 		{
 			words++;
-			i++;
 			while (cmd[i] && can_continue(cmd[i]))
 				i++;
 		}
+		while (cmd[i] && cmd[i] == ' ')
+			words++, i++;
 	}
 	return (words);
 }
 
-//| TERMINAR ESSA FUNÇÃO
 char	**split_variable(char *cmd)
 {
-	int	size;
-	char	**split;
+	int size = count_variables(cmd);
+	char **split = malloc(sizeof(char *) * (size + 1));
+	int i = 0, j = 0;
+	char *start;
+	char quote;
 
-	size = count_variables(cmd);
-	split = malloc(sizeof(char *) * size + 1);
-
-	split[] = NULL;
+	while (cmd[i])
+	{
+		while (cmd[i] && cmd[i] == ' ')
+		{
+			start = &cmd[i];
+			while (cmd[i] && cmd[i] == ' ')
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+		if (cmd[i] == '\0')
+			break;
+		else if (cmd[i] == '\'' || cmd[i] == '\"')
+		{
+			start = &cmd[i];
+			quote = cmd[i++];
+			while (cmd[i] && cmd[i] != quote)
+				i++;
+			if (cmd[i] == quote)
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+		else if (cmd[i] == '$')
+		{
+			start = &cmd[i];
+			i++;
+			while (cmd[i] && can_continue(cmd[i]))
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+		else
+		{
+			start = &cmd[i];
+			while (cmd[i] && can_continue(cmd[i]))
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+		while (cmd[i] && cmd[i] == ' ')
+		{
+			start = &cmd[i];
+			while (cmd[i] && cmd[i] == ' ')
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+	}
+	split[j] = NULL;
+	free(cmd);
+	cmd = NULL;
 	return (split);
 }
 
@@ -198,14 +244,15 @@ char	*expand(t_main *main, char *cmd)
 	int	i;
 	char	**splited;
 
-	splited = split_variable(cmd); //| Fazer essa função. Splitar cmd em novas strings.
+	splited = split_variable(cmd);
 	i = 0;
 	while (splited[i])
 	{
 		if (splited[i][0] == '\'')
-			splited[i] = ft_strtrim(splited[i],(char *)splited[i][0]);//handle_quotes(splited[i]); //| Fazer essa função. Remover as aspas.
+			splited[i] = ft_strndup(splited[i] + 1, ft_strlen(splited[i]) - 2);
 		else
 			splited[i] = change_var(main, splited[i]);
+		printf("splited[%d]: |%s|\n", i, splited[i]);
 		i++;
 	}
 	return (concatenator(splited));
@@ -221,7 +268,14 @@ char	*not_expand(char *cmd)
 	while (splited[i])
 	{
 		if (splited[i][0] == '\"' || splited[i][0] == '\'')
-			splited[i] = ft_strtrim(splited[i],(char *)splited[i][0]);//handle_quotes(splited[i]);
+		{
+			splited[i] = ft_strndup(splited[i] + 1, ft_strlen(splited[i]) - 2);
+			if (!splited[i])
+			{
+				free(splited[i]);
+				splited[i] = "";
+			}
+		}
 		i++;
 	}
 	return (concatenator(splited));

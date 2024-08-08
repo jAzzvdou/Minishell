@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:02 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/03 16:06:37 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:53:30 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ void	start_pwd(t_main *main)
 	getcwd(cwd, sizeof(cwd));
 	main->pwd = ft_strdup(cwd);
 	main->old_pwd = ft_strdup(cwd);
-	last_status(0);
 }
