@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:11:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/08 15:54:25 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:10:44 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int	main(int argc, char **argv, char **envp)
 }
 /*
 Casos para tratar:
-- Arrumar as aspas do delimitador do Heredoc.
+- Arrumar as aspas do delimitador do Heredoc. | Arrumei.
 - Arrumar os Signals dentro do Heredoc.
 - cat + ctrlC = last_status(130);. Atualmente está last_status(2);
 - cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
+- Leak nas expansões.
 */

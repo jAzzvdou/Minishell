@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 20:41:00 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 12:31:44 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:09:35 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,19 @@ int	start_heredoc(t_node *token, int nb)
 	int				fd;
 	static long int	random;
 	char			*file;
+	char			*tmp;
 
 	random = random + (u_int64_t)start_heredoc * nb;
 	file = free_function(ft_strdup("/tmp/heredoc"), ft_itoa(random));
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (fd < 0)
 		return (free(file), 0);
+	if (token->cmd[0] == '\'' || token->cmd[0] == '\"')
+	{
+		tmp = token->cmd;
+		token->cmd = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+		free(tmp);
+	}
 	return (heredoc(token, file, fd));
 }
 
