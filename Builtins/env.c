@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:11:26 by bruno             #+#    #+#             */
-/*   Updated: 2024/08/02 11:25:10 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:54:31 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	add_env(t_env **env, char *line, int declare_x)
 {
+	char	*join;
 	t_env	*new;
 	t_env	*tmp;
 
@@ -21,9 +22,19 @@ void	add_env(t_env **env, char *line, int declare_x)
 		return ;
 	new = (t_env *)malloc(sizeof(t_env));
 	new->declare_x = declare_x;
-	new->name = ft_strndup(line, strchr(line, '=') - line);
-	new->value = ft_strdup(strchr(line, '=') + 1);
-	new->line = ft_strdup(line);
+	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
+	if (!ft_strcmp(new->name, "SHLVL"))
+	{
+		new->value = ft_itoa(ft_atoll(ft_strchr(line, '=') + 1) + 1);
+		join = ft_strndup(line, ft_strchr(line, '=') - line + 1);
+		new->line = ft_strjoin(join, new->value);
+		free(join);
+	}
+	else
+	{
+		new->value = ft_strdup(ft_strchr(line, '=') + 1);
+		new->line = ft_strdup(line);
+	}
 	new->next = NULL;
 	if (!(*env))
 		*env = new;
