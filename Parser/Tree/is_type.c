@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   is_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 22:59:25 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/07/02 15:03:03 by btaveira         ###   ########.fr       */
+/*   Created: 2024/08/09 17:23:55 by jazevedo          #+#    #+#             */
+/*   Updated: 2024/08/09 17:24:04 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-//| Procurar por ANDs e ORs.
 t_node	*is_type1(t_node *last)
 {
 	t_node	*tmp;
@@ -27,7 +26,6 @@ t_node	*is_type1(t_node *last)
 	return (NULL);
 }
 
-//| Procurar por PIPEs.
 t_node	*is_type2(t_node *last)
 {
 	t_node	*tmp;
@@ -42,7 +40,6 @@ t_node	*is_type2(t_node *last)
 	return (NULL);
 }
 
-//| Procurar por REDIRs.
 t_node	*is_type3(t_node *last)
 {
 	t_node	*tmp;
