@@ -6,13 +6,14 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:36:53 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 14:39:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:39:52 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
 char	*expand(t_main *main, char *cmd);
+char	*expand_bonus(t_main *main, char *cmd);
 
 int	is_var(char *cmd)
 {
@@ -121,14 +122,13 @@ int	find_dollar(char *str)
 
 char	*change_var(t_main *main, char *var)
 {
-	printf("Before var = |%s|\n", var);
 	if (var[0] == '\"')
 	{
 		var = ft_strndup(var + 1, ft_strlen(var) - 2);
-		printf("After var = |%s|\n", var);
-		//| Tratar "'$USER'"
-		if (find_dollar(var))
-			return (expand(main, var));
+		if (!var)
+			var = ft_strdup("\0");
+		return (expand_bonus(main, var));
+		//| '$USER' -> ', $USER, '
 	}
 	if (var[0] == '$' && var[1])
 	{
@@ -245,6 +245,92 @@ char	**split_variable(char *cmd)
 	return (split);
 }
 
+int	can_continue_bonus(int c)
+{
+	if (c == ' ' || c == '\'' || c == '\\')
+		return (0);
+	return (1);
+}
+
+int	count_variables_bonus(char *cmd)
+{
+	int	i;
+	int	words;
+
+	words = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] != '$')
+		{
+			words++;
+			while (cmd[i] && cmd[i] != '$')
+				i++;
+		}
+		else if (cmd[i] == '$')
+		{
+			words++;
+			while (cmd[i] && can_continue_bonus(cmd[i]))
+				i++;
+		}
+	}
+	return (words);
+}
+
+char	**split_bonus(char *cmd)
+{
+	int	i;
+	int	j;
+	int	size;
+	char	*start;
+	char	**split;
+
+	size = count_variables_bonus(cmd);
+	split = malloc(sizeof(char *) * size + 1);
+	i = 0;
+	j = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] != '$')
+		{
+			start = &cmd[i];
+			while (cmd[i] && cmd[i] != '$')
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+		else if (cmd[i] == '$')
+		{
+			start = &cmd[i];
+			i++;
+			while (cmd[i] && can_continue_bonus(cmd[i]))
+				i++;
+			split[j++] = ft_strndup(start, i - (start - cmd));
+		}
+	}
+	split[j] = NULL;
+	free(cmd);
+	cmd = NULL;
+	return (split);
+}
+
+char	*expand_bonus(t_main *main, char *cmd)
+{
+	int	i;
+	char	**splited;
+
+	splited = split_bonus(cmd);
+	i = 0;
+	while (splited[i])
+	{
+		if (splited[i][0] == '$')
+			splited[i] = change_var(main, splited[i]);
+		if (!splited[i])
+			splited[i] = ft_strdup("\0");
+		i++;
+	}
+	return (concatenator(splited));
+}
+
 char	*expand(t_main *main, char *cmd)
 {
 	int	i;
@@ -314,10 +400,11 @@ t_tokens	*expander(t_main *main, t_tokens *tokens)
 	return (expanded);
 }
 /*
-echo "'$"             |
+echo "'$"             | Arrumei.
 echo "$"              | Arrumei.
 echo "'"$USER"'"      | Arrumei.
-echo "'$USER'"        |
+echo "\"$USER\""      | Arrumei.
+echo "'$USER'"        | Arrumei.
 echo $1a              | Arrumei.
 echo $US"ER"          | Arrumei.
 echo $US'ER'          | Arrumei.
