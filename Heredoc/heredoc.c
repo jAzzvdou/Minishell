@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:22:43 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 20:15:10 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,54 +33,107 @@ void	err_heredoc(char *cmd)
 	last_status(0);
 }
 
-int	heredoc(t_node *token, char *file, int fd)
+void sig_int_heredoc_handle(int sig)
 {
-	char	*line;
-
-	while (1)
-	{
-		line = readline(GREEN"> ");
-		if (!line)
-		{
-			err_heredoc(token->cmd);
-			break ;
-		}
-		if (!ft_strcmp(token->cmd, line))
-		{
-			free(line);
-			last_status(0);
-			break ;
-		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-		line = NULL;
-	}
-	close(fd);
-	free(token->cmd);
-	token->cmd = file;
-	return (1);
+    if (sig == SIGINT)
+    {
+        signal(SIGINT, SIG_IGN);  // Ignora sinais futuros de SIGINT
+        g_status = 130;           // Define status para 130, indicando interrupção pelo SIGINT
+        exit(g_status);           // Sai do processo com o status 130
+    }
+    else
+    {
+        write(1, "> ", 2);
+        ioctl(1, TIOCSTI, 1);     // Simula entrada de caractere para readline
+        rl_on_new_line();
+        rl_replace_line("", 0);
+    }
 }
 
-int	start_heredoc(t_node *token, int nb)
+void core_heredoc(int fd, char *delimiter)
 {
-	int				fd;
-	static long int	random;
-	char			*file;
-	char			*tmp;
+    char *line;
 
-	random = random + (u_int64_t)start_heredoc * nb;
-	file = free_function(ft_strdup("/tmp/heredoc"), ft_itoa(random));
-	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	if (fd < 0)
-		return (free(file), 0);
-	if (token->cmd[0] == '\'' || token->cmd[0] == '\"')
-	{
-		tmp = token->cmd;
-		token->cmd = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
-		free(tmp);
-	}
-	return (heredoc(token, file, fd));
+    while (1)
+    {
+        line = readline(GREEN"> ");
+        
+        if (!line)
+        {
+            err_heredoc(delimiter);
+            break;
+        }
+        
+        if (!ft_strcmp(delimiter, line))
+        {
+            free(line);
+            break;
+        }
+
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
+        free(line);
+    }
+}
+
+// Função adaptada heredoc que usa o sig_int_heredoc_handle
+int heredoc(t_node *token, char *file, int fd)
+{
+    pid_t   hd_pid;
+    int     hd_fd[2];
+    int     status;
+
+    if (pipe(hd_fd) == -1)
+        return (-1);
+
+    signal(SIGINT, SIG_IGN);  // Ignora SIGINT no processo pai
+    hd_pid = fork();
+
+    if (hd_pid == 0)  // Processo filho
+    {
+        close(hd_fd[0]);
+        signal(SIGINT, &sig_int_heredoc_handle);  // Configura manipulador de SIGINT
+        core_heredoc(hd_fd[1], token->cmd);
+        close(hd_fd[1]);
+        exit(1);
+    }
+
+    // Processo pai
+    waitpid(hd_pid, &status, 0);
+    close(hd_fd[1]);
+    g_status = WEXITSTATUS(status);
+
+    if (g_status == 130)  // Se interrompido pelo SIGINT
+    {
+        close(hd_fd[0]);
+        return (-1);
+    }
+
+    close(fd);
+    free(token->cmd);
+    token->cmd = file;
+
+    return (hd_fd[0]);  // Retorna descritor de arquivo para leitura
+}
+
+int start_heredoc(t_node *token, int nb)
+{
+    int             fd;
+    static long int random;
+    char            *file;
+
+    random = random + (u_int64_t)start_heredoc * nb;
+    file = free_function(ft_strdup("/tmp/heredoc"), ft_itoa(random));
+    fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
+    if (fd < 0)
+        return (free(file), 0);
+    
+    int hd_fd = heredoc(token, file, fd);
+    
+    if (hd_fd == -1)
+        return (0);
+    
+    return (hd_fd);  // Retorna o descritor de arquivo para leitura
 }
 
 int	is_there_heredoc(t_tokens *tokens)
