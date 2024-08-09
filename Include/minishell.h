@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:33:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/07 13:46:31 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:18:11 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,12 @@ t_tokens	*expand_wildcard(t_node *wildcard);
 t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
 t_tokens	*wildcard(t_tokens *tokens);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
+int			is_var(char *cmd);
+char		**split_variable(char *cmd);
+char		*expand_bonus(t_main *main, char *cmd);
+char		**split_bonus(char *cmd);
+char		*change_var(t_main *main, char *var);
+char		*concatenator(char **matrix);
 //---------- execution ----------//
 void		exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//
