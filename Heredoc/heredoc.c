@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 20:15:10 by bruno            ###   ########.fr       */
+/*   Updated: 2024/08/09 21:13:30 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int heredoc(t_node *token, char *file, int fd)
 
     if (g_status == 130)  // Se interrompido pelo SIGINT
     {
+        printf("\n");
         close(hd_fd[0]);
         return (-1);
     }
