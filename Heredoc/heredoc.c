@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 21:52:53 by bruno            ###   ########.fr       */
+/*   Updated: 2024/08/12 13:30:18 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,9 @@ int heredoc(t_node *token, char *file, int fd)
 
     if (g_status == 130)  // Se interrompido por SIGINT
     {
-        printf("\n");
+        unlink(file);
         close(fd);
+        printf("\n");
         return (-1);
     }
 

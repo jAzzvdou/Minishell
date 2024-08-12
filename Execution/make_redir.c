@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:12 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 22:25:28 by bruno            ###   ########.fr       */
+/*   Updated: 2024/08/12 13:28:38 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ void	infile(t_tree *tree)
 	}
 	else if (access(file, F_OK))
 	{
-		err(GREY"minichad: 1549No such file or directory\n"RESET);
-		last_status(1);
-		//last_status(130);
+		if (g_status == 130)
+			last_status(130);
+		else
+		{
+			err(GREY"minichad: No such file or directory\n"RESET);
+			last_status(1);
+		}
 	}
 }
 
