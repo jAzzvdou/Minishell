@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:25:03 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:50:38 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parser(t_main *main, t_tokens *tokens)
 	main->tokens = tokens;
 	if (!is_there_heredoc(main->tokens))
 		return ;
-	main->tokens = expander(main, main->tokens);
+	//main->tokens = expander(main, main->tokens);
 	tree = build_tree(main->tokens);
 	if (!tree)
 		return ;

@@ -75,6 +75,10 @@ $(OBJDIR)/%.o: %.c
 		@echo -n "\033[38;2;$(COLOR_VALUE);$(COLOR_VALUE);$(COLOR_VALUE)m  Minishell Is Ready!\033[0m\r"
 		@sleep 0.01
 
+supp: re
+		make clean
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=Suppression/readline.supp ./minishell
+
 clean:
 		@$(RM) $(OBJDIR)
 		@echo "\033[38;2;255;165;0m🗑️  Objects Are Cleaned! 🗑️\033[0m"
