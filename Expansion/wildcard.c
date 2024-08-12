@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/02 11:31:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:58:33 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 			add_token(new, tmp->type, tmp->cmd);
 			tmp = tmp->next;
 		}
-		//free(list1);?
+		free_tokens2(list1);
 	}
 	if (list2)
 	{
@@ -135,7 +135,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 			add_token(new, tmp->type, tmp->cmd);
 			tmp = tmp->next;
 		}
-		//free(list2);?
+		free_tokens2(list2);
 	}
 	return (new);
 }
@@ -168,5 +168,6 @@ t_tokens	*wildcard(t_tokens *tokens)
 	}
 	if (!expanded)
 		return (tokens);
+	free_tokens2(tokens);
 	return (expanded);
 }

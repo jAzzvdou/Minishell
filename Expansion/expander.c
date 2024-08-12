@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:26 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:22:27 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:08:03 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,19 @@
 char	*expand_bonus(t_main *main, char *cmd)
 {
 	int	i;
+	char	*tmp;
 	char	**splited;
 
-	splited = split_bonus(cmd);
+	splited = split_bonus(cmd); //| ARRUMAR
 	i = 0;
 	while (splited[i])
 	{
 		if (splited[i][0] == '$')
-			splited[i] = change_var(main, splited[i]);
+		{
+			tmp = splited[i];
+			splited[i] = change_var(main, tmp);
+			free(tmp);
+		}
 		if (!splited[i])
 			splited[i] = ft_strdup("\0");
 		i++;
@@ -33,6 +38,7 @@ char	*expand_bonus(t_main *main, char *cmd)
 char	*expand(t_main *main, char *cmd)
 {
 	int	i;
+	char	*tmp;
 	char	**splited;
 
 	splited = split_variable(cmd);
@@ -40,9 +46,17 @@ char	*expand(t_main *main, char *cmd)
 	while (splited[i])
 	{
 		if (splited[i][0] == '\'')
-			splited[i] = ft_strndup(splited[i] + 1, ft_strlen(splited[i]) - 2);
+		{
+			tmp = splited[i];
+			splited[i] = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+			free(tmp);
+		}
 		else
-			splited[i] = change_var(main, splited[i]);
+		{
+			tmp = splited[i];
+			splited[i] = change_var(main, tmp);
+			free(tmp);
+		}
 		if (!splited[i])
 			splited[i] = ft_strdup("\0");
 		i++;
@@ -53,6 +67,7 @@ char	*expand(t_main *main, char *cmd)
 char	*not_expand(char *cmd)
 {
 	int	i;
+	char	*tmp;
 	char	**splited;
 
 	splited = split_variable(cmd);
@@ -60,7 +75,11 @@ char	*not_expand(char *cmd)
 	while (splited[i])
 	{
 		if (splited[i][0] == '\"' || splited[i][0] == '\'')
-			splited[i] = ft_strndup(splited[i] + 1, ft_strlen(splited[i]) - 2);
+		{
+			tmp = splited[i];
+			splited[i] = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+			free(tmp);
+		}
 		if (!splited[i])
 			splited[i] = ft_strdup("\0");
 		i++;
@@ -83,7 +102,7 @@ t_tokens	*variables(t_main *main, t_tokens *tokens)
 			add_token(expanded, tmp->type, not_expand(tmp->cmd));
 		tmp = tmp->next;
 	}
-	// Free em tokens.
+	free_tokens2(tokens);
 	return (expanded);
 }
 
@@ -94,18 +113,5 @@ t_tokens	*expander(t_main *main, t_tokens *tokens)
 
 	tmp = wildcard(tokens);
 	expanded = variables(main, tmp);
-	//| Free em tokens.
-	//| Free em tmp.
 	return (expanded);
 }
-/*
-echo "'$"             | Arrumei.
-echo "$"              | Arrumei.
-echo "'"$USER"'"      | Arrumei.
-echo "\"$USER\""      | Arrumei.
-echo "'$USER'"        | Arrumei.
-echo $1a              | Arrumei.
-echo $US"ER"          | Arrumei.
-echo $US'ER'          | Arrumei.
-echo "$USER '' $USER" | Arrumei.
-*/

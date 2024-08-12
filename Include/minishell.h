@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:22:50 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:49:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void		exec(t_main *main, t_tree *tree);
 void		free_matrix(char **matrix);
 void		free_env(t_env **env);
 void		free_tokens(t_tokens **tokens);
+void		free_tokens2(t_tokens *tokens);
 void		free_tree(t_tree **tree);
 void		free_everything(t_main *main);
 

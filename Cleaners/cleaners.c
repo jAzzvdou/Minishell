@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:12 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:49:15 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,21 @@ void	free_env(t_env **env)
 	{
 		aux = *env;
 		*env = (*env)->next;
-		free(aux->name);
-		aux->name = NULL;
-		free(aux->value);
-		aux->value = NULL;
-		free(aux->line);
-		aux->line = NULL;
+		if (aux->name)
+		{
+			free(aux->name);
+			aux->name = NULL;
+		}
+		if (aux->value)
+		{
+			free(aux->value);
+			aux->value = NULL;
+		}
+		if (aux->line)
+		{
+			free(aux->line);
+			aux->line = NULL;
+		}
 		free(aux);
 		aux = NULL;
 	}
@@ -60,11 +69,38 @@ void	free_nodes(t_node *node)
 	{
 		aux = node;
 		node = node->next;
-		free(aux->cmd);
-		aux->cmd = NULL;
+		if (aux->cmd)
+		{
+			free(aux->cmd);
+			aux->cmd = NULL;
+		}
 		free(aux);
 		aux = NULL;
 	}
+}
+
+void	free_tokens2(t_tokens *tokens)
+{
+	t_node	*current_node;
+	t_node	*next_node;
+
+	if (!tokens)
+		return ;
+	current_node = tokens->first;
+	while (current_node)
+	{
+		next_node = current_node->next;
+		if (current_node->cmd)
+		{
+			free(current_node->cmd);
+			current_node->cmd = NULL;
+		}
+		free(current_node);
+		current_node = NULL;
+		current_node = next_node;
+	}
+	free(tokens);
+	tokens = NULL;
 }
 
 void	free_tokens(t_tokens **tokens)

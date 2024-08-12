@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:50 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:45:09 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ void	executer(t_main *main, char **tokens, char *cmd)
 				err(GREY"minichad: ");
 				err(cmd);
 				err(": command not found\n"WHITE);
+				free(path);
+				free_matrix(env);
+				free_matrix(tokens);
+				free_everything(main);
 				exit(127);
 			}
 			if (execve(path, tokens, env) < 0)

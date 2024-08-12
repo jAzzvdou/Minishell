@@ -6,33 +6,11 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:55 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:56 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:20:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	print_type(t_type type)
-{
-	if (type == CMD)
-		printf("type %d = CMD\n", type);
-	else if (type == BLOCK)
-		printf("type %d = BLOCK\n", type);
-	else if (type == HEREDOC)
-		printf("type %d = HEREDOC\n", type);
-	else if (type == OR)
-		printf("type %d = OR\n", type);
-	else if (type == AND)
-		printf("type %d = AND\n", type);
-	else if (type == PIPE)
-		printf("type %d = PIPE\n", type);
-	else if (type == INPUT)
-		printf("type %d = INPUT\n", type);
-	else if (type == OUTPUT)
-		printf("type %d = OUTPUT\n", type);
-	else if (type == APPEND)
-		printf("type %d = APPEND\n", type);
-}
 
 void	exec(t_main *main, t_tree *tree)
 {

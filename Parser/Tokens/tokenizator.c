@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:46 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:23:47 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:11:38 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	add_token(t_tokens *tokens, t_type type, char *line)
 	new = (t_node *)malloc(sizeof(t_node));
 	new->type = type;
 	new->cmd = ft_strdup(line);
+	free(line);
 	new->next = NULL;
 	new->prev = tokens->last;
 	if (tokens->last)
@@ -75,7 +76,7 @@ t_tokens	*build_tokens(char **split)
 				add_token(tokens, CMD, splited[ii]);
 			ii++;
 		}
-		free_matrix(splited);
+		free(splited);
 		i++;
 	}
 	free_matrix(split);
@@ -96,7 +97,7 @@ t_tokens	*tokenizator(char *user_input)
 	free(user_input);
 	if (!split)
 	{
-		printf(RED"Error!\n"RESET);
+		err(RED"Error!\n"RESET);
 		return (NULL);
 	}
 	tokens = build_tokens(split);

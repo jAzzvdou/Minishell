@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 13:50:38 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:08:34 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,27 @@ void	parser(t_main *main, t_tokens *tokens)
 	t_tree	*tree;
 
 	if (!tokens || !check_tokens(tokens))
+	{
+		free_tokens(&tokens);
 		return ;
+	}
 	main->tokens = tokens;
 	if (!is_there_heredoc(main->tokens))
+	{
+		free_tokens(&main->tokens);
 		return ;
-	//main->tokens = expander(main, main->tokens);
+	}
+	main->tokens = expander(main, main->tokens); //LEAK
 	tree = build_tree(main->tokens);
 	if (!tree)
+	{
+		free_tokens(&main->tokens);
 		return ;
+	}
 	main->tree = tree;
-	exec(main, main->tree);
+	free_everything(main);
+	exit(1);
+	//exec(main, main->tree); //LEAK
 	free_tokens(&main->tokens);
 	free_tree(&main->tree);
 }

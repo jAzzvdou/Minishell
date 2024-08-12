@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:06 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:22:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:39:17 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	process(t_main *main, t_tree *pipe, int *fd, int right)
 		close(STDOUT_FILENO);
 		close(STDERR_FILENO);
 	}
-	//| DAR FREE EM TUDO QUE PRECISA.
+	//free_everything(main);
 	exit(last_status(-1));
 }
 

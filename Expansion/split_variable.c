@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:08:57 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:09:53 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:21:00 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,5 @@ char	**split_variable(char *cmd)
 		}
 	}
 	split[j] = NULL;
-	free(cmd);
-	cmd = NULL;
 	return (split);
 }

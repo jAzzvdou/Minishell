@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:05:23 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:08:35 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:06:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	**split_bonus(char *cmd)
 			start = &cmd[i];
 			while (cmd[i] && cmd[i] != '$')
 				i++;
-			split[j++] = ft_strndup(start, i - (start - cmd));
+			split[j] = ft_strndup(start, i - (start - cmd));
+			j++;
 		}
 		else if (cmd[i] == '$')
 		{
@@ -71,11 +72,10 @@ char	**split_bonus(char *cmd)
 			i++;
 			while (cmd[i] && can_continue_bonus(cmd[i]))
 				i++;
-			split[j++] = ft_strndup(start, i - (start - cmd));
+			split[j] = ft_strndup(start, i - (start - cmd));
+			j++;
 		}
 	}
 	split[j] = NULL;
-	free(cmd);
-	cmd = NULL;
 	return (split);
 }
