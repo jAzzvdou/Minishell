@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 17:49:15 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:47:43 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,6 @@ void	free_matrix(char **matrix)
 	}
 	free(matrix);
 	matrix = NULL;
-}
-
-void	free_env(t_env **env)
-{
-	t_env	*aux;
-
-	if (!*env)
-		return ;
-	while (*env)
-	{
-		aux = *env;
-		*env = (*env)->next;
-		if (aux->name)
-		{
-			free(aux->name);
-			aux->name = NULL;
-		}
-		if (aux->value)
-		{
-			free(aux->value);
-			aux->value = NULL;
-		}
-		if (aux->line)
-		{
-			free(aux->line);
-			aux->line = NULL;
-		}
-		free(aux);
-		aux = NULL;
-	}
-	*env = NULL;
 }
 
 void	free_nodes(t_node *node)

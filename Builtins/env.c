@@ -3,39 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:17 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:20:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:44:23 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
+t_env	*handle_shlvl(char *line, int declare_x)
+{
+	t_env	*new;
+	char	*join;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	new->declare_x = declare_x;
+	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
+	new->value = ft_itoa(ft_atoll(ft_strchr(line, '=') + 1) + 1);
+	join = ft_strndup(line, ft_strchr(line, '=') - line + 1);
+	new->line = ft_strjoin(join, new->value);
+	free(join);
+	new->next = NULL;
+	return (new);
+}
+
+t_env	*handle_other_env(char *line, int declare_x)
+{
+	t_env	*new;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	new->declare_x = declare_x;
+	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
+	new->value = ft_strdup(ft_strchr(line, '=') + 1);
+	new->line = ft_strdup(line);
+	new->next = NULL;
+	return (new);
+}
+
 void	add_env(t_env **env, char *line, int declare_x)
 {
-	char	*join;
 	t_env	*new;
 	t_env	*tmp;
 
 	if (!line)
 		return ;
-	new = (t_env *)malloc(sizeof(t_env));
-	new->declare_x = declare_x;
-	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
-	if (!ft_strcmp(new->name, "SHLVL"))
-	{
-		new->value = ft_itoa(ft_atoll(ft_strchr(line, '=') + 1) + 1);
-		join = ft_strndup(line, ft_strchr(line, '=') - line + 1);
-		new->line = ft_strjoin(join, new->value);
-		free(join);
-	}
+	if (!ft_strcmp(ft_strndup(line, ft_strchr(line, '=') - line), "SHLVL"))
+		new = handle_shlvl(line, declare_x);
 	else
-	{
-		new->value = ft_strdup(ft_strchr(line, '=') + 1);
-		new->line = ft_strdup(line);
-	}
-	new->next = NULL;
+		new = handle_other_env(line, declare_x);
 	if (!(*env))
 		*env = new;
 	else

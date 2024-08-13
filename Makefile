@@ -9,10 +9,12 @@ SRCS	=	main.c                       \
 		Builtins/pwd.c               \
 		Builtins/exit.c              \
 		Builtins/export_utils.c      \
+		Builtins/export_utils2.c     \
 		Builtins/export.c            \
 		Builtins/echo.c              \
 		Builtins/unset.c             \
 		Cleaners/cleaners.c          \
+		Cleaners/free_env.c          \
 		Cleaners/free_everything.c   \
 		Errors/error_exit.c          \
 		Errors/errors.c              \
@@ -21,12 +23,15 @@ SRCS	=	main.c                       \
 		Execution/make_pipe.c        \
 		Execution/make_redir.c       \
 		Execution/re_exec.c          \
+		Execution/controller_utils.c \
 		Execution/controller.c       \
 		Expansion/expander.c         \
+		Expansion/concat_utils.c     \
 		Expansion/expander_utils.c   \
 		Expansion/split_variable.c   \
 		Expansion/split_bonus.c      \
 		Expansion/wildcard.c         \
+		Heredoc/heredoc_utils.c      \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \
@@ -37,6 +42,7 @@ SRCS	=	main.c                       \
 		Parser/Tokens/split_input.c  \
 		Parser/Tree/tree.c           \
 		Parser/Tree/is_type.c        \
+		Parser/Tree/list_functions_utils.c \
 		Parser/Tree/list_functions.c \
 		Signals/signals.c            \
 		Utils/ft_itoa.c              \

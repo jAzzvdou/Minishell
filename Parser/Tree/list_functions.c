@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:24:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:24:11 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:23:29 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,8 @@ void	transfer_nodes(t_tokens *tokens, t_tokens *right)
 	while (node)
 	{
 		next = node->next;
-		if (node->prev)
-			node->prev->next = node->next;
-		if (node->next)
-			node->next->prev = node->prev;
-		if (node == right->last)
-			right->last = node->prev;
-		node->next = NULL;
-		node->prev = tokens->last;
-		if (tokens->last)
-			tokens->last->next = node;
-		else
-			tokens->first = node;
-		tokens->last = node;
-		right->size--;
-		tokens->size++;
+		remove_node_from_right(node, right);
+		add_node_to_tokens(node, tokens);
 		node = next;
 	}
 	right->first->next = NULL;

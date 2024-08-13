@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:05:23 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:06:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:12:50 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	count_variables_bonus(char *cmd)
 
 char	**split_bonus(char *cmd)
 {
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		j;
+	int		size;
 	char	*start;
 	char	**split;
 
