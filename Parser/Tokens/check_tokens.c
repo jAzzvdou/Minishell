@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:58 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:44:57 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:25:58 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	check_end(t_node *last)
 	t_type	type;
 
 	type = last->type;
-	if (type == PIPE || type == OR || type == AND ||
-		type == INPUT || type == OUTPUT ||
-		type == APPEND || type == HEREDOC)
+	if (type == PIPE || type == OR || type == AND
+		|| type == INPUT || type == OUTPUT
+		|| type == APPEND || type == HEREDOC)
 		return (error_syntax(NULL, 2));
 	return (0);
 }
@@ -41,12 +41,13 @@ static int	check_consecutive(t_node *node)
 
 	type = node->type;
 	next_type = node->next->type;
-	if ((type == PIPE || type == OR || type == AND) &&
-		(next_type == PIPE || next_type == OR || next_type == AND))
+	if ((type == PIPE || type == OR || type == AND)
+		&& (next_type == PIPE || next_type == OR || next_type == AND))
 		return (error_syntax(node->next->cmd, 1));
-	if ((type == INPUT || type == OUTPUT || type == HEREDOC || type == APPEND) &&
-		(next_type == PIPE || next_type == OR || next_type == AND ||
-		 next_type == INPUT || next_type == OUTPUT || next_type == HEREDOC || next_type == APPEND))
+	if ((type == INPUT || type == OUTPUT || type == HEREDOC || type == APPEND)
+		&& (next_type == PIPE || next_type == OR || next_type == AND
+			||next_type == INPUT || next_type == OUTPUT || next_type == HEREDOC
+			|| next_type == APPEND))
 		return (error_syntax(node->next->cmd, 1));
 	return (0);
 }

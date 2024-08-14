@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:46 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 18:11:38 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:58:08 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,39 +44,15 @@ void	add_token(t_tokens *tokens, t_type type, char *line)
 t_tokens	*build_tokens(char **split)
 {
 	int			i;
-	int			ii;
 	char		**splited;
 	t_tokens	*tokens;
 
-	tokens = start_tokens();
 	i = 0;
+	tokens = start_tokens();
 	while (split[i])
 	{
 		splited = spliter(split[i]);
-		ii = 0;
-		while (splited[ii])
-		{
-			if (!ft_strcmp(splited[ii], "&&"))
-				add_token(tokens, AND, splited[ii]);
-			else if (!ft_strcmp(splited[ii], "||"))
-				add_token(tokens, OR, splited[ii]);
-			else if (!ft_strcmp(splited[ii], "|"))
-				add_token(tokens, PIPE, splited[ii]);
-			else if (!ft_strcmp(splited[ii], ">"))
-				add_token(tokens, OUTPUT, splited[ii]);
-			else if (!ft_strcmp(splited[ii], ">>"))
-				add_token(tokens, APPEND, splited[ii]);
-			else if (!ft_strcmp(splited[ii], "<"))
-				add_token(tokens, INPUT, splited[ii]);
-			else if (!ft_strcmp(splited[ii], "<<"))
-				add_token(tokens, HEREDOC, splited[ii]);
-			else if (splited[ii][0] == '(')
-				add_token(tokens, BLOCK, splited[ii]);
-			else if (ft_strcmp(splited[ii], ""))
-				add_token(tokens, CMD, splited[ii]);
-			ii++;
-		}
-		free(splited);
+		process_split_string(tokens, splited);
 		i++;
 	}
 	free_matrix(split);

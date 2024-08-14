@@ -33,12 +33,14 @@ SRCS	=	main.c                       \
 		Expansion/wildcard.c         \
 		Heredoc/heredoc_utils.c      \
 		Heredoc/heredoc.c            \
+		Parser/Tokens/tokenizator_utils.c \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \
 		Parser/Tokens/space.c        \
 		Parser/Tokens/quote.c        \
 		Parser/Tokens/parenthesis.c  \
 		Parser/Tokens/spliter.c      \
+		Parser/Tokens/split_input_utils.c \
 		Parser/Tokens/split_input.c  \
 		Parser/Tree/tree.c           \
 		Parser/Tree/is_type.c        \

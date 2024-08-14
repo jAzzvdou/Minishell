@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:08:44 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:29:05 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,9 @@ void		controller(t_main *main, char **tokens);
 int			check_tokens(t_tokens *tokens);
 void		add_token(t_tokens *tokens, t_type type, char *line);
 t_tokens	*start_tokens(void);
+t_type		get_token_type(char *str);
+void		process_individual_token(t_tokens *tokens, char *token_str);
+void		process_split_string(t_tokens *tokens, char **splited);
 t_tokens	*tokenizator(char *user_input);
 void		free_args(char **args, int i);
 char		**token_to_args(t_tokens *tokens);
@@ -183,6 +186,7 @@ void		add_node_to_tokens(t_node *node, t_tokens *tokens);
 void		transfer_nodes(t_tokens *tokens, t_tokens *right);
 void		remove_last_node(t_tokens *tokens);
 void		addfront_popback(t_tokens *right, t_tokens *tokens);
+int			process_non_separator(char *input, int i);
 t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
@@ -226,6 +230,7 @@ char		*ft_itoa(int n);
 //__________ space __________
 int			is_space(int c);
 void		skip_spaces(char **s);
+int			skip_spaces2(char *input, int i);
 //__________ quote __________
 int			is_quote(char *cmd, int i);
 int			verify_quote(char *cmd, int i);
@@ -241,6 +246,8 @@ size_t		ft_strlen(const char *str);
 int			ft_isalpha(int c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			skip_separator(char *input, int i);
+int			is_separator(char *str, int i);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);
 char		*ft_strndup(const char *s, int n);
