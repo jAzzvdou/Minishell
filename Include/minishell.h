@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 17:49:48 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:17:54 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void		free_env(t_env **env);
 void		free_tokens(t_tokens **tokens);
 void		free_tokens2(t_tokens *tokens);
 void		free_tree(t_tree **tree);
+void		free_tree2(t_tree *tree);
 void		free_everything(t_main *main);
 
 //----------| UTILS |----------//

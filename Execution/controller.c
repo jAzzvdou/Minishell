@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 16:45:09 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:06:25 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 	char	**env;
 	pid_t	pid;
 
+	path = NULL;
 	env = list_to_args(main->env);
 	pid = fork();
 	if (pid == -1)

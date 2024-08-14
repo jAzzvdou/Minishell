@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:04:13 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:37:50 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ void	parser(t_main *main, t_tokens *tokens)
 		return ;
 	}
 	main->tree = tree;
-	free_everything(main);
-	exit(1);
-	//exec(main, main->tree); //LEAK
-	//free_tokens(&main->tokens);
-	//free_tree(&main->tree);
+	exec(main, main->tree); //LEAK em processo filho.
+	free_tokens(&main->tokens);
+	free_tree(&main->tree);
 }
 
 int	main(int argc, char **argv, char **envp)

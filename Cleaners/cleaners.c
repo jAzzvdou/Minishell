@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 17:49:15 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:16:59 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,29 @@ void	free_tokens(t_tokens **tokens)
 	(*tokens)->last = NULL;
 	free(*tokens);
 	*tokens = NULL;
+}
+
+void	free_tree2(t_tree *tree)
+{
+	if (!tree)
+		return ;
+	free_tree2(tree->left);
+	free_tree2(tree->right);
+	if (tree->exe)
+	{
+		t_node *current = tree->exe->first;
+		t_node *next;
+		while (current)
+		{
+			next = current->next;
+			if (current->cmd)
+				free(current->cmd);
+			free(current);
+			current = next;
+		}
+		free(tree->exe);
+	}
+	free(tree);
 }
 
 void	free_tree(t_tree **tree)
