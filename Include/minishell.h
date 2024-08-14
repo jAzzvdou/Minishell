@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 11:29:05 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:49:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ void		handle_no_args(t_env *env);
 int			is_valid_identifier(char *token);
 void		up_env_var(t_env *env_var, char *equals_sign, char *token);
 void		add_new_env_var(t_main *main, char *token, char *equals_sign);
-void		update_existing_env_var(t_env *env_var, char *name, char *token);
-void		add_env_var_if_not_found(t_main *main, char *name, char *token);
 void		handle_equal_sign(t_main *main, char *token);
 //__________ unset _________
 void		unset_cmd(t_main *main, char **token);
@@ -162,39 +160,23 @@ void		make_if(t_main *main, t_tree *tree);
 void		make_pipe(t_main *main, t_tree *pipex);
 void		make_redir(t_main *main, t_tree *tree);
 void		re_exec(t_main *main, char *block);
-char		*pathfinder(char **env, char *cmd);
-void		exec_cmd_directly(char *cmd, char **tokens, char **env);
-void		exec_cmd_pathfinder(t_main *main, char *cmd, char **tokens, char **env);
-void		handle_child_process(t_main *main, char *cmd, char **tokens, char **env);
-void		handle_parent_process(pid_t pid, int *status);
 void		controller(t_main *main, char **tokens);
 //__________ tokens __________
 int			check_tokens(t_tokens *tokens);
 void		add_token(t_tokens *tokens, t_type type, char *line);
 t_tokens	*start_tokens(void);
-t_type		get_token_type(char *str);
-void		process_individual_token(t_tokens *tokens, char *token_str);
-void		process_split_string(t_tokens *tokens, char **splited);
 t_tokens	*tokenizator(char *user_input);
 void		free_args(char **args, int i);
 char		**token_to_args(t_tokens *tokens);
 t_node		*is_type1(t_node *last);
 t_node		*is_type2(t_node *last);
 t_node		*is_type3(t_node *last);
-void		remove_node_from_right(t_node *node, t_tokens *right);
-void		add_node_to_tokens(t_node *node, t_tokens *tokens);
 void		transfer_nodes(t_tokens *tokens, t_tokens *right);
 void		remove_last_node(t_tokens *tokens);
 void		addfront_popback(t_tokens *right, t_tokens *tokens);
-int			process_non_separator(char *input, int i);
 t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
-void		err_heredoc(char *cmd);
-void		sig_int_heredoc_handle(int sig);
-void		handle_heredoc_child_process(t_node *token, int fd);
-int			handle_heredoc_parent_process(pid_t hd_pid, char *file, int fd);
-int			fork_and_handle_heredoc(t_node *token, char *file, int fd);
 int			is_there_heredoc(t_tokens *tokens);
 //__________ expansion __________
 t_tokens	*before_wildcard(t_tokens *tokens, t_node *node);
@@ -230,7 +212,6 @@ char		*ft_itoa(int n);
 //__________ space __________
 int			is_space(int c);
 void		skip_spaces(char **s);
-int			skip_spaces2(char *input, int i);
 //__________ quote __________
 int			is_quote(char *cmd, int i);
 int			verify_quote(char *cmd, int i);
@@ -246,16 +227,12 @@ size_t		ft_strlen(const char *str);
 int			ft_isalpha(int c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-int			skip_separator(char *input, int i);
-int			is_separator(char *str, int i);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);
 char		*ft_strndup(const char *s, int n);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-int			calculate_total_length(char **matrix);
-void		copy_string_to_new_str(char *new_str, char *str, int *len);
 char		**ft_split(char const *s, char c);
 char		**spliter(char *cmd);
 char		**split_input(char *input);

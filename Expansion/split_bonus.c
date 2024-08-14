@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:05:23 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:12:50 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:23:50 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int	count_variables_bonus(char *cmd)
 
 char	**split_bonus(char *cmd)
 {
-	int		i;
-	int		j;
-	int		size;
+	int	i;
+	int	j;
+	int	size;
 	char	*start;
 	char	**split;
 
 	size = count_variables_bonus(cmd);
-	split = malloc(sizeof(char *) * size + 1);
+	split = malloc(sizeof(char *) * (size + 1));
 	i = 0;
 	j = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] != '$')
+		if (cmd[i] && cmd[i] != '$')
 		{
 			start = &cmd[i];
 			while (cmd[i] && cmd[i] != '$')
@@ -66,7 +66,7 @@ char	**split_bonus(char *cmd)
 			split[j] = ft_strndup(start, i - (start - cmd));
 			j++;
 		}
-		else if (cmd[i] == '$')
+		else if (cmd[i] && cmd[i] == '$')
 		{
 			start = &cmd[i];
 			i++;
@@ -77,5 +77,6 @@ char	**split_bonus(char *cmd)
 		}
 	}
 	split[j] = NULL;
+	free(cmd);
 	return (split);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:11:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:08:09 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:54:35 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,29 @@ int	is_var(char *cmd)
 char	*concatenator(char **matrix)
 {
 	int		i;
+	int		j;
 	int		len;
 	char	*new_str;
-
-	if (!matrix)
-		return (NULL);
-
-	len = calculate_total_length(matrix);
-	new_str = malloc(sizeof(char) * (len + 1));
-	if (!new_str)
-		return (NULL);
 
 	i = 0;
 	len = 0;
 	while (matrix[i])
 	{
-		copy_string_to_new_str(new_str, matrix[i], &len);
+		len += ft_strlen(matrix[i]);
+		i++;
+	}
+	new_str = malloc(sizeof(char) * len + 1);
+	i = 0;
+	len = 0;
+	while (matrix[i])
+	{
+		j = 0;
+		while (matrix[i][j])
+		{
+			new_str[len] = matrix[i][j];
+			j++;
+			len++;
+		}
 		i++;
 	}
 	new_str[len] = '\0';

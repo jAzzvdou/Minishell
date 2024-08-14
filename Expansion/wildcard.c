@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 17:58:33 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:02:41 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ t_tokens	*before_wildcard(t_tokens *tokens, t_node *node)
 	tmp = tokens->first;
 	while (tmp && ft_strcmp(tmp->cmd, node->cmd))
 	{
-		add_token(before, tmp->type, tmp->cmd);
+		add_token(before, tmp->type, ft_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
-	//| free()?
 	return (before);
 }
 
@@ -39,10 +38,9 @@ t_tokens	*after_wildcard(t_tokens *tokens, t_node *node)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		add_token(after, tmp->type, tmp->cmd);
+		add_token(after, tmp->type, ft_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
-	//| free()?
 	return (after);
 }
 
@@ -100,12 +98,12 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 	{
 		if (*(char *)entry->d_name != '.'
 			&& is_match((char *)entry->d_name, wildcard->cmd))
-			add_token(expanded, wildcard->type, (char *)entry->d_name);
+			add_token(expanded, wildcard->type, ft_strdup((char *)entry->d_name));
 		entry = readdir(dir);
 	}
 	closedir(dir);
 	if (!expanded->first)
-		add_token(expanded, wildcard->type, wildcard->cmd);
+		add_token(expanded, wildcard->type, ft_strdup(wildcard->cmd));
 	return (expanded);
 }
 
@@ -122,7 +120,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 		tmp = list1->first;
 		while (tmp)
 		{
-			add_token(new, tmp->type, tmp->cmd);
+			add_token(new, tmp->type, ft_strdup(tmp->cmd));
 			tmp = tmp->next;
 		}
 		free_tokens2(list1);
@@ -132,7 +130,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 		tmp = list2->first;
 		while (tmp)
 		{
-			add_token(new, tmp->type, tmp->cmd);
+			add_token(new, tmp->type, ft_strdup(tmp->cmd));
 			tmp = tmp->next;
 		}
 		free_tokens2(list2);
@@ -143,26 +141,27 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 t_tokens	*wildcard(t_tokens *tokens)
 {
 	t_node		*tmp;
-	t_tokens	*after;
-	t_tokens	*before;
+	t_tokens	*aux;
 	t_tokens	*expanded;
 
-	after = NULL;
-	before = NULL;
+	aux = NULL;
 	expanded = NULL;
 	tmp = tokens->first;
 	while (tmp)
 	{
-		if (tmp->type == CMD
-			&& ft_strchr(tmp->cmd, '*'))
+		if (tmp->type == CMD && ft_strchr(tmp->cmd, '*'))
 		{
-			if (tmp->next)
-				after = after_wildcard(tokens, tmp->next);
-			if (tmp->prev)
-				before = before_wildcard(tokens, tmp);
 			expanded = expand_wildcard(tmp);
-			expanded = merge_lists(before, expanded);
-			expanded = merge_lists(expanded, after);
+			if (tmp->prev)
+			{
+				aux = before_wildcard(tokens, tmp);
+				expanded = merge_lists(aux, expanded);
+			}
+			if (tmp->next)
+			{
+				aux = after_wildcard(tokens, tmp->next);
+				expanded = merge_lists(expanded, aux);
+			}
 		}
 		tmp = tmp->next;
 	}

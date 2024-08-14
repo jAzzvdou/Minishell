@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:26 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:11:26 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:24:51 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*expand_bonus(t_main *main, char *cmd)
 {
-	int		i;
+	int	i;
 	char	*tmp;
 	char	**splited;
 
-	splited = split_bonus(cmd); //| ARRUMAR
+	splited = split_bonus(cmd);
 	i = 0;
 	while (splited[i])
 	{
@@ -37,7 +37,7 @@ char	*expand_bonus(t_main *main, char *cmd)
 
 char	*expand(t_main *main, char *cmd)
 {
-	int		i;
+	int	i;
 	char	*tmp;
 	char	**splited;
 
@@ -66,7 +66,7 @@ char	*expand(t_main *main, char *cmd)
 
 char	*not_expand(char *cmd)
 {
-	int		i;
+	int	i;
 	char	*tmp;
 	char	**splited;
 

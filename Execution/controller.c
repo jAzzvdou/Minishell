@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 14:26:25 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:45:09 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*pathfinder(char **env, char *cmd)
 void	executer(t_main *main, char **tokens, char *cmd)
 {
 	int		status;
+	char	*path;
 	char	**env;
 	pid_t	pid;
 
@@ -90,14 +91,36 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		exit(1);
 	if (!pid)
 	{
-		handle_child_process(main, cmd, tokens, env);
-		free_matrix(env);
-	}
-	else
-	{
-		handle_parent_process(pid, &status);
+		if (!access(cmd, F_OK | X_OK))
+		{
+			if (execve(cmd, tokens, env) < 0)
+				exit(127);
+		}
+		else
+		{
+			path = pathfinder(env, cmd);
+			if (!path)
+			{
+				err(GREY"minichad: ");
+				err(cmd);
+				err(": command not found\n"WHITE);
+				free(path);
+				free_matrix(env);
+				free_matrix(tokens);
+				free_everything(main);
+				exit(127);
+			}
+			if (execve(path, tokens, env) < 0)
+				exit(127);
+		}
 	}
 	free_matrix(env);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	if (status == 139)
+		status = 1;
+	last_status(status);
 }
 
 void	controller(t_main *main, char **tokens)

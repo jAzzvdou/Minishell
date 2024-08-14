@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 15:41:23 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:04:13 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	parser(t_main *main, t_tokens *tokens)
 		free_tokens(&main->tokens);
 		return ;
 	}
-	main->tokens = expander(main, main->tokens); //LEAK
+	main->tokens = expander(main, main->tokens);
 	tree = build_tree(main->tokens);
 	if (!tree)
 	{
@@ -49,11 +49,11 @@ void	parser(t_main *main, t_tokens *tokens)
 		return ;
 	}
 	main->tree = tree;
-	//free_everything(main);
-	//exit(1);
-	exec(main, main->tree); //LEAK
-	free_tokens(&main->tokens);
-	free_tree(&main->tree);
+	free_everything(main);
+	exit(1);
+	//exec(main, main->tree); //LEAK
+	//free_tokens(&main->tokens);
+	//free_tree(&main->tree);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -77,10 +77,6 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 /*
-Casos para tratar:
-- Arrumar as aspas do delimitador do Heredoc. | Arrumei.
-- Arrumar os Signals dentro do Heredoc.
 - cat + ctrlC = last_status(130);. Atualmente está last_status(2);
 - cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
-- Leak nas expansões.
 */

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:30 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 11:32:12 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:23:31 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	is_separator(char *str, int i)
+static int	is_separator(char *str, int i)
 {
 	if (!ft_strncmp(str + i, ">>", 2) || !ft_strncmp(str + i, "<<", 2)
 		|| !ft_strncmp(str + i, "&&", 2)
@@ -31,14 +31,32 @@ static int	count_words(char *input)
 	words = 0;
 	while (input[i])
 	{
-		i = skip_spaces2(input, i);
+		while (input[i] && input[i] == ' ')
+			i++;
 		if (input[i] == '\0')
 			break ;
 		words++;
 		if (is_separator(input, i))
-			i = skip_separator(input, i);
+		{
+			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2) \
+			|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
+				i += 2;
+			else
+				i++;
+		}
 		else
-			i = process_non_separator(input, i);
+		{
+			while (input[i] && !is_separator(input, i))
+			{
+				if ((input[i] == '\'' || input[i] == '\"') && \
+				verify_quote(input, i))
+					i = is_quote(input, i);
+				else if (input[i] == '(' && verify_parenthesis(input, i))
+					i = skip_parenthesis(input, i);
+				else
+					i++;
+			}
+		}
 	}
 	return (words);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:43 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/13 14:43:00 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:20:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,25 @@ void	handle_equal_sign(t_main *main, char *token)
 {
 	char	*name;
 	char	*equals_sign;
+	t_env	*env_var;
 
 	equals_sign = ft_strchr(token, '=');
+	env_var = main->env;
 	if (equals_sign)
 	{
 		name = ft_strndup(token, equals_sign - token);
-		update_existing_env_var(main->env, name, token);
-		add_env_var_if_not_found(main, name, token);
+		while (env_var)
+		{
+			if (!ft_strcmp(env_var->name, name))
+			{
+				up_env_var(env_var, equals_sign, token);
+				free(name);
+				return ;
+			}
+			env_var = env_var->next;
+		}
+		free(name);
+		add_new_env_var(main, token, equals_sign);
 	}
 	else
 	{
@@ -74,5 +86,6 @@ void	handle_equal_sign(t_main *main, char *token)
 		err(token);
 		err("': need '=' after variable name\n"RESET);
 		last_status(1);
+		return ;
 	}
 }
