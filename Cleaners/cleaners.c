@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 18:16:59 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:17:38 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,16 @@ void	free_tokens(t_tokens **tokens)
 
 void	free_tree2(t_tree *tree)
 {
+	t_node	*current;
+	t_node	*next;
+
 	if (!tree)
 		return ;
 	free_tree2(tree->left);
 	free_tree2(tree->right);
 	if (tree->exe)
 	{
-		t_node *current = tree->exe->first;
-		t_node *next;
+		current = tree->exe->first;
 		while (current)
 		{
 			next = current->next;

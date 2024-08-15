@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:08:57 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 18:21:00 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:09:28 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	can_continue(int c)
 
 int	count_variables(char *cmd)
 {
-	int	i;
-	int	words;
+	int		i;
+	int		words;
 	char	quote;
 
 	words = 0;
@@ -32,7 +32,7 @@ int	count_variables(char *cmd)
 		while (cmd[i] && cmd[i] == ' ')
 			i++;
 		if (cmd[i] == '\0')
-			break;
+			break ;
 		else if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
 			words++;
@@ -56,19 +56,27 @@ int	count_variables(char *cmd)
 				i++;
 		}
 		while (cmd[i] && cmd[i] == ' ')
-			words++, i++;
+		{
+			words++;
+			i++;
+		}
 	}
 	return (words);
 }
 
 char	**split_variable(char *cmd)
 {
-	int size = count_variables(cmd);
-	char **split = malloc(sizeof(char *) * (size + 1));
-	int i = 0, j = 0;
-	char *start;
-	char quote;
+	int		size;
+	char	**split;
+	int		i;
+	int		j;
+	char	*start;
+	char	quote;
 
+	i = 0;
+	j = 0;
+	size = count_variables(cmd);
+	split = malloc(sizeof(char *) * (size + 1));
 	while (cmd[i])
 	{
 		while (cmd[i] && cmd[i] == ' ')
@@ -79,7 +87,7 @@ char	**split_variable(char *cmd)
 			split[j++] = ft_strndup(start, i - (start - cmd));
 		}
 		if (cmd[i] == '\0')
-			break;
+			break ;
 		else if (cmd[i] == '\'' || cmd[i] == '\"')
 		{
 			start = &cmd[i];

@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 15:43:06 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:15:58 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,90 +33,51 @@ void	err_heredoc(char *cmd)
 	last_status(0);
 }
 
-void sig_int_heredoc_handle(int sig)
+void	sig_int_heredoc_handle(int sig)
 {
-    if (sig == SIGINT)
-    {
-        signal(SIGINT, SIG_IGN);  // Ignora sinais futuros de SIGINT
-        g_status = 130;           // Define status para 130, indicando interrupção pelo SIGINT
-        exit(g_status);           // Sai do processo com o status 130
-    }
-    else
-    {
-        write(1, "> ", 2);
-        ioctl(1, TIOCSTI, 1);     // Simula entrada de caractere para readline
-        rl_on_new_line();
-        rl_replace_line("", 0);
-    }
+	if (sig == SIGINT)
+	{
+		signal(SIGINT, SIG_IGN);
+		g_status = 130;
+		exit(g_status);
+	}
+	else
+	{
+		write(1, "> ", 2);
+		ioctl(1, TIOCSTI, 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
 }
 
-// Função adaptada heredoc que usa o sig_int_heredoc_handle
-/*int heredoc(t_node *token, char *file, int fd)
-{
-    pid_t   hd_pid;
-    int     hd_fd[2];
-    int     status;
-
-    if (pipe(hd_fd) == -1)
-        return (-1);
-
-    signal(SIGINT, SIG_IGN);  // Ignora SIGINT no processo pai
-    hd_pid = fork();
-
-    if (hd_pid == 0)  // Processo filho
-    {
-        close(hd_fd[0]);
-        signal(SIGINT, &sig_int_heredoc_handle);  // Configura manipulador de SIGINT
-        core_heredoc(hd_fd[1], token->cmd);
-        close(hd_fd[1]);
-        exit(1);
-    }
-
-    // Processo pai
-    waitpid(hd_pid, &status, 0);
-    close(hd_fd[1]);
-    g_status = WEXITSTATUS(status);
-
-    if (g_status == 130)  // Se interrompido pelo SIGINT
-    {
-        printf("\n");
-        close(hd_fd[0]);
-        return (-1);
-    }
-
-    close(fd);
-    free(token->cmd);
-    token->cmd = file;
-
-    return (hd_fd[0]);  // Retorna descritor de arquivo para leitura
-}*/
 int	heredoc(t_node *token, char *file, int fd)
 {
-	int status;
-	pid_t hd_pid;
+	int		status;
+	pid_t	hd_pid;
+	char	*line;
 
-	signal(SIGINT, SIG_IGN);  // Ignora SIGINT no processo pai
+	signal(SIGINT, SIG_IGN);
 	hd_pid = fork();
-	if (hd_pid == -1)  // Falha ao criar o processo filho
+	if (hd_pid == -1)
 	{
 		err(RED"fork\n"RESET);
 		return (-1);
 	}
-	if (hd_pid == 0)  // Processo filho
+	if (hd_pid == 0)
 	{
-		signal(SIGINT, sig_int_heredoc_handle);  // Configura o manipulador de SIGINT no filho
+		signal(SIGINT, sig_int_heredoc_handle);
 		while (1)
 		{
-			char *line = readline(GREEN"> ");
-			if (!line)  // Detecção de EOF
+			line = readline(GREEN"> ");
+			if (!line)
 			{
 				err_heredoc(token->cmd);
 				exit(1);
 			}
-			if (!ft_strcmp(token->cmd, line))  // Verifica se o delimitador foi encontrado
+			if (!ft_strcmp(token->cmd, line))
 			{
 				free(line);
-				exit(0);  // Saída normal
+				exit(0);
 			}
 			write(fd, line, strlen(line));
 			write(fd, "\n", 1);
@@ -125,7 +86,7 @@ int	heredoc(t_node *token, char *file, int fd)
 	}
 	waitpid(hd_pid, &status, 0);
 	g_status = WEXITSTATUS(status);
-	if (g_status == 130)  // Se interrompido por SIGINT
+	if (g_status == 130)
 	{
 		unlink(file);
 		close(fd);
