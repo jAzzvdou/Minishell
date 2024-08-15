@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/15 12:15:58 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:44:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	sig_int_heredoc_handle(int sig)
 	}
 }
 
-int	heredoc(t_node *token, char *file, int fd)
+int	heredoc(t_main *main, t_node *token, char *file, int fd)
 {
 	int		status;
 	pid_t	hd_pid;
@@ -72,11 +72,15 @@ int	heredoc(t_node *token, char *file, int fd)
 			if (!line)
 			{
 				err_heredoc(token->cmd);
+				free(file);
+				free_everything(main);
 				exit(1);
 			}
 			if (!ft_strcmp(token->cmd, line))
 			{
 				free(line);
+				free(file);
+				free_everything(main);
 				exit(0);
 			}
 			write(fd, line, strlen(line));
@@ -99,7 +103,7 @@ int	heredoc(t_node *token, char *file, int fd)
 	return (1);
 }
 
-int	start_heredoc(t_node *token, int nb)
+int	start_heredoc(t_main *main, t_node *token, int nb)
 {
 	int				fd;
 	static long int	random;
@@ -117,10 +121,10 @@ int	start_heredoc(t_node *token, int nb)
 		token->cmd = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
 		free(tmp);
 	}
-	return (heredoc(token, file, fd));
+	return (heredoc(main, token, file, fd));
 }
 
-int	is_there_heredoc(t_tokens *tokens)
+int	is_there_heredoc(t_main *main, t_tokens *tokens)
 {
 	t_node	*token;
 
@@ -129,7 +133,7 @@ int	is_there_heredoc(t_tokens *tokens)
 	{
 		if (token->type == HEREDOC)
 		{
-			if (!start_heredoc(token->next, 42))
+			if (!start_heredoc(main, token->next, 42))
 				return (0);
 		}
 		token = token->next;

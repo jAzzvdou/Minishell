@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 18:17:54 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:41:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void		addfront_popback(t_tokens *right, t_tokens *tokens);
 t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
-int			is_there_heredoc(t_tokens *tokens);
+int			is_there_heredoc(t_main *main, t_tokens *tokens);
 //__________ expansion __________
 t_tokens	*before_wildcard(t_tokens *tokens, t_node *node);
 t_tokens	*after_wildcard(t_tokens *tokens, t_node *node);

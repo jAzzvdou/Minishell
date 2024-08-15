@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 17:37:50 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:41:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	parser(t_main *main, t_tokens *tokens)
 		return ;
 	}
 	main->tokens = tokens;
-	if (!is_there_heredoc(main->tokens))
+	if (!is_there_heredoc(main, main->tokens))
 	{
 		free_tokens(&main->tokens);
 		return ;
