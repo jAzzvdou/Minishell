@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:11:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/12 18:54:35 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:15:54 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,11 @@ char	*change_var(t_main *main, char *var)
 			var = ft_strdup("\0");
 		return (expand_bonus(main, var));
 	}
-	if (var[0] == '$' && var[1])
+	if (var[0] == '$')
 	{
 		var = ft_strndup(var + 1, ft_strlen(var) - 1);
+		if (!var)
+			return (ft_strdup("\0"));
 		var = find_var(main, var);
 	}
 	return (var);
