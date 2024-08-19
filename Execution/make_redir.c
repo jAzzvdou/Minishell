@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:12 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/15 13:24:24 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:10:49 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,13 @@ void	set_redir(t_main *main, t_tree *tree)
 		|| type == APPEND || type == HEREDOC)
 		set_redir(main, tree->left);
 	type = tree->type;
-	if ((type == OUTPUT || type == APPEND)
-		&& (tree->left->fd >= 0 || !last_status(-1)))
+	if ((type == OUTPUT || type == APPEND) && !last_status(-1))
 	{
 		outfile(tree);
 		if (tree->fd >= 0)
 			dup_close(tree, STDOUT_FILENO);
 	}
-	else if (tree->left->fd < 0)
-		tree->fd = -1;
-	else if ((type == INPUT || type == HEREDOC)
-		&& (tree->left->fd >= 0 || !last_status(-1)))
+	else if ((type == INPUT || type == HEREDOC) && !last_status(-1))
 	{
 		infile(tree);
 		if (tree->fd >= 0)

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:24:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:24:16 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:30:25 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 int	make_roots(t_tree *tree, t_tokens *tokens, t_node *node)
 {
+	t_tokens	*left;
 	t_tokens	*right;
 
 	if (!tree || !tokens || !node)
 		return (0);
-	right = split_tokens(tokens, node);
-	if (!right)
-		return (-1);
-	tree->type = tokens->last->type;
-	remove_last_node(tokens);
-	if (tree->type == INPUT || tree->type == OUTPUT
-		|| tree->type == APPEND || tree->type == HEREDOC)
-		transfer_nodes(tokens, right);
-	tree->left = build_tree(tokens);
+	right = get_right(tokens, node);
+	left = get_left(tokens, node);
+	tree->type = right->first->type;
+	right = remove_last(right);
+	if (is_redir(tree->type) && need_transfer(right))
+	{
+		left = get_from_right(left, right);
+		right = send_to_left(right);
+	}
+	tree->left = build_tree(left);
 	tree->right = build_tree(right);
 	return (1);
 }

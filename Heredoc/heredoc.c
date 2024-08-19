@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/15 14:44:39 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:14:41 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	sig_int_heredoc_handle(int sig)
 	}
 }
 
-int	heredoc(t_main *main, t_node *token, char *file, int fd)
+int	heredoc(t_main *main, t_tokens *tokens, t_node *token, char *file, int fd)
 {
 	int		status;
 	pid_t	hd_pid;
@@ -73,6 +73,7 @@ int	heredoc(t_main *main, t_node *token, char *file, int fd)
 			{
 				err_heredoc(token->cmd);
 				free(file);
+				free_tokens2(tokens);
 				free_everything(main);
 				exit(1);
 			}
@@ -80,6 +81,7 @@ int	heredoc(t_main *main, t_node *token, char *file, int fd)
 			{
 				free(line);
 				free(file);
+				free_tokens2(tokens);
 				free_everything(main);
 				exit(0);
 			}
@@ -103,7 +105,7 @@ int	heredoc(t_main *main, t_node *token, char *file, int fd)
 	return (1);
 }
 
-int	start_heredoc(t_main *main, t_node *token, int nb)
+int	start_heredoc(t_main *main, t_tokens *tokens, t_node *token, int nb)
 {
 	int				fd;
 	static long int	random;
@@ -121,7 +123,7 @@ int	start_heredoc(t_main *main, t_node *token, int nb)
 		token->cmd = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
 		free(tmp);
 	}
-	return (heredoc(main, token, file, fd));
+	return (heredoc(main, tokens, token, file, fd));
 }
 
 int	is_there_heredoc(t_main *main, t_tokens *tokens)
@@ -133,7 +135,7 @@ int	is_there_heredoc(t_main *main, t_tokens *tokens)
 	{
 		if (token->type == HEREDOC)
 		{
-			if (!start_heredoc(main, token->next, 42))
+			if (!start_heredoc(main, tokens, token->next, 42))
 				return (0);
 		}
 		token = token->next;

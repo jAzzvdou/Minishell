@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/16 16:16:58 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:42:48 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,28 @@ char	*user_input(void)
 
 void	parser(t_main *main, t_tokens *tokens)
 {
-	t_tree	*tree;
+	t_tokens	*tmp;
 
 	if (!tokens || !check_tokens(tokens))
 	{
 		free_tokens(&tokens);
 		return ;
 	}
-	main->tokens = tokens;
-	if (!is_there_heredoc(main, main->tokens))
+	if (!is_there_heredoc(main, tokens))
+	{
+		free_tokens(&tokens);
+		return ;
+	}
+	tmp = expander(main, tokens);
+	main->tokens = tmp;
+	main->tree = build_tree(tmp);
+	if (!main->tree)
 	{
 		free_tokens(&main->tokens);
 		return ;
 	}
-	main->tokens = expander(main, main->tokens);
-	tree = build_tree(main->tokens); //| Refazer essa função.
-	if (!tree)
-	{
-		free_tokens(&main->tokens);
-		return ;
-	}
-	main->tree = tree;
-	free_everything(main);
-	exit(1);
 	exec(main, main->tree);
-	free_tokens(&main->tokens);
-	free_tree(&main->tree);
+	free_tree2(main->tree);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -76,7 +72,3 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	return (0);
 }
-/*
-- cat + ctrlC = last_status(130);. Atualmente está last_status(2);
-- cat + ctrl\ = err(GREY"Quit (core dumped)"RESET); + last_status(131);
-*/

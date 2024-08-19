@@ -6,11 +6,26 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:55 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:24:04 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:30:12 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
+
+int	is_redir(t_type type)
+{
+	if (type == INPUT || type == OUTPUT
+		|| type == APPEND || type == HEREDOC)
+		return (1);
+	return (0);
+}
+
+int	need_transfer(t_tokens *right)
+{
+	if (right->first && right->first->next)
+		return (1);
+	return (0);
+}
 
 t_node	*is_type1(t_node *last)
 {

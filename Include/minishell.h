@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/15 14:41:45 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:31:07 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,10 +171,13 @@ char		**token_to_args(t_tokens *tokens);
 t_node		*is_type1(t_node *last);
 t_node		*is_type2(t_node *last);
 t_node		*is_type3(t_node *last);
-void		transfer_nodes(t_tokens *tokens, t_tokens *right);
-void		remove_last_node(t_tokens *tokens);
-void		addfront_popback(t_tokens *right, t_tokens *tokens);
-t_tokens	*split_tokens(t_tokens *tokens, t_node *node);
+int			is_redir(t_type type);
+int			need_transfer(t_tokens *right);
+t_tokens	*get_right(t_tokens *tokens, t_node *node);
+t_tokens	*get_left(t_tokens *tokens, t_node *node);
+t_tokens	*remove_last(t_tokens *right);
+t_tokens	*get_from_right(t_tokens *left, t_tokens *right);
+t_tokens	*send_to_left(t_tokens *right);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
 int			is_there_heredoc(t_main *main, t_tokens *tokens);
@@ -192,8 +195,6 @@ char		*expand_bonus(t_main *main, char *cmd);
 char		**split_bonus(char *cmd);
 char		*change_var(t_main *main, char *var);
 char		*concatenator(char **matrix);
-//---------- execution ----------//
-void		exec(t_main *main, t_tree *tree);
 //----------| CLEANERS |----------//
 void		free_matrix(char **matrix);
 void		free_env(t_env **env);
