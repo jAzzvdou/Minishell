@@ -27,6 +27,7 @@ SRCS	=	main.c                       \
 		Expansion/split_variable.c   \
 		Expansion/split_bonus.c      \
 		Expansion/wildcard.c         \
+		Heredoc/heredoc_utils.c      \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \

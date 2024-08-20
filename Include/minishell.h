@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 11:44:13 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:48:02 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,20 @@ typedef struct s_main
 	t_tree		*tree;
 }	t_main;
 
+typedef struct s_heredoc_params
+{
+    t_tokens *tokens;
+    t_node *token;
+    t_main *main;
+} t_heredoc_params;
+
+typedef struct s_loop_params
+{
+    int fd;
+    char *line;
+    char *file;
+} t_loop_params;
+
 //----------| ERRORS |----------//
 void		err(char *s);
 int			error_argc(void);
@@ -183,6 +197,11 @@ t_tokens	*get_from_right(t_tokens *left, t_tokens *right);
 t_tokens	*send_to_left(t_tokens *right);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
+char		*free_function(char *s1, char *s2);
+void		err_heredoc(char *cmd);
+void		sig_int_heredoc_handle(int sig);
+int			handle_err_fork_heredoc(void);
+void		handle_heredoc_interrupt(char *file, int fd);
 int			is_there_heredoc(t_main *main, t_tokens *tokens);
 //__________ expansion __________
 t_tokens	*before_wildcard(t_tokens *tokens, t_node *node);
