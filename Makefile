@@ -30,6 +30,7 @@ SRCS	=	main.c                       \
 		Expansion/split_variable_utils.c \
 		Expansion/split_variable_utils2.c \
 		Expansion/split_bonus.c      \
+		Expansion/wildcard_utils.c   \
 		Expansion/wildcard.c         \
 		Heredoc/heredoc_utils.c      \
 		Heredoc/heredoc.c            \
