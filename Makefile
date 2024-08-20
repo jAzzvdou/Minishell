@@ -14,6 +14,7 @@ SRCS	=	main.c                       \
 		Builtins/unset.c             \
 		Cleaners/cleaners.c          \
 		Cleaners/free_everything.c   \
+		Cleaners/free_tree_n_matrix.c \
 		Errors/error_exit.c          \
 		Errors/errors.c              \
 		Execution/exe.c              \
