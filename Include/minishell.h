@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 13:48:02 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:24:41 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,22 @@ int			is_match(const char *file, const char *pattern);
 t_tokens	*expand_wildcard(t_node *wildcard);
 t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
 t_tokens	*wildcard(t_tokens *tokens);
+char		*expand(t_main *main, char *cmd);
+char		*not_expand(char *cmd);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
+int			is_valid(int c);
 int			is_var(char *cmd);
+void		split_variables_1(char **cmd, int *i, char **split, int *j);
+void		split_variables_2(char **cmd, int *i, char **split, int *j);
+void		split_variables_3(char **cmd, int *i, char **split, int *j);
+void		split_variables_4(char **cmd, int *i, char **split, int *j);
 char		**split_variable(char *cmd);
 char		*expand_bonus(t_main *main, char *cmd);
+int			skip_spaces_split_variable(char *cmd, int i);
+int			handle_quote_segment(char *cmd, int i, int *words);
+int			handle_dollar_segment(char *cmd, int i, int *words);
+int			handle_regular_segment(char *cmd, int i, int *words);
+int			can_continue(int c);
 char		**split_bonus(char *cmd);
 char		*change_var(t_main *main, char *var);
 char		*concatenator(char **matrix);

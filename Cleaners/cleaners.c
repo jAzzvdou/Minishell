@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 14:09:16 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:20:49 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_env_util(t_env *node)
 		node->line = NULL;
 	}
 	free(node);
-	node = NULL;
+	//node = NULL;
 }
 
 void	free_env(t_env **env)

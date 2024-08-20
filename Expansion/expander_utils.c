@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:11:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/16 16:15:54 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:57:28 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,22 @@ int	is_var(char *cmd)
 	return (is_var);
 }
 
+void	copy_string_to_new_str(char *new_str, char *source, int *len)
+{
+	int	j;
+
+	j = 0;
+	while (source[j])
+	{
+		new_str[*len] = source[j];
+		j++;
+		(*len)++;
+	}
+}
+
 char	*concatenator(char **matrix)
 {
 	int		i;
-	int		j;
 	int		len;
 	char	*new_str;
 
@@ -50,26 +62,12 @@ char	*concatenator(char **matrix)
 	len = 0;
 	while (matrix[i])
 	{
-		j = 0;
-		while (matrix[i][j])
-		{
-			new_str[len] = matrix[i][j];
-			j++;
-			len++;
-		}
+		copy_string_to_new_str(new_str, matrix[i], &len);
 		i++;
 	}
 	new_str[len] = '\0';
 	free_matrix(matrix);
 	return (new_str);
-}
-
-int	is_valid(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c == '0') || (c == '?') || (c == '-') || (c == '_'))
-		return (1);
-	return (0);
 }
 
 char	*find_var(t_main *main, char *var)

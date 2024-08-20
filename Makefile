@@ -25,7 +25,10 @@ SRCS	=	main.c                       \
 		Execution/controller.c       \
 		Expansion/expander.c         \
 		Expansion/expander_utils.c   \
+		Expansion/expander_utils2.c  \
 		Expansion/split_variable.c   \
+		Expansion/split_variable_utils.c \
+		Expansion/split_variable_utils2.c \
 		Expansion/split_bonus.c      \
 		Expansion/wildcard.c         \
 		Heredoc/heredoc_utils.c      \
