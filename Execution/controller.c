@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 18:06:25 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:47:47 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-int	env_size(t_env *env)
-{
-	int		count;
-	t_env	*list;
-
-	list = env;
-	count = 0;
-	while (list)
-	{
-		count++;
-		list = list->next;
-	}
-	return (count);
-}
 
 char	**list_to_args(t_env *env)
 {
@@ -78,6 +63,35 @@ char	*pathfinder(char **env, char *cmd)
 	return (NULL);
 }
 
+void	handle_command_execution(char *cmd, char **tokens,
+	char **env, t_main *main)
+{
+	char	*path;
+
+	if (!access(cmd, F_OK | X_OK))
+	{
+		if (execve(cmd, tokens, env) < 0)
+			exit(127);
+	}
+	else
+	{
+		path = pathfinder(env, cmd);
+		if (!path)
+		{
+			err(GREY"minichad: ");
+			err(cmd);
+			err(": command not found\n"WHITE);
+			free(path);
+			free_matrix(env);
+			free_matrix(tokens);
+			free_everything(main);
+			exit(127);
+		}
+		if (execve(path, tokens, env) < 0)
+			exit(127);
+	}
+}
+
 void	executer(t_main *main, char **tokens, char *cmd)
 {
 	int		status;
@@ -91,30 +105,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 	if (pid == -1)
 		exit(1);
 	if (!pid)
-	{
-		if (!access(cmd, F_OK | X_OK))
-		{
-			if (execve(cmd, tokens, env) < 0)
-				exit(127);
-		}
-		else
-		{
-			path = pathfinder(env, cmd);
-			if (!path)
-			{
-				err(GREY"minichad: ");
-				err(cmd);
-				err(": command not found\n"WHITE);
-				free(path);
-				free_matrix(env);
-				free_matrix(tokens);
-				free_everything(main);
-				exit(127);
-			}
-			if (execve(path, tokens, env) < 0)
-				exit(127);
-		}
-	}
+		handle_command_execution(cmd, tokens, env, main);
 	free_matrix(env);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))

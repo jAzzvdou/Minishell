@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 17:31:07 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:44:13 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		env_cmd(t_main *main, char **token);
 void		start_env(t_main *main, char **envp);
 void		add_env(t_env **env, char *line, int declare_x);
 void		update_env(t_env **env, char *name, char *value);
+int			env_size(t_env *env);
 char		*env_value(t_env *env, char *name);
 //__________ pwd __________
 void		start_pwd(t_main *main);
@@ -142,6 +143,8 @@ void		handle_no_args(t_env *env);
 int			is_valid_identifier(char *token);
 void		up_env_var(t_env *env_var, char *equals_sign, char *token);
 void		add_new_env_var(t_main *main, char *token, char *equals_sign);
+void		handle_no_args(t_env *env);
+void		handle_no_equals_error(char *token);
 void		handle_equal_sign(t_main *main, char *token);
 //__________ unset _________
 void		unset_cmd(t_main *main, char **token);
