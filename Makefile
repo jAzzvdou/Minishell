@@ -14,7 +14,6 @@ SRCS	=	main.c                       \
 		Builtins/unset.c             \
 		Cleaners/cleaners.c          \
 		Cleaners/free_everything.c   \
-		Cleaners/free_tree_n_matrix.c \
 		Errors/error_exit.c          \
 		Errors/errors.c              \
 		Execution/exe.c              \
@@ -25,14 +24,9 @@ SRCS	=	main.c                       \
 		Execution/controller.c       \
 		Expansion/expander.c         \
 		Expansion/expander_utils.c   \
-		Expansion/expander_utils2.c  \
 		Expansion/split_variable.c   \
-		Expansion/split_variable_utils.c \
-		Expansion/split_variable_utils2.c \
 		Expansion/split_bonus.c      \
-		Expansion/wildcard_utils.c   \
 		Expansion/wildcard.c         \
-		Heredoc/heredoc_utils.c      \
 		Heredoc/heredoc.c            \
 		Parser/Tokens/tokenizator.c  \
 		Parser/Tokens/check_tokens.c \

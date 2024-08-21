@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:17 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 10:22:06 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:20:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-t_env	*create_new_env(char *line, int declare_x)
+void	add_env(t_env **env, char *line, int declare_x)
 {
 	char	*join;
 	t_env	*new;
+	t_env	*tmp;
 
+	if (!line)
+		return ;
 	new = (t_env *)malloc(sizeof(t_env));
 	new->declare_x = declare_x;
 	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
@@ -33,13 +36,6 @@ t_env	*create_new_env(char *line, int declare_x)
 		new->line = ft_strdup(line);
 	}
 	new->next = NULL;
-	return (new);
-}
-
-void	append_env(t_env **env, t_env *new)
-{
-	t_env	*tmp;
-
 	if (!(*env))
 		*env = new;
 	else
@@ -49,16 +45,6 @@ void	append_env(t_env **env, t_env *new)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-}
-
-void	add_env(t_env **env, char *line, int declare_x)
-{
-	t_env	*new;
-
-	if (!line)
-		return ;
-	new = create_new_env(line, declare_x);
-	append_env(env, new);
 }
 
 void	start_env(t_main *main, char **envp)

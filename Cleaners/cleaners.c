@@ -6,31 +6,26 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 14:20:49 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:47:31 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	free_env_util(t_env *node)
+void	free_matrix(char **matrix)
 {
-	if (node->name)
+	int	i;
+
+	if (!matrix)
+		return ;
+	i = -1;
+	while (matrix[++i])
 	{
-		free(node->name);
-		node->name = NULL;
+		free(matrix[i]);
+		matrix[i] = NULL;
 	}
-	if (node->value)
-	{
-		free(node->value);
-		node->value = NULL;
-	}
-	if (node->line)
-	{
-		free(node->line);
-		node->line = NULL;
-	}
-	free(node);
-	//node = NULL;
+	free(matrix);
+	matrix = NULL;
 }
 
 void	free_env(t_env **env)
@@ -43,7 +38,23 @@ void	free_env(t_env **env)
 	{
 		aux = *env;
 		*env = (*env)->next;
-		free_env_util(aux);
+		if (aux->name)
+		{
+			free(aux->name);
+			aux->name = NULL;
+		}
+		if (aux->value)
+		{
+			free(aux->value);
+			aux->value = NULL;
+		}
+		if (aux->line)
+		{
+			free(aux->line);
+			aux->line = NULL;
+		}
+		free(aux);
+		aux = NULL;
 	}
 	*env = NULL;
 }
@@ -101,4 +112,39 @@ void	free_tokens(t_tokens **tokens)
 	(*tokens)->last = NULL;
 	free(*tokens);
 	*tokens = NULL;
+}
+
+void	free_tree2(t_tree *tree)
+{
+	t_node	*current;
+	t_node	*next;
+
+	if (!tree)
+		return ;
+	free_tree2(tree->left);
+	free_tree2(tree->right);
+	if (tree->exe)
+	{
+		current = tree->exe->first;
+		while (current)
+		{
+			next = current->next;
+			if (current->cmd)
+				free(current->cmd);
+			free(current);
+			current = next;
+		}
+		free(tree->exe);
+	}
+	free(tree);
+}
+
+void	free_tree(t_tree **tree)
+{
+	if (!*tree)
+		return ;
+	free_tree(&(*tree)->left);
+	free_tree(&(*tree)->right);
+	free(*tree);
+	*tree = NULL;
 }

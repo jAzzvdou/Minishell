@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 16:24:41 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:47:19 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,6 @@ typedef struct s_main
 	t_tree		*tree;
 }	t_main;
 
-typedef struct s_heredoc_params
-{
-    t_tokens *tokens;
-    t_node *token;
-    t_main *main;
-} t_heredoc_params;
-
-typedef struct s_loop_params
-{
-    int fd;
-    char *line;
-    char *file;
-} t_loop_params;
-
 //----------| ERRORS |----------//
 void		err(char *s);
 int			error_argc(void);
@@ -142,7 +128,6 @@ void		env_cmd(t_main *main, char **token);
 void		start_env(t_main *main, char **envp);
 void		add_env(t_env **env, char *line, int declare_x);
 void		update_env(t_env **env, char *name, char *value);
-int			env_size(t_env *env);
 char		*env_value(t_env *env, char *name);
 //__________ pwd __________
 void		start_pwd(t_main *main);
@@ -157,8 +142,6 @@ void		handle_no_args(t_env *env);
 int			is_valid_identifier(char *token);
 void		up_env_var(t_env *env_var, char *equals_sign, char *token);
 void		add_new_env_var(t_main *main, char *token, char *equals_sign);
-void		handle_no_args(t_env *env);
-void		handle_no_equals_error(char *token);
 void		handle_equal_sign(t_main *main, char *token);
 //__________ unset _________
 void		unset_cmd(t_main *main, char **token);
@@ -197,12 +180,7 @@ t_tokens	*get_from_right(t_tokens *left, t_tokens *right);
 t_tokens	*send_to_left(t_tokens *right);
 t_tree		*build_tree(t_tokens *tokens);
 //__________ heredoc __________
-char		*free_function(char *s1, char *s2);
-void		err_heredoc(char *cmd);
-void		sig_int_heredoc_handle(int sig);
-int			handle_err_fork_heredoc(void);
-void		handle_heredoc_interrupt(char *file, int fd);
-int			is_there_heredoc(t_main *main, t_tokens *tokens);
+int			is_there_heredoc(t_tokens *tokens);
 //__________ expansion __________
 t_tokens	*before_wildcard(t_tokens *tokens, t_node *node);
 t_tokens	*after_wildcard(t_tokens *tokens, t_node *node);
@@ -210,22 +188,10 @@ int			is_match(const char *file, const char *pattern);
 t_tokens	*expand_wildcard(t_node *wildcard);
 t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
 t_tokens	*wildcard(t_tokens *tokens);
-char		*expand(t_main *main, char *cmd);
-char		*not_expand(char *cmd);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
-int			is_valid(int c);
 int			is_var(char *cmd);
-void		split_variables_1(char **cmd, int *i, char **split, int *j);
-void		split_variables_2(char **cmd, int *i, char **split, int *j);
-void		split_variables_3(char **cmd, int *i, char **split, int *j);
-void		split_variables_4(char **cmd, int *i, char **split, int *j);
 char		**split_variable(char *cmd);
 char		*expand_bonus(t_main *main, char *cmd);
-int			skip_spaces_split_variable(char *cmd, int i);
-int			handle_quote_segment(char *cmd, int i, int *words);
-int			handle_dollar_segment(char *cmd, int i, int *words);
-int			handle_regular_segment(char *cmd, int i, int *words);
-int			can_continue(int c);
 char		**split_bonus(char *cmd);
 char		*change_var(t_main *main, char *var);
 char		*concatenator(char **matrix);

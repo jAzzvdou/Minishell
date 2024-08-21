@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:33 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 10:13:54 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:20:35 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,4 @@ void	export_cmd(t_main *main, char **token)
 		handle_equal_sign(main, token[i]);
 		i++;
 	}
-}
-
-void	handle_no_args(t_env *env)
-{
-	t_env	*sorted_env;
-
-	sorted_env = alphabetical_env(env);
-	while (sorted_env)
-	{
-		printf("declare -x %s\n", sorted_env->line);
-		sorted_env = sorted_env->next;
-	}
-}
-
-void	handle_no_equals_error(char *token)
-{
-	err(GREY"minichad: export: '");
-	err(token);
-	err("': need '=' after variable name\n"RESET);
-	last_status(1);
 }

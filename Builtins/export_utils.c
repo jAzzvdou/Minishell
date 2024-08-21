@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
+/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:43 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/20 10:14:23 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:20:45 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+void	handle_no_args(t_env *env)
+{
+	t_env	*sorted_env;
+
+	sorted_env = alphabetical_env(env);
+	while (sorted_env)
+	{
+		printf("declare -x %s\n", sorted_env->line);
+		sorted_env = sorted_env->next;
+	}
+}
 
 int	is_valid_identifier(char *token)
 {
@@ -44,39 +56,36 @@ void	add_new_env_var(t_main *main, char *token, char *equals_sign)
 		add_env(&main->env, token, 1);
 }
 
-void	update_or_add_env_var(t_main *main, char *name,
-	char *equals_sign, char *token)
-{
-	t_env	*env_var;
-
-	env_var = main->env;
-	while (env_var)
-	{
-		if (!ft_strcmp(env_var->name, name))
-		{
-			up_env_var(env_var, equals_sign, token);
-			free(name);
-			return ;
-		}
-		env_var = env_var->next;
-	}
-	free(name);
-	add_new_env_var(main, token, equals_sign);
-}
-
 void	handle_equal_sign(t_main *main, char *token)
 {
 	char	*name;
 	char	*equals_sign;
+	t_env	*env_var;
 
 	equals_sign = ft_strchr(token, '=');
+	env_var = main->env;
 	if (equals_sign)
 	{
 		name = ft_strndup(token, equals_sign - token);
-		update_or_add_env_var(main, name, equals_sign, token);
+		while (env_var)
+		{
+			if (!ft_strcmp(env_var->name, name))
+			{
+				up_env_var(env_var, equals_sign, token);
+				free(name);
+				return ;
+			}
+			env_var = env_var->next;
+		}
+		free(name);
+		add_new_env_var(main, token, equals_sign);
 	}
 	else
 	{
-		handle_no_equals_error(token);
+		err(GREY"minichad: export: '");
+		err(token);
+		err("': need '=' after variable name\n"RESET);
+		last_status(1);
+		return ;
 	}
 }
