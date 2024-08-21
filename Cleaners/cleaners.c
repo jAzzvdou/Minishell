@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 16:47:31 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:57:26 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	free_matrix(char **matrix)
 	matrix = NULL;
 }
 
+void	free_var(char *name)
+{
+	free(name);
+	name = NULL;
+}
+
 void	free_env(t_env **env)
 {
 	t_env	*aux;
@@ -39,20 +45,11 @@ void	free_env(t_env **env)
 		aux = *env;
 		*env = (*env)->next;
 		if (aux->name)
-		{
-			free(aux->name);
-			aux->name = NULL;
-		}
+			free_var(aux->name);
 		if (aux->value)
-		{
-			free(aux->value);
-			aux->value = NULL;
-		}
+			free_var(aux->value);
 		if (aux->line)
-		{
-			free(aux->line);
-			aux->line = NULL;
-		}
+			free_var(aux->line);
 		free(aux);
 		aux = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:23:11 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:01:41 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	verify_parenthesis(char *input, int i)
 	}
 	if (open == close)
 		return (1);
-	return (debug(), 0);
+	return (0);
 }
 
 int	skip_parenthesis(char *input, int i)

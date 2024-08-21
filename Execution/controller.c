@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 18:06:25 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:19:56 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,34 @@ char	*pathfinder(char **env, char *cmd)
 	return (NULL);
 }
 
+void	try_exec(t_main *main, char **env, char **tokens, char *cmd)
+{
+	char	*path;
+
+	path = pathfinder(env, cmd);
+	if (!path)
+	{
+		err(GREY"minichad: ");
+		err(cmd);
+		err(": command not found\n"WHITE);
+		free(path);
+		free_matrix(env);
+		free_matrix(tokens);
+		free_everything(main);
+		exit(127);
+	}
+	if (execve(path, tokens, env) < 0)
+		exit(127);
+}
+
 void	executer(t_main *main, char **tokens, char *cmd)
 {
 	int		status;
-	char	*path;
 	char	**env;
 	pid_t	pid;
 
-	path = NULL;
 	env = list_to_args(main->env);
 	pid = fork();
-	if (pid == -1)
-		exit(1);
 	if (!pid)
 	{
 		if (!access(cmd, F_OK | X_OK))
@@ -98,22 +114,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 				exit(127);
 		}
 		else
-		{
-			path = pathfinder(env, cmd);
-			if (!path)
-			{
-				err(GREY"minichad: ");
-				err(cmd);
-				err(": command not found\n"WHITE);
-				free(path);
-				free_matrix(env);
-				free_matrix(tokens);
-				free_everything(main);
-				exit(127);
-			}
-			if (execve(path, tokens, env) < 0)
-				exit(127);
-		}
+			try_exec(main, env, tokens, cmd);
 	}
 	free_matrix(env);
 	waitpid(pid, &status, 0);

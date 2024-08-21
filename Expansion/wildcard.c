@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:02:41 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:32:35 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	is_match(const char *file, const char *pattern)
 
 t_tokens	*expand_wildcard(t_node *wildcard)
 {
+	char			*tmp;
 	DIR				*dir;
 	struct dirent	*entry;
 	t_tokens		*expanded;
@@ -98,7 +99,10 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 	{
 		if (*(char *)entry->d_name != '.'
 			&& is_match((char *)entry->d_name, wildcard->cmd))
-			add_token(expanded, wildcard->type, ft_strdup((char *)entry->d_name));
+		{
+			tmp = ft_strdup((char *)entry->d_name);
+			add_token(expanded, wildcard->type, tmp);
+		}
 		entry = readdir(dir);
 	}
 	closedir(dir);

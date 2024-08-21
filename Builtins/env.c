@@ -6,23 +6,16 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:17 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:20:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:11:38 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
 
-void	add_env(t_env **env, char *line, int declare_x)
+void	set_value(t_env *new, char *line)
 {
 	char	*join;
-	t_env	*new;
-	t_env	*tmp;
 
-	if (!line)
-		return ;
-	new = (t_env *)malloc(sizeof(t_env));
-	new->declare_x = declare_x;
-	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
 	if (!ft_strcmp(new->name, "SHLVL"))
 	{
 		new->value = ft_itoa(ft_atoll(ft_strchr(line, '=') + 1) + 1);
@@ -35,6 +28,19 @@ void	add_env(t_env **env, char *line, int declare_x)
 		new->value = ft_strdup(ft_strchr(line, '=') + 1);
 		new->line = ft_strdup(line);
 	}
+}
+
+void	add_env(t_env **env, char *line, int declare_x)
+{
+	t_env	*new;
+	t_env	*tmp;
+
+	if (!line)
+		return ;
+	new = (t_env *)malloc(sizeof(t_env));
+	new->declare_x = declare_x;
+	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
+	set_value(new, line);
 	new->next = NULL;
 	if (!(*env))
 		*env = new;

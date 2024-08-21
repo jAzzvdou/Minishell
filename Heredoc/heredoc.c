@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 14:56:55 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:59:49 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ int	heredoc(t_node *token, char *file, int fd)
 		}
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
-		free(line);
-		line = NULL;
+		free_var(line);
 	}
 	close(fd);
 	free(token->cmd);

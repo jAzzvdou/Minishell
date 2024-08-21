@@ -1,7 +1,6 @@
 NAME	=	minishell
 
 SRCS	=	main.c                       \
-		printers.c                   \
 		Builtins/cd.c                \
 		Builtins/cd_utils.c          \
 		Builtins/builtins.c          \

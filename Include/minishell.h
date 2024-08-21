@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 14:47:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:00:39 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ char		**split_bonus(char *cmd);
 char		*change_var(t_main *main, char *var);
 char		*concatenator(char **matrix);
 //----------| CLEANERS |----------//
+void		free_var(char *name);
 void		free_matrix(char **matrix);
 void		free_env(t_env **env);
 void		free_tokens(t_tokens **tokens);
