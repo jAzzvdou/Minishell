@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:05:23 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/15 12:07:22 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:10:02 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,36 @@ int	count_variables_bonus(char *cmd)
 	return (words);
 }
 
+char	*extract_non_dollar(char *cmd, int *i)
+{
+	char	*start;
+	int		len;
+
+	start = &cmd[*i];
+	while (cmd[*i] && cmd[*i] != '$')
+		(*i)++;
+	len = *i - (start - cmd);
+	return (ft_strndup(start, len));
+}
+
+char	*extract_dollar_sequence(char *cmd, int *i)
+{
+	char	*start;
+	int		len;
+
+	start = &cmd[*i];
+	(*i)++;
+	while (cmd[*i] && can_continue_bonus(cmd[*i]))
+		(*i)++;
+	len = *i - (start - cmd);
+	return (ft_strndup(start, len));
+}
+
 char	**split_bonus(char *cmd)
 {
 	int		i;
 	int		j;
 	int		size;
-	char	*start;
 	char	**split;
 
 	size = count_variables_bonus(cmd);
@@ -60,19 +84,12 @@ char	**split_bonus(char *cmd)
 	{
 		if (cmd[i] && cmd[i] != '$')
 		{
-			start = &cmd[i];
-			while (cmd[i] && cmd[i] != '$')
-				i++;
-			split[j] = ft_strndup(start, i - (start - cmd));
+			split[i] = extract_non_dollar(cmd, &i);
 			j++;
 		}
 		else if (cmd[i] && cmd[i] == '$')
 		{
-			start = &cmd[i];
-			i++;
-			while (cmd[i] && can_continue_bonus(cmd[i]))
-				i++;
-			split[j] = ft_strndup(start, i - (start - cmd));
+			split[i] = extract_non_dollar(cmd, &i);
 			j++;
 		}
 	}
