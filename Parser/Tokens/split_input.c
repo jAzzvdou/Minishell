@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:30 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 15:02:58 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:03:02 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,5 @@ char	**split_input(char *input)
 	final = final_split(final, input, words, 0);
 	if (!final)
 		return (NULL);
-	int i = 0;
-	while (final[i])
-	{
-		printf("final[%d]: |%s| - Tamanho: %zu\n", i , final[i], ft_strlen(final[i]));
-		i++;
-	}
 	return (final);
 }

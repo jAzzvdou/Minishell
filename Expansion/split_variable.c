@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:08:57 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/27 13:59:53 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:00:03 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,36 @@ int	can_continue(int c)
 	return (1);
 }
 
+void skip_quotes_var(char *cmd, int *i, int *words)
+{
+	char quote;
+
+	(*words)++;
+	quote = cmd[(*i)++];
+	while (cmd[*i] && cmd[*i] != quote)
+		(*i)++;
+	if (cmd[*i] == quote)
+		(*i)++;
+}
+
+void skip_dollar_var(char *cmd, int *i, int *words)
+{
+	(*words)++;
+	(*i)++;
+	while (cmd[*i] && can_continue(cmd[*i]))
+		(*i)++;
+}
+
+void skip_word_var(char *cmd, int *i, int *words)
+{
+	(*words)++;
+	while (cmd[*i] && can_continue(cmd[*i]))
+		(*i)++;
+}
 int	count_variables(char *cmd)
 {
 	int		i;
 	int		words;
-	char	quote;
 
 	words = 0;
 	i = 0;
@@ -34,27 +59,11 @@ int	count_variables(char *cmd)
 		if (cmd[i] == '\0')
 			break ;
 		else if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			words++;
-			quote = cmd[i++];
-			while (cmd[i] && cmd[i] != quote)
-				i++;
-			if (cmd[i] == quote)
-				i++;
-		}
+			skip_quotes_var(cmd, &i, &words);
 		else if (cmd[i] == '$')
-		{
-			words++;
-			i++;
-			while (cmd[i] && can_continue(cmd[i]))
-				i++;
-		}
+			skip_dollar_var(cmd, &i, &words);
 		else
-		{
-			words++;
-			while (cmd[i] && can_continue(cmd[i]))
-				i++;
-		}
+			skip_word_var(cmd, &i, &words);
 		while (cmd[i] && cmd[i] == ' ')
 		{
 			words++;
@@ -64,11 +73,68 @@ int	count_variables(char *cmd)
 	return (words);
 }
 
+void	split_spaces(char **split, char *cmd, int *i, int *j)
+{
+	char	*start;
+
+	while (cmd[*i] && cmd[*i] == ' ')
+	{
+		start = &cmd[*i];
+		while (cmd[*i] && cmd[*i] == ' ')
+			(*i)++;
+		split[(*j)++] = ft_strndup(start, *i - (start - cmd));
+	}
+}
+
+char	*skip_spaces_split(char *cmd, int *i)
+{
+	char	*start;
+
+	start = &cmd[*i];
+	while (cmd[*i] && cmd[*i] == ' ')
+		(*i)++;
+	return (ft_strndup(start, *i - (start - cmd)));
+}
+
+char	*split_quote(char *cmd, int *i)
+{
+	char	quote;
+	char	*start;
+
+	start = &cmd[*i];
+	quote = cmd[(*i)++];
+	while (cmd[*i] && cmd[*i] != quote)
+		(*i)++;
+	if (cmd[*i] == quote)
+		(*i)++;
+	return (ft_strndup(start, *i - (start - cmd)));
+}
+
+char	*split_dollar(char *cmd, int *i)
+{
+	char	*start;
+
+	start = &cmd[*i];
+	(*i)++;
+	while (cmd[*i] && can_continue(cmd[*i]))
+		(*i)++;
+	return (ft_strndup(start, *i - (start - cmd)));
+}
+
+char	*split_word(char *cmd, int *i)
+{
+	char	*start;
+
+	start = &cmd[*i];
+	while (cmd[*i] && can_continue(cmd[*i]))
+		(*i)++;
+	return (ft_strndup(start, *i - (start - cmd)));
+}
+
+
 char	**split_variable(char *cmd)
 {
 	int		i[3];
-	char	quote;
-	char	*start;
 	char	**split;
 
 	i[2] = count_variables(cmd);
@@ -77,48 +143,16 @@ char	**split_variable(char *cmd)
 	i[1] = 0;
 	while (cmd[i[0]])
 	{
-		while (cmd[i[0]] && cmd[i[0]] == ' ')
-		{
-			start = &cmd[i[0]];
-			while (cmd[i[0]] && cmd[i[0]] == ' ')
-				i[0]++;
-			split[i[1]++] = ft_strndup(start, i[0] - (start - cmd));
-		}
+		split_spaces(split, cmd, &i[0], &i[1]);
 		if (cmd[i[0]] == '\0')
 			break ;
 		else if (cmd[i[0]] == '\'' || cmd[i[0]] == '\"')
-		{
-			start = &cmd[i[0]];
-			quote = cmd[i[0]++];
-			while (cmd[i[0]] && cmd[i[0]] != quote)
-				i[0]++;
-			if (cmd[i[0]] == quote)
-				i[0]++;
-			split[i[1]++] = ft_strndup(start, i[0] - (start - cmd));
-		}
+			split[i[1]++] = split_quote(cmd, &i[0]);
 		else if (cmd[i[0]] == '$')
-		{
-			start = &cmd[i[0]];
-			i[0]++;
-			while (cmd[i[0]] && can_continue(cmd[i[0]]))
-				i[0]++;
-			split[i[1]++] = ft_strndup(start, i[0] - (start - cmd));
-		}
+			split[i[1]++] = split_dollar(cmd, &i[0]);
 		else
-		{
-			start = &cmd[i[0]];
-			while (cmd[i[0]] && can_continue(cmd[i[0]]))
-				i[0]++;
-			split[i[1]++] = ft_strndup(start, i[0] - (start - cmd));
-		}
-		while (cmd[i[0]] && cmd[i[0]] == ' ')
-		{
-			start = &cmd[i[0]];
-			while (cmd[i[0]] && cmd[i[0]] == ' ')
-				i[0]++;
-			split[i[1]++] = ft_strndup(start, i[0] - (start - cmd));
-		}
+			split[i[1]++] = split_word(cmd, &i[0]);
+		split_spaces(split, cmd, &i[0], &i[1]);
 	}
-	split[i[1]] = NULL;
-	return (split);
+	return (split[i[1]] = NULL, split);
 }
