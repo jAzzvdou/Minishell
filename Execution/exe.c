@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:55 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 17:23:03 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:46:55 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec(t_main *main, t_tree *tree)
 	else if (tree->exe && tree->exe->first)
 	{
 		if (tree->type == BLOCK)
-			re_exec(main, tree->exe->first->cmd);
+			re_exec(main, get_block(tree->exe));
 		else
 			controller(main, token_to_args(tree->exe));
 	}

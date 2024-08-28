@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/22 11:43:27 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:01:24 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 	t_node		*tmp;
 	t_tokens	*new;
 
-	//if (!list1->first && !list2->first)
-		//return (NULL);
 	new = start_tokens();
 	if (list1)
 	{

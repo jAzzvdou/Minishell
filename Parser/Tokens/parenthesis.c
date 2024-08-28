@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parenthesis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:01:41 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:46:23 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	verify_parenthesis(char *input, int i)
 			close++;
 		if ((input[i] == '\'' || input[i] == '\"')
 			&& verify_quote(input, i))
-			i += is_quote(input, i) - i;
+			i = is_quote(input, i);
 		i++;
 	}
 	if (open == close)
@@ -73,7 +73,7 @@ int	skip_parenthesis(char *input, int i)
 			close++;
 		if ((input[i] == '\'' || input[i] == '\"')
 			&& verify_quote(input, i))
-			i += is_quote(input, i);
+			i = is_quote(input, i);
 		i++;
 		if (open == close)
 			break ;

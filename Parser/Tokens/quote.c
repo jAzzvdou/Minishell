@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:23:16 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:45:44 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ int	verify_quote(char *cmd, int i)
 	char	quote;
 
 	quote = cmd[i];
-	while (cmd[++i])
+	i++;
+	while (cmd[i])
+	{
 		if (cmd[i] == quote)
 			return (1);
+		i++;
+	}
 	return (0);
 }
 

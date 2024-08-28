@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   re_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:19 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 17:22:28 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:49:06 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+char	*get_block(t_tokens *exec)
+{
+	t_node	*tmp;
+
+	tmp = exec->first;
+	while (tmp)
+	{
+		if (tmp->type == BLOCK)
+			return(tmp->cmd);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 
 void	free_reexec(t_main *main)
 {

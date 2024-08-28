@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spliter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:37 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:23:38 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:05:08 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static	int	count_words(char *cmd)
 		if (cmd[i] != ' ')
 			words++;
 		if ((cmd[i] == '\'' || cmd[i] == '\"') && verify_quote(cmd, i))
-			i += is_quote(cmd, i);
+			i = is_quote(cmd, i);
 		else if ((cmd[i] == '(' && verify_parenthesis(cmd, i)))
-			i += skip_parenthesis(cmd, i);
+			i = skip_parenthesis(cmd, i);
 		while (cmd[i] && cmd[i] != ' ')
-			cmd++;
+			i++;
 		while (cmd[i] && cmd[i] == ' ')
-			cmd++;
+			i++;
 	}
 	return (words);
 }
@@ -50,22 +50,23 @@ static	char	**final_split(char **final, char *cmd, int words)
 	int	i;
 	int	counter;
 
-	counter = -1;
-	while (++counter < words)
+	counter = 0;
+	while (counter < words)
 	{
 		while (*cmd == ' ')
 			cmd++;
 		i = 0;
 		if ((cmd[i] == '\'' || cmd[i] == '\"') && verify_quote(cmd, i))
-			i += is_quote(cmd, i);
+			i = is_quote(cmd, i);
 		else if ((cmd[i] == '(' && verify_parenthesis(cmd, i)))
-			i += skip_parenthesis(cmd, i);
+			i = skip_parenthesis(cmd, i);
 		while (cmd[i] && cmd[i] != ' ')
 			i++;
 		final[counter] = ft_substr(cmd, 0, i);
 		if (!final[counter])
 			return (free_split(final), NULL);
 		cmd += i;
+		counter++;
 	}
 	return (final[counter] = NULL, final);
 }

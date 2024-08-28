@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:00:39 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:49:30 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void		exec(t_main *main, t_tree *tree);
 void		make_if(t_main *main, t_tree *tree);
 void		make_pipe(t_main *main, t_tree *pipex);
 void		make_redir(t_main *main, t_tree *tree);
+char		*get_block(t_tokens *exec);
 void		re_exec(t_main *main, char *block);
 void		controller(t_main *main, char **tokens);
 //__________ tokens __________
