@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:11:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/22 14:59:11 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:31:52 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,16 @@ int	is_valid(int c)
 	return (0);
 }
 
+char	*merge_str(char *s1, char *s2)
+{
+	char	*merged;
+
+	merged = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (merged);
+}
+
 char	*find_var(t_main *main, char *var)
 {
 	char	*tmp;
@@ -94,11 +104,11 @@ char	*find_var(t_main *main, char *var)
 			tmp = ft_strndup(var + 1, ft_strlen(var) - 1);
 	}
 	if (var[0] == '0')
-		tmp = ft_strdup("minichad");
+		tmp = merge_str(ft_strdup("minichad"), ft_strndup(var + 1, ft_strlen(var) - 1));
 	else if (var[0] == '?')
-		tmp = ft_itoa(last_status(-1));
+		tmp = merge_str(ft_itoa(last_status(-1)), ft_strndup(var + 1, ft_strlen(var) - 1));
 	else if (var[0] == '-')
-		tmp = ft_strdup("himBHs");
+		tmp = merge_str(ft_strdup("himBHs"), ft_strndup(var + 1, ft_strlen(var) - 1));
 	env = main->env;
 	while (env && !tmp)
 	{
