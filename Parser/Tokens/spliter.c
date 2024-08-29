@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:37 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 16:05:08 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:22:48 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	void	free_split(char **final)
 	free(final);
 }
 
-static	int	count_words(char *cmd)
+static	int	count_words_final_split(char *cmd)
 {
 	int	i;
 	int	words;
@@ -79,7 +79,7 @@ char	**spliter(char *cmd)
 
 	if (!cmd)
 		return (NULL);
-	words = count_words(cmd);
+	words = count_words_final_split(cmd);
 	final = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!final)
 		return (NULL);

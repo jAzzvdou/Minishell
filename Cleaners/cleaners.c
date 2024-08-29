@@ -6,27 +6,11 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:11 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 15:57:26 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:18:50 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	if (!matrix)
-		return ;
-	i = -1;
-	while (matrix[++i])
-	{
-		free(matrix[i]);
-		matrix[i] = NULL;
-	}
-	free(matrix);
-	matrix = NULL;
-}
 
 void	free_var(char *name)
 {
@@ -56,26 +40,6 @@ void	free_env(t_env **env)
 	*env = NULL;
 }
 
-void	free_nodes(t_node *node)
-{
-	t_node	*aux;
-
-	if (!node)
-		return ;
-	while (node)
-	{
-		aux = node;
-		node = node->next;
-		if (aux->cmd)
-		{
-			free(aux->cmd);
-			aux->cmd = NULL;
-		}
-		free(aux);
-		aux = NULL;
-	}
-}
-
 void	free_tokens2(t_tokens *tokens)
 {
 	t_node	*current_node;
@@ -98,17 +62,6 @@ void	free_tokens2(t_tokens *tokens)
 	}
 	free(tokens);
 	tokens = NULL;
-}
-
-void	free_tokens(t_tokens **tokens)
-{
-	if (!*tokens)
-		return ;
-	free_nodes((*tokens)->first);
-	(*tokens)->first = NULL;
-	(*tokens)->last = NULL;
-	free(*tokens);
-	*tokens = NULL;
 }
 
 void	free_tree2(t_tree *tree)

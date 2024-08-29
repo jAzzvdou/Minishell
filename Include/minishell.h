@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 16:49:30 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:11:29 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@
 # define RESET	"\033[0m"
 # define CLEAR	"\033[H\033[J"
 //__________ prompt __________
+/*
 # define PART1	"🗿"RED"m"ORANGE"i"YELLOW"n"GREEN"i"CYAN"c"BLUE"h"
 # define PART2	LILAC"a"PURPLE"d"BROWN"!"GREY"🗿 "WHITE
 # define PROMPT PART1""PART2
+*/
+# define PROMPT "\001\033[38;2;255;145;175m\002minichad$ \033[0m"
 
 //----------| GLOBAL |----------//
 extern volatile int	g_status;
@@ -139,6 +142,7 @@ void		exit_cmd(t_main *main, char **token);
 void		export_cmd(t_main *main, char **token);
 t_env		*alphabetical_env(t_env *tmp);
 void		handle_no_args(t_env *env);
+void		err_equal_sign(char *token);
 int			is_valid_identifier(char *token);
 void		up_env_var(t_env *env_var, char *equals_sign, char *token);
 void		add_new_env_var(t_main *main, char *token, char *equals_sign);
@@ -152,6 +156,7 @@ int			handle_tilde(t_main *main, char *token);
 int			handle_oldpwd(t_main *main);
 int			handle_path(char *path);
 void		update_pwd_oldpwd(t_main *main);
+
 //----------| FUNCTIONS |----------//
 void		parser(t_main *main, t_tokens *tokens);
 //__________ execution __________
@@ -161,6 +166,7 @@ void		make_pipe(t_main *main, t_tree *pipex);
 void		make_redir(t_main *main, t_tree *tree);
 char		*get_block(t_tokens *exec);
 void		re_exec(t_main *main, char *block);
+int			env_size(t_env *env);
 void		controller(t_main *main, char **tokens);
 //__________ tokens __________
 int			check_tokens(t_tokens *tokens);
@@ -191,11 +197,22 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2);
 t_tokens	*wildcard(t_tokens *tokens);
 t_tokens	*expander(t_main *main, t_tokens *tokens);
 int			is_var(char *cmd);
+int			is_valid(int c);
+int			is_separator(char *str, int i);
+void		skip_quotes_var(char *cmd, int *i, int *words);
+void		skip_dollar_var(char *cmd, int *i, int *words);
+void		skip_word_var(char *cmd, int *i, int *words);
+void		split_spaces(char **split, char *cmd, int *i, int *j);
+char		*skip_spaces_split(char *cmd, int *i);
+char		*split_quote(char *cmd, int *i);
+char		*split_dollar(char *cmd, int *i);
+char		*split_word(char *cmd, int *i);
 char		**split_variable(char *cmd);
 char		*expand_bonus(t_main *main, char *cmd);
 char		**split_bonus(char *cmd);
 char		*change_var(t_main *main, char *var);
 char		*concatenator(char **matrix);
+
 //----------| CLEANERS |----------//
 void		free_var(char *name);
 void		free_matrix(char **matrix);
@@ -229,6 +246,7 @@ int			skip_parenthesis(char *input, int i);
 //__________ string __________
 size_t		ft_strlen(const char *str);
 int			ft_isalpha(int c);
+int			can_continue(int c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strchr(const char *s, int c);
@@ -239,12 +257,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		**ft_split(char const *s, char c);
 char		**spliter(char *cmd);
+int			count_words(char *input);
 char		**split_input(char *input);
-
-//| TESTES
-void		debug(void);
-void		print_tokens(t_tokens *tokens);
-void		revprint_tokens(t_tokens *tokens);
-void		print_tree(t_tree *tree, int level);
 
 #endif //| MINISHELL_H

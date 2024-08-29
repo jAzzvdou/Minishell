@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:20:43 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:05:21 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:08:34 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ void	add_new_env_var(t_main *main, char *token, char *equals_sign)
 	}
 	else
 		add_env(&main->env, token, 1);
-}
-
-void	err_equal_sign(char *token)
-{
-	err(GREY"minichad: export: '");
-	err(token);
-	err("': need '=' after variable name\n"RESET);
-	last_status(1);
 }
 
 void	handle_equal_sign(t_main *main, char *token)

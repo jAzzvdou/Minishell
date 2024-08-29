@@ -6,81 +6,11 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:11:07 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 13:31:52 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:05:25 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-int	is_var(char *cmd)
-{
-	int	i;
-	int	is_var;
-
-	if (!cmd || !cmd[0])
-		return (0);
-	is_var = 0;
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '$' && cmd[i + 1]
-			&& cmd[i + 1] != ' ' && cmd[i + 1] != '\'')
-			is_var = 1;
-		i++;
-	}
-	return (is_var);
-}
-
-int	get_matrix_len(char **matrix)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (matrix[i])
-	{
-		len += ft_strlen(matrix[i]);
-		i++;
-	}
-	return (len);
-}
-
-char	*concatenator(char **matrix)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*new_str;
-
-	i = 0;
-	len = get_matrix_len(matrix);
-	new_str = malloc(sizeof(char) * len + 1);
-	i = 0;
-	len = 0;
-	while (matrix[i])
-	{
-		j = 0;
-		while (matrix[i][j])
-		{
-			new_str[len] = matrix[i][j];
-			j++;
-			len++;
-		}
-		i++;
-	}
-	new_str[len] = '\0';
-	free_matrix(matrix);
-	return (new_str);
-}
-
-int	is_valid(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c == '0') || (c == '?') || (c == '-') || (c == '_'))
-		return (1);
-	return (0);
-}
 
 char	*merge_str(char *s1, char *s2)
 {
@@ -90,6 +20,48 @@ char	*merge_str(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (merged);
+}
+
+char	*merge_special(char *s, char *var, int option)
+{
+	char	*special;
+	char	*leftover;
+
+	if (!option)
+		special = ft_strdup(s);
+	else
+		special = s;
+	leftover = ft_strndup(var + 1, ft_strlen(var) - 1);
+	return (merge_str(special, leftover));
+}
+
+char	*special_cases(char *var)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (var[0] == '0')
+	{
+		if (var[1])
+			tmp = merge_special("minichad", var, 0);
+		else
+			tmp = ft_strdup("minichad");
+	}
+	else if (var[0] == '?')
+	{
+		if (var[1])
+			tmp = merge_special(ft_itoa(last_status(-1)), var, 1);
+		else
+			tmp = ft_itoa(last_status(-1));
+	}
+	else if (var[0] == '-')
+	{
+		if (var[1])
+			tmp = merge_special("himBHs", var, 0);
+		else
+			tmp = ft_strdup("himBHs");
+	}
+	return (tmp);
 }
 
 char	*find_var(t_main *main, char *var)
@@ -103,12 +75,8 @@ char	*find_var(t_main *main, char *var)
 		if (is_number(var[0]) && var[0] != '0')
 			tmp = ft_strndup(var + 1, ft_strlen(var) - 1);
 	}
-	if (var[0] == '0')
-		tmp = merge_str(ft_strdup("minichad"), ft_strndup(var + 1, ft_strlen(var) - 1));
-	else if (var[0] == '?')
-		tmp = merge_str(ft_itoa(last_status(-1)), ft_strndup(var + 1, ft_strlen(var) - 1));
-	else if (var[0] == '-')
-		tmp = merge_str(ft_strdup("himBHs"), ft_strndup(var + 1, ft_strlen(var) - 1));
+	if (var[0] == '?' || var[0] == '0' || var[0] == '-')
+		tmp = special_cases(var);
 	env = main->env;
 	while (env && !tmp)
 	{

@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   controller.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
+/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:19:56 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:11:03 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-int	env_size(t_env *env)
-{
-	int		count;
-	t_env	*list;
-
-	list = env;
-	count = 0;
-	while (list)
-	{
-		count++;
-		list = list->next;
-	}
-	return (count);
-}
 
 char	**list_to_args(t_env *env)
 {

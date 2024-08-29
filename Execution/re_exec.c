@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:19 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 16:49:06 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:09:21 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_block(t_tokens *exec)
 	while (tmp)
 	{
 		if (tmp->type == BLOCK)
-			return(tmp->cmd);
+			return (tmp->cmd);
 		tmp = tmp->next;
 	}
 	return (NULL);

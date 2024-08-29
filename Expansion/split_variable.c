@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:08:57 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 19:00:03 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:27:43 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,6 @@ int	can_continue(int c)
 	return (1);
 }
 
-void skip_quotes_var(char *cmd, int *i, int *words)
-{
-	char quote;
-
-	(*words)++;
-	quote = cmd[(*i)++];
-	while (cmd[*i] && cmd[*i] != quote)
-		(*i)++;
-	if (cmd[*i] == quote)
-		(*i)++;
-}
-
-void skip_dollar_var(char *cmd, int *i, int *words)
-{
-	(*words)++;
-	(*i)++;
-	while (cmd[*i] && can_continue(cmd[*i]))
-		(*i)++;
-}
-
-void skip_word_var(char *cmd, int *i, int *words)
-{
-	(*words)++;
-	while (cmd[*i] && can_continue(cmd[*i]))
-		(*i)++;
-}
 int	count_variables(char *cmd)
 {
 	int		i;
@@ -72,65 +46,6 @@ int	count_variables(char *cmd)
 	}
 	return (words);
 }
-
-void	split_spaces(char **split, char *cmd, int *i, int *j)
-{
-	char	*start;
-
-	while (cmd[*i] && cmd[*i] == ' ')
-	{
-		start = &cmd[*i];
-		while (cmd[*i] && cmd[*i] == ' ')
-			(*i)++;
-		split[(*j)++] = ft_strndup(start, *i - (start - cmd));
-	}
-}
-
-char	*skip_spaces_split(char *cmd, int *i)
-{
-	char	*start;
-
-	start = &cmd[*i];
-	while (cmd[*i] && cmd[*i] == ' ')
-		(*i)++;
-	return (ft_strndup(start, *i - (start - cmd)));
-}
-
-char	*split_quote(char *cmd, int *i)
-{
-	char	quote;
-	char	*start;
-
-	start = &cmd[*i];
-	quote = cmd[(*i)++];
-	while (cmd[*i] && cmd[*i] != quote)
-		(*i)++;
-	if (cmd[*i] == quote)
-		(*i)++;
-	return (ft_strndup(start, *i - (start - cmd)));
-}
-
-char	*split_dollar(char *cmd, int *i)
-{
-	char	*start;
-
-	start = &cmd[*i];
-	(*i)++;
-	while (cmd[*i] && can_continue(cmd[*i]))
-		(*i)++;
-	return (ft_strndup(start, *i - (start - cmd)));
-}
-
-char	*split_word(char *cmd, int *i)
-{
-	char	*start;
-
-	start = &cmd[*i];
-	while (cmd[*i] && can_continue(cmd[*i]))
-		(*i)++;
-	return (ft_strndup(start, *i - (start - cmd)));
-}
-
 
 char	**split_variable(char *cmd)
 {

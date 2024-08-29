@@ -6,11 +6,26 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:55 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 16:46:55 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:10:26 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+int	env_size(t_env *env)
+{
+	int		count;
+	t_env	*list;
+
+	list = env;
+	count = 0;
+	while (list)
+	{
+		count++;
+		list = list->next;
+	}
+	return (count);
+}
 
 void	exec(t_main *main, t_tree *tree)
 {
