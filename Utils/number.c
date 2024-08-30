@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:24:34 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:24:35 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/08/30 09:11:27 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int	only_number(char *s)
 	int	i;
 
 	i = 0;
-	if (s[i] == '-')
-		return (0);
-	if (s[i] == '+')
+	if (s[i] == '+' || s[i] == '-')
 		i++;
 	while (s[i])
 		if (!is_number(s[i++]))

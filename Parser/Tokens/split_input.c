@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:23:30 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 14:20:53 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/30 07:48:33 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	is_separator(char *str, int i)
 
 static int	final_split_part1(char **final, char *input, int i, int counter)
 {
-	if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2) \
-		|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
+	if (!ft_strncmp(input + i, ">>", 2) || !ft_strncmp(input + i, "<<", 2) \
+		|| !ft_strncmp(input + i, "&&", 2) || !ft_strncmp(input + i, "||", 2))
 	{
-		final[counter] = strndup(input + i, 2);
+		final[counter] = ft_strndup(input + i, 2);
 		i += 2;
 	}
 	else
 	{
-		final[counter] = strndup(input + i, 1);
+		final[counter] = ft_strndup(input + i, 1);
 		i++;
 	}
 	return (i);

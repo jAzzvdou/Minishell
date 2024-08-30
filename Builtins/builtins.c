@@ -6,19 +6,11 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:19:35 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 14:08:01 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/30 07:42:56 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
-
-void	err_equal_sign(char *token)
-{
-	err(GREY"minichad: export: '");
-	err(token);
-	err("': need '=' after variable name\n"RESET);
-	last_status(1);
-}
 
 void	free_args(char **args, int i)
 {

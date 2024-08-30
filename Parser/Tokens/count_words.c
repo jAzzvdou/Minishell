@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:12:31 by btaveira          #+#    #+#             */
-/*   Updated: 2024/08/29 14:13:14 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/08/30 07:55:22 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ int	count_words_loop(char *input, int i)
 	return (i);
 }
 
+int	is_double_separator(char *input, int i)
+{
+	if (!ft_strncmp(input + i, "&&", 2))
+		return (1);
+	else if (!ft_strncmp(input + i, "||", 2))
+		return (1);
+	else if (!ft_strncmp(input + i, ">>", 2))
+		return (1);
+	else if (!ft_strncmp(input + i, "<<", 2))
+		return (1);
+	return (0);
+}
+
 int	count_words(char *input)
 {
 	int	i;
@@ -43,8 +56,7 @@ int	count_words(char *input)
 		words++;
 		if (is_separator(input, i))
 		{
-			if (!strncmp(input + i, ">>", 2) || !strncmp(input + i, "<<", 2) \
-			|| !strncmp(input + i, "&&", 2) || !strncmp(input + i, "||", 2))
+			if (is_double_separator(input, i))
 				i += 2;
 			else
 				i++;

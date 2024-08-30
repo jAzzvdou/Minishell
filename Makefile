@@ -1,49 +1,49 @@
 NAME	=	minishell
 
-SRCS	=	main.c                       \
+SRCS	=	main.c                           \
+		Builtins/builtins.c              \
 		Builtins/cd.c                    \
 		Builtins/cd_utils.c              \
-		Builtins/builtins.c              \
-		Builtins/env.c                   \
-		Builtins/pwd.c                   \
-		Builtins/exit.c                  \
-		Builtins/export_utils.c          \
-		Builtins/export.c                \
 		Builtins/echo.c                  \
+		Builtins/env.c                   \
+		Builtins/exit.c                  \
+		Builtins/export.c                \
+		Builtins/export_utils.c          \
+		Builtins/pwd.c                   \
 		Builtins/unset.c                 \
 		Cleaners/cleaners.c              \
 		Cleaners/cleaners2.c             \
 		Cleaners/free_everything.c       \
-		Errors/error_exit.c              \
 		Errors/errors.c                  \
+		Errors/error_exit.c              \
+		Execution/controller.c           \
 		Execution/exe.c                  \
 		Execution/make_if.c              \
 		Execution/make_pipe.c            \
 		Execution/make_redir.c           \
 		Execution/re_exec.c              \
-		Execution/controller.c           \
-		Expansion/skip.c                 \
 		Expansion/concatenator.c         \
 		Expansion/expander.c             \
 		Expansion/expander_utils.c       \
+		Expansion/skip.c                 \
+		Expansion/split_bonus.c          \
 		Expansion/split_variable.c       \
 		Expansion/split_variable_utils.c \
 		Expansion/variables_utils.c      \
-		Expansion/split_bonus.c          \
 		Expansion/wildcard.c             \
 		Expansion/wildcard_utils.c       \
 		Heredoc/heredoc.c                \
-		Parser/Tokens/tokenizator.c      \
 		Parser/Tokens/check_tokens.c     \
 		Parser/Tokens/count_words.c      \
-		Parser/Tokens/space.c            \
-		Parser/Tokens/quote.c            \
 		Parser/Tokens/parenthesis.c      \
+		Parser/Tokens/quote.c            \
+		Parser/Tokens/space.c            \
 		Parser/Tokens/spliter.c          \
 		Parser/Tokens/split_input.c      \
-		Parser/Tree/tree.c               \
+		Parser/Tokens/tokenizator.c      \
 		Parser/Tree/is_type.c            \
 		Parser/Tree/list_functions.c     \
+		Parser/Tree/tree.c               \
 		Signals/signals.c                \
 		Utils/ft_itoa.c                  \
 		Utils/number.c                   \
@@ -57,7 +57,7 @@ OBJS	=	$(SRCS:%.c=$(OBJDIR)/%.o)
 
 CC	=	cc
 
-CFLAGS	=	-Wall -Werror -Wextra -ggdb3
+CFLAGS	=	-Wall -Werror -Wextra
 
 RLFLAG	=	-lreadline
 
