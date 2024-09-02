@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 15:11:29 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:07:06 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,9 @@ void		exec(t_main *main, t_tree *tree);
 void		make_if(t_main *main, t_tree *tree);
 void		make_pipe(t_main *main, t_tree *pipex);
 void		make_redir(t_main *main, t_tree *tree);
+void		dup_fd(t_tree *tree, int fd);
+void		infile(t_tree *tree);
+void		outfile(t_tree *tree);
 char		*get_block(t_tokens *exec);
 void		re_exec(t_main *main, char *block);
 int			env_size(t_env *env);

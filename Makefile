@@ -21,6 +21,7 @@ SRCS	=	main.c                           \
 		Execution/make_if.c              \
 		Execution/make_pipe.c            \
 		Execution/make_redir.c           \
+		Execution/make_redir_utils.c     \
 		Execution/re_exec.c              \
 		Expansion/concatenator.c         \
 		Expansion/expander.c             \

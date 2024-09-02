@@ -6,7 +6,7 @@
 /*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:24:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 17:30:25 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:56:17 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_tree	*start_tree(void)
 	t_tree	*tree;
 
 	tree = (t_tree *)malloc(sizeof(t_tree));
+	tree->fd = 0;
 	tree->exe = NULL;
 	tree->left = NULL;
 	tree->right = NULL;
