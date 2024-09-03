@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/02 16:36:19 by jazevedo         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:00:36 by btaveira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		status = WEXITSTATUS(status);
 	if (status == 139)
 		status = 1;
-	if ((ft_strcmp(cmd, "cat") || ft_strcmp(cmd, "grep")) && status == 2)
+	if ((!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep")) && status == 2)
 		status = 130;
 	last_status(status);
 }
