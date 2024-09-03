@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/03 11:00:36 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:58:05 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		if (!access(cmd, F_OK | X_OK))
 		{
 			if (execve(cmd, tokens, env) < 0)
-				exit(127);
+				free_exit(main, env, tokens, cmd);
 		}
 		else
 			try_exec(main, env, tokens, cmd);

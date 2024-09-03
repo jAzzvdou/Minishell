@@ -6,11 +6,22 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:17:19 by btaveira          #+#    #+#             */
-/*   Updated: 2024/08/29 14:18:45 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:55:49 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/minishell.h"
+
+void	free_exit(t_main *main, char **env, char **tokens, char *cmd)
+{
+	err(GREY"minichad: ");
+	err(cmd);
+	err(": command not found\n"WHITE);
+	free_matrix(env);
+	free_matrix(tokens);
+	free_everything(main);
+	exit(127);
+}
 
 void	free_nodes(t_node *node)
 {

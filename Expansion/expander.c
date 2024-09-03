@@ -6,7 +6,7 @@
 /*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:26 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 14:24:21 by btaveira         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:38:59 by jazevedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_tokens	*variables(t_main *main, t_tokens *tokens)
 	tmp = tokens->first;
 	while (tmp)
 	{
-		if (is_var(tmp->cmd))
+		if (is_var(tmp->cmd) && tmp->type == CMD)
 			add_token(expanded, tmp->type, expand(main, tmp->cmd));
 		else
 			add_token(expanded, tmp->type, not_expand(tmp->cmd));
