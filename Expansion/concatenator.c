@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   concatenator.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 14:35:45 by btaveira          #+#    #+#             */
-/*   Updated: 2024/08/29 14:36:19 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 int	get_matrix_len(char **matrix)
@@ -21,7 +9,7 @@ int	get_matrix_len(char **matrix)
 	len = 0;
 	while (matrix[i])
 	{
-		len += ft_strlen(matrix[i]);
+		len += my_strlen(matrix[i]);
 		i++;
 	}
 	return (len);

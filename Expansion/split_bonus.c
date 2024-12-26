@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_bonus.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:05:23 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 14:18:05 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 int	can_continue_bonus(int c)
@@ -55,7 +43,7 @@ char	**split_bonus_loop(char **split, char *cmd, int *i)
 			start = &cmd[i[0]];
 			while (cmd[i[0]] && cmd[i[0]] != '$')
 				i[0]++;
-			split[i[1]] = ft_strndup(start, i[0] - (start - cmd));
+			split[i[1]] = my_strndup(start, i[0] - (start - cmd));
 			i[1]++;
 		}
 		else if (cmd[i[0]] && cmd[i[0]] == '$')
@@ -64,7 +52,7 @@ char	**split_bonus_loop(char **split, char *cmd, int *i)
 			i[0]++;
 			while (cmd[i[0]] && can_continue_bonus(cmd[i[0]]))
 				i[0]++;
-			split[i[1]] = ft_strndup(start, i[0] - (start - cmd));
+			split[i[1]] = my_strndup(start, i[0] - (start - cmd));
 			i[1]++;
 		}
 	}

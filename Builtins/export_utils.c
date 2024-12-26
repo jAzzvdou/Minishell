@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:20:43 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 14:08:34 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	handle_no_args(t_env *env)
@@ -30,16 +18,16 @@ int	is_valid_identifier(char *token)
 
 	if (token[0] == '_')
 		return (1);
-	is_valid = ft_isalpha(token[0]);
+	is_valid = my_isalpha(token[0]);
 	return (is_valid);
 }
 
 void	up_env_var(t_env *env_var, char *equals_sign, char *token)
 {
 	free(env_var->value);
-	env_var->value = ft_strdup(equals_sign + 1);
+	env_var->value = my_strdup(equals_sign + 1);
 	free(env_var->line);
-	env_var->line = ft_strdup(token);
+	env_var->line = my_strdup(token);
 }
 
 void	add_new_env_var(t_main *main, char *token, char *equals_sign)
@@ -48,7 +36,7 @@ void	add_new_env_var(t_main *main, char *token, char *equals_sign)
 
 	if (*(equals_sign + 1) == '\0')
 	{
-		empty_value_line = ft_strjoin(token, "");
+		empty_value_line = my_strjoin(token, "");
 		add_env(&main->env, empty_value_line, 1);
 		free(empty_value_line);
 	}
@@ -62,14 +50,14 @@ void	handle_equal_sign(t_main *main, char *token)
 	char	*equals_sign;
 	t_env	*env_var;
 
-	equals_sign = ft_strchr(token, '=');
+	equals_sign = my_strchr(token, '=');
 	env_var = main->env;
 	if (equals_sign)
 	{
-		name = ft_strndup(token, equals_sign - token);
+		name = my_strndup(token, equals_sign - token);
 		while (env_var)
 		{
-			if (!ft_strcmp(env_var->name, name))
+			if (!my_strcmp(env_var->name, name))
 			{
 				up_env_var(env_var, equals_sign, token);
 				free(name);

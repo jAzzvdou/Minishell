@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:19:35 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 07:42:56 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	free_args(char **args, int i)
@@ -38,7 +26,7 @@ char	**token_to_args(t_tokens *tokens)
 	ii = -1;
 	while (++ii < tokens->size)
 	{
-		args[i] = ft_strdup(node->cmd);
+		args[i] = my_strdup(node->cmd);
 		if (!args[i])
 			return (free_args(args, i), NULL);
 		i++;
@@ -61,19 +49,19 @@ int	builtins(t_main *main, char **token)
 {
 	if (!token || !token[0])
 		return (0);
-	if (!ft_strcmp(token[0], "exit"))
+	if (!my_strcmp(token[0], "exit"))
 		return (exit_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "env"))
+	else if (!my_strcmp(token[0], "env"))
 		return (env_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "pwd"))
+	else if (!my_strcmp(token[0], "pwd"))
 		return (printf("%s\n", main->pwd), 1);
-	else if (!ft_strcmp(token[0], "echo"))
+	else if (!my_strcmp(token[0], "echo"))
 		return (echo_cmd(token), 1);
-	else if (!ft_strcmp(token[0], "export"))
+	else if (!my_strcmp(token[0], "export"))
 		return (export_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "unset"))
+	else if (!my_strcmp(token[0], "unset"))
 		return (unset_cmd(main, token), 1);
-	else if (!ft_strcmp(token[0], "cd"))
+	else if (!my_strcmp(token[0], "cd"))
 		return (cd_cmd(main, token), 1);
 	return (0);
 }

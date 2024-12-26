@@ -1,32 +1,20 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:20:17 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:11:38 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	set_value(t_env *new, char *line)
 {
 	char	*join;
 
-	if (!ft_strcmp(new->name, "SHLVL"))
+	if (!my_strcmp(new->name, "SHLVL"))
 	{
-		new->value = ft_itoa(ft_atoll(ft_strchr(line, '=') + 1) + 1);
-		join = ft_strndup(line, ft_strchr(line, '=') - line + 1);
-		new->line = ft_strjoin(join, new->value);
+		new->value = my_itoa(my_atoll(my_strchr(line, '=') + 1) + 1);
+		join = my_strndup(line, my_strchr(line, '=') - line + 1);
+		new->line = my_strjoin(join, new->value);
 		free(join);
 	}
 	else
 	{
-		new->value = ft_strdup(ft_strchr(line, '=') + 1);
-		new->line = ft_strdup(line);
+		new->value = my_strdup(my_strchr(line, '=') + 1);
+		new->line = my_strdup(line);
 	}
 }
 
@@ -39,7 +27,7 @@ void	add_env(t_env **env, char *line, int declare_x)
 		return ;
 	new = (t_env *)malloc(sizeof(t_env));
 	new->declare_x = declare_x;
-	new->name = ft_strndup(line, ft_strchr(line, '=') - line);
+	new->name = my_strndup(line, my_strchr(line, '=') - line);
 	set_value(new, line);
 	new->next = NULL;
 	if (!(*env))
@@ -70,7 +58,7 @@ void	env_cmd(t_main *main, char **token)
 	i = 0;
 	while (token[i])
 	{
-		if (!ft_strcmp(token[i], "env"))
+		if (!my_strcmp(token[i], "env"))
 			i++;
 		else
 		{

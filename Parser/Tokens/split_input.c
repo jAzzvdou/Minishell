@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_input.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:23:30 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 07:48:33 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 int	is_separator(char *str, int i)
 {
-	if (!ft_strncmp(str + i, ">>", 2) || !ft_strncmp(str + i, "<<", 2)
-		|| !ft_strncmp(str + i, "&&", 2)
-		|| !ft_strncmp(str + i, "||", 2)
+	if (!my_strncmp(str + i, ">>", 2) || !my_strncmp(str + i, "<<", 2)
+		|| !my_strncmp(str + i, "&&", 2)
+		|| !my_strncmp(str + i, "||", 2)
 		|| str[i] == '>' || str[i] == '<' || str[i] == '|')
 		return (1);
 	return (0);
@@ -24,15 +12,15 @@ int	is_separator(char *str, int i)
 
 static int	final_split_part1(char **final, char *input, int i, int counter)
 {
-	if (!ft_strncmp(input + i, ">>", 2) || !ft_strncmp(input + i, "<<", 2) \
-		|| !ft_strncmp(input + i, "&&", 2) || !ft_strncmp(input + i, "||", 2))
+	if (!my_strncmp(input + i, ">>", 2) || !my_strncmp(input + i, "<<", 2) \
+		|| !my_strncmp(input + i, "&&", 2) || !my_strncmp(input + i, "||", 2))
 	{
-		final[counter] = ft_strndup(input + i, 2);
+		final[counter] = my_strndup(input + i, 2);
 		i += 2;
 	}
 	else
 	{
-		final[counter] = ft_strndup(input + i, 1);
+		final[counter] = my_strndup(input + i, 1);
 		i++;
 	}
 	return (i);
@@ -70,7 +58,7 @@ static char	**final_split(char **final, char *input, int words, int i)
 		else
 		{
 			i = final_split_part2(input, i);
-			final[counter] = ft_strndup(input, i - start);
+			final[counter] = my_strndup(input, i - start);
 		}
 		if (!final[counter])
 			return (NULL);

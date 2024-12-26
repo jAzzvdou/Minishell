@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:22:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/03 19:55:03 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -237,8 +225,8 @@ void		free_exit(t_main *main, char **env, char **tokens, char *cmd);
 int			is_number(int nb);
 int			only_number(char *s);
 int			is_long(char *argv);
-long long	ft_atoll(const char *nptr);
-char		*ft_itoa(int n);
+long long	my_atoll(const char *nptr);
+char		*my_itoa(int n);
 //__________ space __________
 int			is_space(int c);
 void		skip_spaces(char **s);
@@ -253,18 +241,18 @@ int			closed_parenthesis(char *s);
 int			verify_parenthesis(char *input, int i);
 int			skip_parenthesis(char *input, int i);
 //__________ string __________
-size_t		ft_strlen(const char *str);
-int			ft_isalpha(int c);
+size_t		my_strlen(const char *str);
+int			my_isalpha(int c);
 int			can_continue(int c);
-int			ft_strcmp(const char *s1, const char *s2);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-char		*ft_strchr(const char *s, int c);
-char		*ft_strdup(const char *s);
-char		*ft_strndup(const char *s, int n);
-char		*ft_strtrim(char const *s1, char const *set);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		**ft_split(char const *s, char c);
+int			my_strcmp(const char *s1, const char *s2);
+int			my_strncmp(const char *s1, const char *s2, size_t n);
+char		*my_strchr(const char *s, int c);
+char		*my_strdup(const char *s);
+char		*my_strndup(const char *s, int n);
+char		*my_strtrim(char const *s1, char const *set);
+char		*my_strjoin(char const *s1, char const *s2);
+char		*my_substr(char const *s, unsigned int start, size_t len);
+char		**my_split(char const *s, char c);
 char		**spliter(char *cmd);
 int			count_words(char *input);
 char		**split_input(char *input);

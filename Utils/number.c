@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   number.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:24:34 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 09:11:27 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 int	is_number(int nb)
@@ -34,14 +22,14 @@ int	only_number(char *s)
 
 int	is_long(char *argv)
 {
-	if (ft_strlen(argv) > 20
-		|| ft_atoll(argv) > LONG_MAX
-		|| ft_atoll(argv) < LONG_MIN)
+	if (my_strlen(argv) > 20
+		|| my_atoll(argv) > LONG_MAX
+		|| my_atoll(argv) < LONG_MIN)
 		return (0);
 	return (1);
 }
 
-long long	ft_atoll(const char *nptr)
+long long	my_atoll(const char *nptr)
 {
 	long long	nb;
 	int			mult;

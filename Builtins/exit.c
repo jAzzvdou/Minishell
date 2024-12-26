@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:20:25 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 09:18:56 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 long long	exit_status_calculator(char *token)
 {
 	long long	nb;
 
-	nb = ft_atoll(token);
+	nb = my_atoll(token);
 	while (nb < 0)
 		nb = 256 + nb;
 	return (nb);

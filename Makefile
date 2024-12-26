@@ -46,7 +46,7 @@ SRCS	=	main.c                           \
 		Parser/Tree/list_functions.c     \
 		Parser/Tree/tree.c               \
 		Signals/signals.c                \
-		Utils/ft_itoa.c                  \
+		Utils/my_itoa.c                  \
 		Utils/number.c                   \
 		Utils/utils1.c                   \
 		Utils/utils2.c                   \

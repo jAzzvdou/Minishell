@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:21:38 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:39 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	err(char *s)
 {
-	write(STDERR_FILENO, s, ft_strlen(s));
+	write(STDERR_FILENO, s, my_strlen(s));
 }
 
 int	error_argc(void)

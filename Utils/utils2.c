@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:24:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:24:43 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
-char	*ft_strdup(const char *s)
+char	*my_strdup(const char *s)
 {
 	int		i;
 	char	*final;
 
-	final = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	final = (char *)malloc(sizeof(char) * (my_strlen(s) + 1));
 	if (!final)
 		return (NULL);
 	i = -1;
@@ -27,7 +15,7 @@ char	*ft_strdup(const char *s)
 	return (final);
 }
 
-char	*ft_strndup(const char *s, int n)
+char	*my_strndup(const char *s, int n)
 {
 	int		i;
 	char	*new;
@@ -44,28 +32,28 @@ char	*ft_strndup(const char *s, int n)
 	return (new);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*my_strtrim(char const *s1, char const *set)
 {
 	size_t	size_s1;
 	char	*new_s;
 
 	if (!set)
-		return (ft_strdup(s1));
-	while (*s1 && ft_strchr(set, *s1))
+		return (my_strdup(s1));
+	while (*s1 && my_strchr(set, *s1))
 		s1++;
-	size_s1 = ft_strlen(s1) - 1;
-	while (s1[size_s1] && ft_strchr(set, s1[size_s1]))
+	size_s1 = my_strlen(s1) - 1;
+	while (s1[size_s1] && my_strchr(set, s1[size_s1]))
 		size_s1--;
-	new_s = ft_substr(s1, 0, size_s1 + 1);
+	new_s = my_substr(s1, 0, size_s1 + 1);
 	return (new_s);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*my_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	char	*new_s;
 
-	new_s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	new_s = malloc(sizeof(char) * (my_strlen(s1) + my_strlen(s2) + 1));
 	if (!new_s)
 		return (NULL);
 	i = 0;

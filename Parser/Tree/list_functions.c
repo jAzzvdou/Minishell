@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   list_functions.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:24:10 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/19 17:26:56 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 t_tokens	*get_right(t_tokens *tokens, t_node *node)
@@ -25,7 +13,7 @@ t_tokens	*get_right(t_tokens *tokens, t_node *node)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		add_token(right, tmp->type, ft_strdup(tmp->cmd));
+		add_token(right, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	return (right);
@@ -42,7 +30,7 @@ t_tokens	*get_left(t_tokens *tokens, t_node *node)
 	tmp = tokens->first;
 	while (tmp && tmp != node)
 	{
-		add_token(left, tmp->type, ft_strdup(tmp->cmd));
+		add_token(left, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	free_tokens2(tokens);
@@ -60,7 +48,7 @@ t_tokens	*remove_last(t_tokens *right)
 	tmp = right->first->next;
 	while (tmp)
 	{
-		add_token(new_right, tmp->type, ft_strdup(tmp->cmd));
+		add_token(new_right, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	free_tokens2(right);
@@ -78,13 +66,13 @@ t_tokens	*get_from_right(t_tokens *left, t_tokens *right)
 	tmp = left->first;
 	while (tmp)
 	{
-		add_token(new_left, tmp->type, ft_strdup(tmp->cmd));
+		add_token(new_left, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	tmp = right->first->next;
 	while (tmp)
 	{
-		add_token(new_left, tmp->type, ft_strdup(tmp->cmd));
+		add_token(new_left, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	free_tokens2(left);
@@ -100,7 +88,7 @@ t_tokens	*send_to_left(t_tokens *right)
 		return (NULL);
 	new_right = start_tokens();
 	tmp = right->first;
-	add_token(new_right, tmp->type, ft_strdup(tmp->cmd));
+	add_token(new_right, tmp->type, my_strdup(tmp->cmd));
 	free_tokens2(right);
 	return (new_right);
 }

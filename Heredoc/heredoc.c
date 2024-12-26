@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/21 15:59:49 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 char	*free_function(char *s1, char *s2)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(s1, s2);
+	tmp = my_strjoin(s1, s2);
 	if (s1)
 		free(s1);
 	if (s2)
@@ -46,13 +34,13 @@ int	heredoc(t_node *token, char *file, int fd)
 			free(line);
 			break ;
 		}
-		if (!ft_strcmp(token->cmd, line))
+		if (!my_strcmp(token->cmd, line))
 		{
 			free(line);
 			last_status(0);
 			break ;
 		}
-		write(fd, line, ft_strlen(line));
+		write(fd, line, my_strlen(line));
 		write(fd, "\n", 1);
 		free_var(line);
 	}
@@ -70,14 +58,14 @@ int	start_heredoc(t_node *token, int nb)
 	char			*tmp;
 
 	random = random + (u_int64_t)start_heredoc * nb;
-	file = free_function(ft_strdup("/tmp/heredoc"), ft_itoa(random));
+	file = free_function(my_strdup("/tmp/heredoc"), my_itoa(random));
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666);
 	if (fd < 0)
 		return (free(file), 0);
 	if (token->cmd[0] == '\'' || token->cmd[0] == '\"')
 	{
 		tmp = token->cmd;
-		token->cmd = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+		token->cmd = my_strndup(tmp + 1, my_strlen(tmp) - 2);
 		free(tmp);
 	}
 	return (heredoc(token, file, fd));

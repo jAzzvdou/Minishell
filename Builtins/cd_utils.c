@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd_utils.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 07:47:24 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 07:47:28 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 int	handle_home(t_main *main)
@@ -42,7 +30,7 @@ int	handle_tilde(t_main *main, char *token)
 		err(GREY"minichad: cd: HOME is not set\n"RESET);
 		return (1);
 	}
-	new_path = ft_strjoin(path, (token + 1));
+	new_path = my_strjoin(path, (token + 1));
 	if (!new_path)
 	{
 		err(GREY"minichad: cd: memory allocation error\n"RESET);

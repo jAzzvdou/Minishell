@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   spliter.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:23:37 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/29 14:22:48 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 static	void	free_split(char **final)
@@ -62,7 +50,7 @@ static	char	**final_split(char **final, char *cmd, int words)
 			i = skip_parenthesis(cmd, i);
 		while (cmd[i] && cmd[i] != ' ')
 			i++;
-		final[counter] = ft_substr(cmd, 0, i);
+		final[counter] = my_substr(cmd, 0, i);
 		if (!final[counter])
 			return (free_split(final), NULL);
 		cmd += i;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:21:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:21:04 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	free_env_node(t_env *node)
@@ -40,7 +28,7 @@ void	unset_cmd(t_main *main, char **token)
 		prev = NULL;
 		while (tmp)
 		{
-			if (!ft_strcmp(tmp->name, token[i]))
+			if (!my_strcmp(tmp->name, token[i]))
 			{
 				if (prev)
 					prev->next = tmp->next;

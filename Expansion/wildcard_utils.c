@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   wildcard_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 11:38:29 by btaveira          #+#    #+#             */
-/*   Updated: 2024/08/22 11:43:37 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 t_tokens	*before_wildcard(t_tokens *tokens, t_node *node)
@@ -19,9 +7,9 @@ t_tokens	*before_wildcard(t_tokens *tokens, t_node *node)
 
 	before = start_tokens();
 	tmp = tokens->first;
-	while (tmp && ft_strcmp(tmp->cmd, node->cmd))
+	while (tmp && my_strcmp(tmp->cmd, node->cmd))
 	{
-		add_token(before, tmp->type, ft_strdup(tmp->cmd));
+		add_token(before, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	return (before);
@@ -34,11 +22,11 @@ t_tokens	*after_wildcard(t_tokens *tokens, t_node *node)
 
 	after = start_tokens();
 	tmp = tokens->first;
-	while (tmp && ft_strcmp(tmp->cmd, node->cmd))
+	while (tmp && my_strcmp(tmp->cmd, node->cmd))
 		tmp = tmp->next;
 	while (tmp)
 	{
-		add_token(after, tmp->type, ft_strdup(tmp->cmd));
+		add_token(after, tmp->type, my_strdup(tmp->cmd));
 		tmp = tmp->next;
 	}
 	return (after);

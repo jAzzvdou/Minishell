@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:25:02 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/02 16:00:28 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Include/minishell.h"
 
 volatile int	g_status;
@@ -20,8 +8,8 @@ char	*user_input(void)
 
 	input = readline(PROMPT);
 	if (!input)
-		input = ft_strdup("exit");
-	if (ft_strcmp(input, ""))
+		input = my_strdup("exit");
+	if (my_strcmp(input, ""))
 		add_history(input);
 	return (input);
 }

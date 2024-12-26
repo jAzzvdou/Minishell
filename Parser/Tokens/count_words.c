@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   count_words.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 14:12:31 by btaveira          #+#    #+#             */
-/*   Updated: 2024/08/30 07:55:22 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 int	count_words_loop(char *input, int i)
@@ -29,13 +17,13 @@ int	count_words_loop(char *input, int i)
 
 int	is_double_separator(char *input, int i)
 {
-	if (!ft_strncmp(input + i, "&&", 2))
+	if (!my_strncmp(input + i, "&&", 2))
 		return (1);
-	else if (!ft_strncmp(input + i, "||", 2))
+	else if (!my_strncmp(input + i, "||", 2))
 		return (1);
-	else if (!ft_strncmp(input + i, ">>", 2))
+	else if (!my_strncmp(input + i, ">>", 2))
 		return (1);
-	else if (!ft_strncmp(input + i, "<<", 2))
+	else if (!my_strncmp(input + i, "<<", 2))
 		return (1);
 	return (0);
 }

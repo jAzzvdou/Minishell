@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokenizator.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:23:46 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 14:47:52 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 t_tokens	*start_tokens(void)
@@ -29,7 +17,7 @@ void	add_token(t_tokens *tokens, t_type type, char *line)
 
 	new = (t_node *)malloc(sizeof(t_node));
 	new->type = type;
-	new->cmd = ft_strdup(line);
+	new->cmd = my_strdup(line);
 	free(line);
 	new->next = NULL;
 	new->prev = tokens->last;
@@ -48,23 +36,23 @@ void	build_tokens_loop(char **splited, t_tokens *tokens)
 	ii = 0;
 	while (splited[ii])
 	{
-		if (!ft_strcmp(splited[ii], "&&"))
+		if (!my_strcmp(splited[ii], "&&"))
 			add_token(tokens, AND, splited[ii]);
-		else if (!ft_strcmp(splited[ii], "||"))
+		else if (!my_strcmp(splited[ii], "||"))
 			add_token(tokens, OR, splited[ii]);
-		else if (!ft_strcmp(splited[ii], "|"))
+		else if (!my_strcmp(splited[ii], "|"))
 			add_token(tokens, PIPE, splited[ii]);
-		else if (!ft_strcmp(splited[ii], ">"))
+		else if (!my_strcmp(splited[ii], ">"))
 			add_token(tokens, OUTPUT, splited[ii]);
-		else if (!ft_strcmp(splited[ii], ">>"))
+		else if (!my_strcmp(splited[ii], ">>"))
 			add_token(tokens, APPEND, splited[ii]);
-		else if (!ft_strcmp(splited[ii], "<"))
+		else if (!my_strcmp(splited[ii], "<"))
 			add_token(tokens, INPUT, splited[ii]);
-		else if (!ft_strcmp(splited[ii], "<<"))
+		else if (!my_strcmp(splited[ii], "<<"))
 			add_token(tokens, HEREDOC, splited[ii]);
 		else if (splited[ii][0] == '(')
 			add_token(tokens, BLOCK, splited[ii]);
-		else if (ft_strcmp(splited[ii], ""))
+		else if (my_strcmp(splited[ii], ""))
 			add_token(tokens, CMD, splited[ii]);
 		ii++;
 	}

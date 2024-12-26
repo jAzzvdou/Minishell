@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:20:33 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/30 07:42:33 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 void	err_equal_sign(char *token)
@@ -45,7 +33,7 @@ t_env	*alphabetical_env(t_env *tmp)
 		current = ordered;
 		while (current->next)
 		{
-			if (ft_strcmp(current->line, current->next->line) > 0)
+			if (my_strcmp(current->line, current->next->line) > 0)
 			{
 				swap_nodes(current, current->next);
 				swapped = 1;

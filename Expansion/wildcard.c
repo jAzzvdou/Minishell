@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   wildcard.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 14:30:59 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 14:01:24 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 t_tokens	*expand_wildcard(t_node *wildcard)
@@ -29,14 +17,14 @@ t_tokens	*expand_wildcard(t_node *wildcard)
 		if (*(char *)entry->d_name != '.'
 			&& is_match((char *)entry->d_name, wildcard->cmd))
 		{
-			tmp = ft_strdup((char *)entry->d_name);
+			tmp = my_strdup((char *)entry->d_name);
 			add_token(expanded, wildcard->type, tmp);
 		}
 		entry = readdir(dir);
 	}
 	closedir(dir);
 	if (!expanded->first)
-		add_token(expanded, wildcard->type, ft_strdup(wildcard->cmd));
+		add_token(expanded, wildcard->type, my_strdup(wildcard->cmd));
 	return (expanded);
 }
 
@@ -51,7 +39,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 		tmp = list1->first;
 		while (tmp)
 		{
-			add_token(new, tmp->type, ft_strdup(tmp->cmd));
+			add_token(new, tmp->type, my_strdup(tmp->cmd));
 			tmp = tmp->next;
 		}
 		free_tokens2(list1);
@@ -61,7 +49,7 @@ t_tokens	*merge_lists(t_tokens *list1, t_tokens *list2)
 		tmp = list2->first;
 		while (tmp)
 		{
-			add_token(new, tmp->type, ft_strdup(tmp->cmd));
+			add_token(new, tmp->type, my_strdup(tmp->cmd));
 			tmp = tmp->next;
 		}
 		free_tokens2(list2);
@@ -97,7 +85,7 @@ t_tokens	*wildcard(t_tokens *tokens)
 	tmp = tokens->first;
 	while (tmp)
 	{
-		if (tmp->type == CMD && ft_strchr(tmp->cmd, '*'))
+		if (tmp->type == CMD && my_strchr(tmp->cmd, '*'))
 		{
 			expanded = expand_and_merge_wildcard(tokens, tmp);
 		}

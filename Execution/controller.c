@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   controller.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:21:49 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/03 19:58:05 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 char	**list_to_args(t_env *env)
@@ -28,7 +16,7 @@ char	**list_to_args(t_env *env)
 	i[1] = -1;
 	while (++i[1] < size)
 	{
-		args[i[0]] = ft_strdup(node->line);
+		args[i[0]] = my_strdup(node->line);
 		if (!args[i[0]])
 			return (free_args(args, i[0]), NULL);
 		i[0]++;
@@ -46,16 +34,16 @@ char	*pathfinder(char **env, char *cmd)
 	char	**paths;
 
 	i = 0;
-	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
+	while (env[i] && my_strncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
 		return (NULL);
-	paths = ft_split(env[i] + 5, ':');
+	paths = my_split(env[i] + 5, ':');
 	i = -1;
 	while (paths[++i])
 	{
-		aux = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(aux, cmd);
+		aux = my_strjoin(paths[i], "/");
+		path = my_strjoin(aux, cmd);
 		free(aux);
 		if (!access(path, F_OK | X_OK))
 			return (path);
@@ -109,7 +97,7 @@ void	executer(t_main *main, char **tokens, char *cmd)
 		status = WEXITSTATUS(status);
 	if (status == 139)
 		status = 1;
-	if ((!ft_strcmp(cmd, "cat") || !ft_strcmp(cmd, "grep")) && status == 2)
+	if ((!my_strcmp(cmd, "cat") || !my_strcmp(cmd, "grep")) && status == 2)
 		status = 130;
 	last_status(status);
 }

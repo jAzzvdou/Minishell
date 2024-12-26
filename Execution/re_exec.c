@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   re_exec.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:22:19 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/03 19:41:04 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 char	*get_block(t_tokens *exec)
@@ -54,7 +42,7 @@ void	re_exec(t_main *main, char *block)
 		exit(1);
 	if (!pid)
 	{
-		new_input = ft_strndup(block + 1, ft_strlen(block) - 2);
+		new_input = my_strndup(block + 1, my_strlen(block) - 2);
 		free_tree2(main->tree);
 		parser(main, tokenizator(new_input));
 		free_reexec(main);

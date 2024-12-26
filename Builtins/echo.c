@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jazevedo <jazevedo@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:20:06 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/09 17:20:07 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 int	check_flag(char *token)
 {
-	if (token && !ft_strcmp(token, "-n"))
+	if (token && !my_strcmp(token, "-n"))
 		return (1);
 	return (0);
 }

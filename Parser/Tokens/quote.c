@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   quote.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:23:15 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/08/28 16:45:44 by btaveira         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../Include/minishell.h"
 
 int	is_quote(char *cmd, int i)
@@ -87,11 +75,11 @@ char	*remove_quote(char *trim, char quote)
 	char	*new;
 
 	s_quote[0] = quote;
-	while (*trim && ft_strchr(s_quote, *trim))
+	while (*trim && my_strchr(s_quote, *trim))
 		trim++;
-	trim_size = ft_strlen(trim) - 1;
-	while (trim[trim_size] && ft_strchr(s_quote, trim[trim_size]))
+	trim_size = my_strlen(trim) - 1;
+	while (trim[trim_size] && my_strchr(s_quote, trim[trim_size]))
 		trim_size--;
-	new = ft_substr(trim, 0, trim_size + 1);
+	new = my_substr(trim, 0, trim_size + 1);
 	return (new);
 }

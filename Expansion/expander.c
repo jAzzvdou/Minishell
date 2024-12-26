@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: btaveira <btaveira@student.42.rio>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 17:22:26 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/09/03 19:38:59 by jazevedo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../Include/minishell.h"
 
 char	*expand_bonus(t_main *main, char *cmd)
@@ -29,7 +17,7 @@ char	*expand_bonus(t_main *main, char *cmd)
 			free(tmp);
 		}
 		if (!splited[i])
-			splited[i] = ft_strdup("\0");
+			splited[i] = my_strdup("\0");
 		i++;
 	}
 	return (concatenator(splited));
@@ -48,7 +36,7 @@ char	*expand(t_main *main, char *cmd)
 		if (splited[i][0] == '\'')
 		{
 			tmp = splited[i];
-			splited[i] = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+			splited[i] = my_strndup(tmp + 1, my_strlen(tmp) - 2);
 			free(tmp);
 		}
 		else
@@ -58,7 +46,7 @@ char	*expand(t_main *main, char *cmd)
 			free(tmp);
 		}
 		if (!splited[i])
-			splited[i] = ft_strdup("\0");
+			splited[i] = my_strdup("\0");
 		i++;
 	}
 	return (tmp = concatenator(splited), tmp);
@@ -77,11 +65,11 @@ char	*not_expand(char *cmd)
 		if (splited[i][0] == '\"' || splited[i][0] == '\'')
 		{
 			tmp = splited[i];
-			splited[i] = ft_strndup(tmp + 1, ft_strlen(tmp) - 2);
+			splited[i] = my_strndup(tmp + 1, my_strlen(tmp) - 2);
 			free(tmp);
 		}
 		if (!splited[i])
-			splited[i] = ft_strdup("\0");
+			splited[i] = my_strdup("\0");
 		i++;
 	}
 	tmp = concatenator(splited);
